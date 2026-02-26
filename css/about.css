@@ -1,0 +1,247 @@
+/* ===== GLOBAL ===== */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+body{
+    background:#f4f6fb;
+    overflow-x:hidden;
+}
+
+/* ===== NAVBAR ===== */
+.navbar{
+    position:fixed;
+    top:0;
+    width:100%;
+    padding:15px 8%;
+    background:#2B2E83;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    z-index:1000;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.logo img{
+    width:45px;
+    background:white;
+    padding:4px;
+    border-radius:50%;
+}
+
+.logo span{
+    color:white;
+    font-size:20px;
+    font-weight:600;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    margin-left:20px;
+    font-size:18px;
+    position:relative;
+    transition:0.3s;
+}
+
+nav a::after{
+    content:'';
+    position:absolute;
+    left:0;
+    bottom:-5px;
+    width:0%;
+    height:2px;
+    background:white;
+    transition:0.3s;
+}
+
+nav a:hover::after{
+    width:100%;
+}
+
+/* ===== HERO WITH SAME BACKGROUND ANIMATION ===== */
+.about-hero{
+    height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    color:white;
+
+    background: linear-gradient(-45deg,#1e3c72,#2a5298,#0f2027,#203a43);
+    background-size:400% 400%;
+    animation: gradientMove 12s ease infinite;
+}
+
+@keyframes gradientMove{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+}
+
+.about-content{
+    max-width:700px;
+}
+
+.about-content h1{
+    font-size:48px;
+    margin-bottom:20px;
+}
+
+.about-content p{
+    font-size:18px;
+    line-height:1.6;
+}
+
+/* ===== POLICY SECTION ===== */
+#policy{
+    padding:100px 10%;
+    text-align:center;
+    background:#f4f6fb;
+}
+
+#policy h1{
+    font-size:40px;
+    margin-bottom:60px;
+    color:#2B2E83;
+}
+
+.policy-container{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:35px;
+}
+
+/* ===== POLICY CARD ===== */
+.policy-card{
+    background:rgba(255,255,255,0.8);
+    backdrop-filter:blur(10px);
+    padding:30px;
+    border-radius:20px;
+    box-shadow:0 15px 35px rgba(0,0,0,0.15);
+    text-align:left;
+    transition:0.4s ease;
+    position:relative;
+}
+
+.policy-card i{
+    font-size:35px;
+    color:#2B2E83;
+    margin-bottom:15px;
+    transition:0.3s;
+}
+
+.policy-card h3{
+    margin-bottom:15px;
+    color:#111;
+    font-size:20px;
+}
+
+.policy-card p{
+    font-size:15px;
+    line-height:1.7;
+    color:#444;
+}
+
+/* Hover Effect */
+.policy-card:hover{
+    transform:translateY(-12px) scale(1.05);
+    box-shadow:0 20px 45px rgba(0,0,0,0.25);
+}
+
+.policy-card:hover i{
+    color:#2fa07a;
+    transform:scale(1.2);
+}
+
+/* ===== FOOTER ===== */
+.contact-footer{
+    background:#2B2E83;
+    color:white;
+    padding:70px 8% 30px;
+}
+
+.footer-container{
+    display:grid;
+    grid-template-columns:1.2fr 1fr 1fr 1fr;
+    gap:40px;
+}
+
+.footer-logo img{
+    width:80px;
+    margin-bottom:15px;
+}
+
+.footer-logo h2{
+    font-size:18px;
+    margin-bottom:15px;
+}
+
+.social-icons i{
+    margin-right:12px;
+    font-size:18px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.social-icons i:hover{
+    transform:scale(1.2);
+    color:#2fa07a;
+}
+
+.contact-footer h3{
+    margin-bottom:15px;
+    font-size:17px;
+    border-bottom:1px solid rgba(255,255,255,0.3);
+    padding-bottom:5px;
+    width:fit-content;
+}
+
+.footer-links a{
+    display:block;
+    text-decoration:none;
+    color:white;
+    margin-bottom:8px;
+    transition:0.3s;
+}
+
+.footer-links a:hover{
+    padding-left:5px;
+    color:#2fa07a;
+}
+
+.footer-contact p,
+.footer-address p{
+    font-size:14px;
+    margin-bottom:6px;
+}
+
+.footer-bottom{
+    text-align:center;
+    margin-top:40px;
+    padding-top:20px;
+    border-top:1px solid rgba(255,255,255,0.3);
+    font-size:14px;
+}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:900px){
+    .footer-container{
+        grid-template-columns:1fr 1fr;
+    }
+}
+
+@media(max-width:600px){
+    .footer-container{
+        grid-template-columns:1fr;
+        text-align:center;
+    }
+}

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BAUET Photography & Media Club</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../CSS/cultural.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+
+<body>
+
+<header class="navbar">
+
+  <div class="logo">
+    <img src="../pic/cultural.jpeg" alt="BAUET Logo">
+    <span>BAUET Photography & Media Club</span>
+  </div>
+
+<nav>
+
+</nav>
+<a href="../html code/index.html" class="dropbt">Home</a>
+<a href="../html code/club.html" class="dropbt">Clubs</a>
+<a href="../html code/about.html" class="dropbt">About</a>
+<nav> 
+    <div class="dropdown">
+      <a href="#" class="dropbtn">Our Members</a>
+      <div class="dropdown-content">
+        <a href="#">President</a>
+        <a href="#">Vice President</a>
+        <a href="#">General Secretary</a>
+        <a href="#">Joint General Secretary</a>
+        <a href="#">Organizing Secretary</a>
+        <a href="#">Publicity Secretary</a>
+        <a href="#">Office Secretary</a>
+        <a href="#">Financial Secretary</a>
+        <a href="#">IT Secretary</a>
+        <a href="#">Executive Members</a>
+        <a href="#">General Members</a>
+      </div>
+    </div>
+
+    <div class="dropdown">
+      <a href="#" class="dropbtn">Events</a>
+      <div class="dropdown-content">
+        <a href="#">program</a>
+      </div>
+    </div>
+
+    <a href="#">Our Achievements</a>
+    <a href="#">About Us</a>
+
+  </nav>
+
+  <button class="btn" id="joinBtn">Join Us</button>
+
+</header>
+
+<!-- ===== Hero Section ===== -->
+
+<section class="hero">
+  <div class="hero-image">
+    <img src="../pic/cultural.jpeg" alt="Cultural  Club">
+  </div>
+
+  <div class="hero-content">
+    <h1>Where Talent Meets the Stage,<br>And Culture Comes Alive.</h1>
+    <p>
+      BAUET Cultural Club brings together music, dance, drama, recitation, and art to celebrate creativity, heritage, and the vibrant spirit of our students.
+    </p>
+
+    <div class="features">
+  <div><i class="fa-solid fa-music"></i> Music & Singing</div>
+  <div><i class="fa-solid fa-people-group"></i> Dance Performances</div>
+  <div><i class="fa-solid fa-masks-theater"></i> Drama & Theatre</div>
+  <div><i class="fa-solid fa-palette"></i> Art & Recitation</div>
+</div>
+
+</section>
+
+<!-- ===== Why Join Section ===== -->
+
+<section class="why-join" id="whyJoin">
+  <h2>Why Join BAUET Cultural Club</h2>
+<p>
+  Discover your creative talent, express yourself through music, dance, drama, and art, 
+  and represent BAUET in cultural festivals, competitions, and events nationwide.
+</p>
+
+
+ <div class="join-features">
+
+  <div class="join-card">
+    <i class="fa-solid fa-globe"></i>
+    <h3>National & International Festivals</h3>
+    <p>Participate in cultural festivals, competitions, and events across Bangladesh and beyond.</p>
+  </div>
+
+  <div class="join-card">
+    <i class="fa-solid fa-medal"></i>
+    <h3>Recognition & Awards</h3>
+    <p>Gain appreciation and awards for outstanding performances in music, dance, drama, and art.</p>
+  </div>
+
+  <div class="join-card">
+    <i class="fa-solid fa-theater-masks"></i>
+    <h3>Skill Development</h3>
+    <p>Enhance your talent in performing arts, stage presence, and cultural expression.</p>
+  </div>
+
+</div>
+
+</section>
+
+<!-- ===== Achievements Section ===== -->
+
+<section class="achievements" id="achievements">
+  <h2>Our Achievements</h2>
+  <p>Celebrating the cultural milestones and talents of our members.</p>
+
+  <div class="achievement-cards">
+
+    <div class="achievement-card">
+      <i class="fa-solid fa-trophy"></i>
+      <h3>National Dance Champion</h3>
+      <p>Secured first place in a national dance competition, showcasing our members' talent.</p>
+    </div>
+
+    <div class="achievement-card">
+      <i class="fa-solid fa-medal"></i>
+      <h3>Best Drama Performance</h3>
+      <p>Recognized for excellence in theatrical and stage performances.</p>
+    </div>
+
+    <div class="achievement-card">
+      <i class="fa-solid fa-globe"></i>
+      <h3>International Cultural Festival</h3>
+      <p>Represented BAUET in international cultural events and festivals.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===== Login Modal ===== -->
+<div class="modal" id="loginModal">
+  <div class="modal-content university-style">
+
+    <div class="uni-header">
+      <img src="../pic/anotherlogo.png" alt="BAUET Logo">
+
+      <div class="uni-title">
+        <h2>BAUET</h2>
+        <p>Bangladesh Army University of Engineering & Technology</p>
+      </div>
+    </div>
+
+    <span class="close">&times;</span>
+
+    <h3 style="margin-top:15px;">
+      Sign in with your student ID and password
+    </h3>
+
+    <input type="text" id="loginID" placeholder="Student ID">
+    <input type="password" id="loginPassword" placeholder="Password">
+
+    <button class="login-btn" id="loginSubmit">Login</button>
+
+    <p style="margin-top:10px;">
+      Not a member?
+      <span id="openRegister" style="color:#2f80ed;cursor:pointer;">
+        Register here
+      </span>
+    </p>
+
+  </div>
+</div>
+
+<!-- ===== Registration Modal ===== -->
+<div class="modal" id="registerModal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2>cultural Club Registration</h2>
+
+    <input type="text" id="regID" placeholder="Student ID">
+    <input type="text" id="regName" placeholder="Full Name">
+    <input type="text" id="regBatch" placeholder="Batch">
+    <input type="text" id="regDept" placeholder="Department">
+    <input type="email" id="regEmail" placeholder="Email">
+    <input type="text" id="regPhone" placeholder="Phone Number">
+    <input type="password" id="regPassword" placeholder="Password">
+    <input type="password" id="regConfirm" placeholder="Confirm Password">
+
+    <button class="login-btn" id="registerSubmit">
+      Register & Pay
+    </button>
+  </div>
+</div>
+
+
+
+<!-- ===== Footer ===== -->
+
+<footer class="contact-footer">
+
+  <div class="footer-container">
+
+    <div class="footer-logo">
+      <img src="../pic/anotherlogo.png" alt="BAUET Logo">
+      <h2>BAUET cultural Club</h2>
+    </div>
+
+    <div class="footer-links">
+      <h3>Quick Links</h3>
+      <a href="#">About Us</a>
+      <a href="#">Our Members</a>
+      <a href="#">Events</a>
+      <a href="#">Achievements</a>
+    </div>
+
+    <div class="footer-address">
+      <h3>Address</h3>
+      <p>BAUET Campus</p>
+      <p>Qadirabad Cantonment, Dayarampur</p>
+      <p>Natore, Bangladesh</p>
+    </div>
+
+    <div class="footer-contact">
+      <h3>Contact</h3>
+      <p>Phone: +880 1XXXXXXXXX</p>
+      <p>Email: photography@bauet.ac.bd</p>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    ©2026 BAUET cultural Club. All Rights Reserved.
+  </div>
+
+</footer>
+
+<script src="../java script/cultural.js"></script>
+
+</body>
+</html>

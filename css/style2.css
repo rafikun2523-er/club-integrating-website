@@ -1,0 +1,260 @@
+/* ===== GLOBAL ===== */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+body{
+    background:#f4f6fb;
+    overflow-x:hidden;
+}
+
+/* ===== NAVBAR ===== */
+.navbar{
+    position:fixed;
+    top:0;
+    width:100%;
+    padding:15px 8%;
+    background:#2B2E83;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    z-index:1000;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.logo img{
+    width:45px;
+    border-radius:50%;
+    background:white;
+    padding:4px;
+}
+
+.logo span{
+    color:white;
+    font-size:20px;
+    font-weight:600;
+}
+
+/* ===== NAV LINK WITH WHITE UNDERLINE ===== */
+.navbar nav a{
+    position:relative;
+    color:white;
+    text-decoration:none;
+    margin-left:20px;
+    font-size:18px;
+    padding:6px 15px;
+    border-radius:20px;
+    transition:0.3s;
+}
+
+.navbar nav a::after{
+    content:'';
+    position:absolute;
+    left:0;
+    bottom:-5px;
+    width:0%;
+    height:2px;
+    background:white;
+    transition:0.3s;
+}
+
+.navbar nav a:hover::after,
+.navbar nav a.active::after{
+    width:100%;
+}
+
+/* ===== CLUB SECTION ===== */
+.club-section{
+    min-height:100vh;
+    padding:120px 10px 60px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:flex-start;
+
+    background: linear-gradient(-45deg,#1e3c72,#2a5298,#0f2027,#203a43);
+    background-size:400% 400%;
+    animation: gradientMove 12s ease infinite;
+    color:white;
+    text-align:center;
+}
+
+@keyframes gradientMove{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+}
+
+/* ===== CLUB HEADING ===== */
+.club-heading{
+    font-size:48px;
+    margin-bottom:50px;
+    letter-spacing:1px;
+}
+
+/* ===== CLUB CARDS GRID ===== */
+.club-container{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:35px;
+    width:90%;
+}
+
+.club-card{
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(5px);
+    padding:60px 20px;
+    text-align:center;
+    text-decoration:none;
+    color:white;
+    border-radius:20px;
+    font-size:20px;
+    font-weight:bold;
+    box-shadow:0 15px 35px rgba(0,0,0,0.3);
+    transition:0.4s ease;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:15px;
+}
+
+.club-card i{
+    font-size:40px;
+}
+
+.club-card:hover{
+    transform:translateY(-15px) scale(1.05);
+    background: rgba(47, 128, 237,0.8);
+    box-shadow:0 20px 45px rgba(0,0,0,0.4);
+}
+
+/* ===== FOOTER ===== */
+.contact-footer{
+    background:#2B2E83;
+    color:white;
+    padding:70px 8% 30px;
+}
+
+.footer-container{
+    display:grid;
+    grid-template-columns:1.2fr 1fr 1fr 1fr;
+    gap:40px;
+}
+
+/* Footer Logo */
+.footer-logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 15px;
+}
+
+.footer-logo img {
+  width:100px;
+  border-radius:50%;
+  background:white;
+  padding:10px;
+  box-shadow:0 4px 15px rgba(0,0,0,0.2);
+  transition: transform 0.3s ease;
+}
+
+.footer-logo img:hover{
+    transform: scale(1.1);
+}
+
+.footer-logo h2{
+    font-size:18px;
+    color:white;
+    font-weight:600;
+}
+
+.footer-logo .social-icons{
+    display:flex;
+    gap:12px;
+}
+
+.footer-logo .social-icons i{
+    font-size:18px;
+    padding:6px;
+    border-radius:50%;
+    background: rgba(255,255,255,0.1);
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.footer-logo .social-icons i:hover{
+    transform:scale(1.2);
+    color:#2fa07a;
+    background: rgba(255,255,255,0.2);
+}
+
+/* Footer Boxes */
+.footer-box h3{
+    margin-bottom:15px;
+    color:#ffffff;
+}
+
+.footer-box a{
+    display:block;
+    text-decoration:none;
+    color:#ccc;
+    margin-bottom:8px;
+    transition:0.3s;
+}
+
+.footer-box a:hover{
+    color:#2fa07a;
+    padding-left:5px;
+}
+
+.footer-contact h3,
+.footer-address h3{
+    margin-bottom:15px;
+    color:#ffffff;
+}
+
+.footer-contact p,
+.footer-address p{
+    font-size:14px;
+    margin-bottom:6px;
+}
+
+.footer-bottom{
+    text-align:center;
+    margin-top:40px;
+    padding-top:20px;
+    border-top:1px solid rgba(255,255,255,0.3);
+    font-size:14px;
+}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:1024px){
+    .club-container{
+        grid-template-columns:repeat(2,1fr);
+    }
+}
+
+@media(max-width:600px){
+    .club-container{
+        grid-template-columns:1fr;
+    }
+
+    .navbar nav a{
+        margin-left:10px;
+        font-size:16px;
+        padding:5px 10px;
+    }
+
+    .club-card{
+        padding:50px 15px;
+    }
+}
