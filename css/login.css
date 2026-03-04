@@ -11,9 +11,9 @@ body{
     display:flex;
     justify-content:center;
     align-items:center;
-    background: linear-gradient(-45deg,#1e1e2f,#007bff,#00c6ff,#1e1e2f);
+    background: linear-gradient(-45deg,#1e3c72,#2a5298,#0f2027,#203a43);
     background-size: 400% 400%;
-    animation: gradientBG 10s ease infinite;
+    animation: gradientBG 12s ease infinite;
 }
 
 @keyframes gradientBG{
