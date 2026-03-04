@@ -1,0 +1,21 @@
+{
+  "name": "club-integrating-website",
+  "version": "1.0.0",
+  "description": "🎓🌟 University Clubs Hub",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rafikun2523-er/club-integrating-website.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/rafikun2523-er/club-integrating-website/issues"
+  },
+  "homepage": "https://github.com/rafikun2523-er/club-integrating-website#readme"
+}
