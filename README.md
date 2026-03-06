@@ -1,63 +1,69 @@
+# 🎓 Unified Club Portal
 
-🎓 University Club Management System
+![Project](https://img.shields.io/badge/Project-Unified%20Club%20Portal-blue)
+![Backend](https://img.shields.io/badge/Backend-Node.js-green)
+![Database](https://img.shields.io/badge/Database-MongoDB-brightgreen)
 
-A web-based platform that integrates all university clubs into a single digital system where students can explore clubs, receive updates, and participate in events while administrators manage club activities efficiently.
+A **web-based platform** that brings all university clubs into one centralized digital system where students can easily access club information, register for clubs, and stay updated with events and announcements.
 
-📋 Overview
+This system simplifies **club management, communication, and event organization** between students and club administrators
 
-University clubs are an important part of student life, but managing club information, announcements, and registrations manually can be difficult.
+---
 
-The University Club Management System provides a centralized platform where:
+## 📌 Overview
 
-Students can explore clubs
+University clubs are an important part of campus life, but managing club information, announcements, and registrations manually can be difficult.
 
-Students can register for clubs
+The **Unified Club Portal** provides a centralized platform where:
 
-Students receive notifications and event updates
+- Students can explore clubs
 
-Students can download registration forms
+- Register for clubs
 
-At the same time, administrators can manage clubs, events, notifications, and deadlines through an admin panel.
+- Receive event updates and notifications
 
-This system improves communication, transparency, and engagement in university clubs.
+- View upcoming events and deadlines
 
-✨ Key Features
-👨‍🎓 Student Panel
+Meanwhile, **administrators manage clubs, events, announcements, and registrations** through a dedicated admin panel
+
+---
+
+## ✨ Key Features
+
+### 👨‍🎓 Student Panel
 
 Students can:
 
-Browse all university clubs
+- Browse all university clubs  
+- View club details and activities  
+- Register for clubs 
+- Online event registration 
+- Download registration forms  
+- Receive notifications and announcements  
+- View upcoming events and deadlines  
 
-View club details and activities
+---
 
-Register for clubs online
-
-Download registration forms
-
-Receive notifications and announcements
-
-View upcoming events and deadlines
-
-🛠️ Admin Panel
+### 🛠️ Admin Panel
 
 Admins can:
 
-Add / Edit / Delete clubs
+- Add, edit, and delete clubs  
+- Post notifications and announcements  
+- Create and manage events  
+- Set registration deadlines  
+- Manage student registrations  
+- Upload club documents  
 
-Post notifications and announcements
+---
 
-Create and manage events
+## 🏗️ Project Architecture
 
-Set registration deadlines
+```
+Unified-Club-Portal/
 
-Manage student registrations
-
-Upload club related documents
-
-🏗️ Project Architecture
-university-club-management/
 │
-├── client/                     # Frontend
+├── client/                 # Frontend
 │   ├── html/
 │   │   ├── index.html
 │   │   ├── clubs.html
@@ -71,7 +77,7 @@ university-club-management/
 │   │
 │   └── images/
 │
-├── server/                     # Node.js Backend
+├── server/                 # Node.js Backend
 │   ├── controllers/
 │   ├── routes/
 │   ├── models/
@@ -83,7 +89,6 @@ university-club-management/
 │   └── mongodb.js
 │
 ├── admin-panel/
-│
 ├── student-panel/
 │
 ├── docs/
@@ -92,110 +97,153 @@ university-club-management/
 ├── TODO.md
 ├── .gitignore
 └── README.md
-🛠️ Technology Stack
-Frontend
+```
 
-HTML5
+---
 
-CSS3
+## 🛠️ Technology Stack
 
-JavaScript
+### Frontend
 
-Backend
+- HTML5  
+- CSS3  
+- JavaScript  
 
-Node.js
+### Backend
 
-Express.js
+- Node.js  
+- Express.js  
 
-Database
+### Database
 
-MongoDB
+- MongoDB  
 
-Tools
+### Tools
 
-Git
+- Git  
+- GitHub  
+- VS Code  
 
-GitHub
+---
 
-VS Code
+## 🚀 Getting Started
 
-🚀 Getting Started
-📌 Prerequisites
+### Prerequisites
 
-Make sure you have installed:
+Before running the project make sure you have installed:
+- A modern web browser
+- Local server (VS Code Live Server)
+- Node.js  
+- MongoDB  
+- Git  
+ 
+---
 
-Node.js
+## ⚙️ Installation
 
-MongoDB
+### 1. Clone the Repository
 
-Git
+```bash
+git clone https://github.com/rafikun2523-er/club-integrating-website.git
+```
 
-VS Code
+### 2. Navigate to Project Folder
 
-⚙️ Installation
-1️⃣ Clone the Repository
-git clone https://github.com/yourusername/university-club-management.git
-2️⃣ Navigate to Project Folder
-cd university-club-management
-3️⃣ Install Dependencies
+```bash
+cd club-integrating-website
+```
+
+### 3. Install Dependencies
+
+```bash
 npm install
-4️⃣ Run the Backend Server
+```
+
+### 4. Run Backend Server
+
+```bash
 node server/server.js
+```
 
 or
 
+```bash
 npm run dev
-5️⃣ Open Frontend
+```
 
-Open index.html manually
+---
 
-or use VS Code Live Server
+## 👥 User Roles
 
-🔑 User Roles
-👨‍🎓 Student
+### 👨‍🎓 Student
 
 Students can:
 
-View clubs
+- View clubs  
+- Register for clubs  
+- Receive notifications  
+- View upcoming events  
 
-Register for clubs
-
-Receive notifications
-
-View events and deadlines
-
-🛠️ Admin
+### 🛠️ Admin
 
 Admins can:
 
-Manage clubs
+- Manage clubs  
+- Post announcements  
+- Manage events  
+- Set deadlines  
+- Manage student registrations  
 
-Post announcements
+---
 
-Manage events
+## 📸 Screenshots
 
-Set deadlines
 
-Manage student registrations
+### 🏠 Home Page
 
-📊 System Workflow
-Student → View Clubs → Register → Receive Notifications
+The Home Page is the main landing page of the Unified Club Portal.  
+From here students can explore different university clubs and about our rules.
 
-Admin → Manage Clubs → Create Events → Post Updates
-📸 Screenshots
-🏠 Homepage
+### Features of the Home Page
 
-(Add Screenshot Here)
+- Explore university club list
+- Shows instant notification
+- Highlights upcoming events
+- Provides navigation to student panel and admin panel
+- Quick access to club registration
 
-📋 Club List
+### Home Page Screenshot
 
-(Add Screenshot Here)
+![Home Page](pic/homepage.png)
 
-🛠️ Admin Dashboard
+### 🏫 Club Page
 
-(Add Screenshot Here)
+The Club Page displays detailed information about each university club.  
+Students can learn about the club activities, view events, and apply to join the club.
 
-📅 TODO
+### Club Page Features
+
+- Shows club name and description
+- Displays club events and activities
+- Shows club announcements
+- Provides club registration option
+- Shows club members or executive panel
+
+### Club Page Screenshot
+
+![Club Page](pic/clubpage.png)
+
+
+
+### Admin Dashboard
+
+(Upcomming........)
+
+---
+
+## 📅 TODO Example
+
+```
 ✔ Club listing system
 ✔ Student registration system
 ✔ Admin notification system
@@ -203,50 +251,49 @@ Admin → Manage Clubs → Create Events → Post Updates
 ⬜ Event reminder system
 ⬜ Mobile responsive UI
 ⬜ Analytics dashboard
-📄 .gitignore Example
+```
+
+---
+
+## 📄 .gitignore Example
+
+```
 node_modules/
 .env
 .vscode/
 dist/
 build/
 *.log
-📈 Future Improvements
+```
 
-Email notification system
+---
 
-Event reminder system
+## 📈 Future Improvements
 
-Mobile responsive design
+- Email notification system  
+- Event reminder system  
+- Mobile responsive design  
+- Club activity analytics  
+   
 
-Club activity analytics
+---
 
-Online event registration
+## 👨‍💻 Author
 
-🤝 Contributing
+**Rafikun Nesa Hena (Project Manager)**
 
-Fork the repository
 
-Create feature branch
+**Tahsina Tasnim Disha**
 
-git checkout -b feature/newFeature
+**Nishat Salsabil Silvi**
 
-Commit changes
+**Nazia Rahman Arobe**
 
-git commit -m "Add new feature"
+## University Project  
+🎓Unified Club Portal 
 
-Push to GitHub
+---
 
-git push origin feature/newFeature
+## ⭐ Support
 
-Open a Pull Request
-
-👨‍💻 Author
-
-Rafikun Nesa Hena
-
-🎓 University Project
-💻 University Club Management System
-
-⭐ Support
-
-If you like this project, please give it a star ⭐ on GitHub
+If you like this project, please give it a **star ⭐ on GitHub**.
