@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BAUET Computer Club Dashboard</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&display=swap" rel="stylesheet">
+  <title>BAUET Computer Society — Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/bcsDashboard.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 </head>
@@ -37,6 +37,7 @@
     <p id="sideName">Member</p>
   </div>
   <a href="../html code/cse.html"><i class="fa-solid fa-house"></i> Home</a>
+  <a href="../html code/bcsDashboard.html" class="active-link"><i class="fa-solid fa-gauge"></i> Dashboard</a>
   <a href="../html code/bcsProfile.html"><i class="fa-solid fa-user"></i> Profile</a>
   <a href="../html code/bcsEvents.html"><i class="fa-solid fa-calendar"></i> Events</a>
   <a href="#"><i class="fa-solid fa-laptop"></i> My Participation</a>
@@ -56,88 +57,43 @@ function goBack() {
 }
 </script>
 
-<!-- Hero -->
+<!-- Hero Welcome -->
 <section class="dashboard-hero">
   <div class="hero-inner">
     <div class="avatar-circle" id="avatarCircle">?</div>
     <div class="hero-text">
-      <h1>Welcome back, <span id="memberName">Member</span>!</h1>
-      <p id="memberMeta">BAUET Computer Society</p>
-    </div>
-  </div>
-</section>
-
-<!-- Stats -->
-<section class="stats-section">
-  <div class="stats-grid">
-    <div class="stat-card">
-      <div class="stat-icon"><i class="fa-solid fa-calendar-check"></i></div>
-      <div class="stat-info">
-        <h3>Events Joined</h3>
-        <p class="empty-tag">No events joined yet.</p>
-      </div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-icon"><i class="fa-solid fa-award"></i></div>
-      <div class="stat-info">
-        <h3>Certificates</h3>
-        <p class="empty-tag">No certificates earned yet.</p>
-      </div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-icon"><i class="fa-solid fa-calendar-days"></i></div>
-      <div class="stat-info">
-        <h3>Upcoming Events</h3>
-        <p class="empty-tag">No upcoming events available.</p>
-      </div>
-    </div>
-    <div class="stat-card clickable" id="profileCard">
-      <div class="stat-icon"><i class="fa-solid fa-id-card"></i></div>
-      <div class="stat-info">
-        <h3>My Profile</h3>
-        <p>View your information.</p>
+      <h1><span id="welcomeText">Welcome</span>, <span id="memberName">Member</span>!</h1>
+      <div class="member-meta-row">
+        <span><i class="fa-solid fa-id-card"></i> <span id="metaID">—</span></span>
+        <span><i class="fa-solid fa-building-columns"></i> <span id="metaDept">—</span></span>
+        <span><i class="fa-solid fa-layer-group"></i> Batch <span id="metaBatch">—</span></span>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Quick Links -->
-<section class="quick-section">
-  <h2 class="section-heading">Quick Access</h2>
-  <div class="quick-grid">
-    <a href="../html code/bcsEvents.html" class="quick-card">
-      <i class="fa-solid fa-calendar"></i><span>Events</span>
-    </a>
-    <a href="#" class="quick-card">
-      <i class="fa-solid fa-laptop-code"></i><span>My Participation</span>
-    </a>
-    <a href="#" class="quick-card">
-      <i class="fa-solid fa-certificate"></i><span>Certificates</span>
-    </a>
-    <a href="../html code/bcsProfile.html" class="quick-card">
-      <i class="fa-solid fa-user-pen"></i><span>Edit Profile</span>
-    </a>
-  </div>
-</section>
+<!-- Main Content -->
+<div class="dashboard-content">
 
-<!-- Profile Modal -->
-<div class="modal" id="profileModal">
-  <div class="modal-inner">
-    <span class="modal-close" id="closeProfile">&times;</span>
-    <div class="modal-profile-header">
-      <img id="profilePhoto" src="../pic/default-pic.jpg" alt="Profile Photo">
-      <div>
-        <h2 id="profileName">—</h2>
-        <p id="profileDept">—</p>
-      </div>
+  <!-- Upcoming Events -->
+  <section class="dash-section">
+    <div class="section-header">
+      <h2><i class="fa-solid fa-calendar-days"></i> Upcoming Events</h2>
+      <a href="../html code/bcsEvents.html" class="view-all">
+        View all <i class="fa-solid fa-arrow-right"></i>
+      </a>
     </div>
-    <div class="modal-profile-body">
-      <div class="info-row"><span>Student ID</span><strong id="profileID">—</strong></div>
-      <div class="info-row"><span>Batch</span><strong id="profileBatch">—</strong></div>
-      <div class="info-row"><span>Email</span><strong id="profileEmail">—</strong></div>
-      <div class="info-row"><span>Phone</span><strong id="profilePhone">—</strong></div>
+    <div id="upcomingEventsContainer"></div>
+  </section>
+
+  <!-- Announcements -->
+  <section class="dash-section">
+    <div class="section-header">
+      <h2><i class="fa-solid fa-bullhorn"></i> Announcements</h2>
     </div>
-  </div>
+    <div id="announcementsContainer"></div>
+  </section>
+
 </div>
 
 <!-- Logout Toast -->

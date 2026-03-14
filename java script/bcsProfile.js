@@ -35,6 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("department").textContent = member.department || "—";
   document.getElementById("email").textContent      = member.email      || "—";
   document.getElementById("phone").textContent      = member.phone      || "—";
+  
 
   // Side menu
   const sideAvatarEl = document.getElementById("sideAvatar");
@@ -47,17 +48,21 @@ document.addEventListener("DOMContentLoaded", () => {
   const profileImage = document.getElementById("profileImage");
 
   function updatePhoto() {
-    if (member.photo && member.photo !== "" && member.photo !== "null") {
-      profileImage.src = member.photo;
-      profileImage.style.display = "block";
-      avatarCircle.style.display = "none";
-    } else {
-      profileImage.style.display = "none";
-      avatarCircle.style.display = "flex";
-    }
-  }
+  if (member.photo && member.photo !== "" && member.photo !== "null") {
+    const photoUrl = member.photo.startsWith("http")
+      ? member.photo
+      : "http://localhost:5000" + member.photo;
 
-  updatePhoto();
+    profileImage.src = photoUrl;
+    profileImage.style.display = "block";
+    avatarCircle.style.display = "none";
+  } else {
+    profileImage.style.display = "none";
+    avatarCircle.style.display = "flex";
+    avatarCircle.textContent = initials;
+  }
+}
+updatePhoto();
 
   // ── Upload Photo ──
   const uploadInput = document.getElementById("uploadImage");

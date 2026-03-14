@@ -1,6 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-
   
 const batchInput = document.getElementById("regBatch");
 const baseYear = 2015;
@@ -93,10 +92,28 @@ try {
 }
 
 if (res.ok) {
-  alert("🎉 Registration Successful! You can now login.");
   registerModal.classList.remove("active");
-  loginModal.classList.add("active");
-  document.getElementById("loginID").value = id;
+loginModal.classList.add("active");
+document.getElementById("loginID").value = id;
+
+const toast = document.createElement("div");
+toast.textContent = "✓ Registration Successful! You can now login.";
+toast.style.cssText = `
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: linear-gradient(135deg, #1a1d6e, #2B2E83);
+  color: white;
+  padding: 12px 24px;
+  border-radius: 10px;
+  font-family: 'Cinzel', serif;
+  font-size: 14px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+  z-index: 9999;
+  animation: slideIn 0.3s ease;
+`;
+document.body.appendChild(toast);
+setTimeout(() => document.body.removeChild(toast), 3000);
 } 
 else {
   // data might be empty, so use optional chaining
@@ -136,9 +153,28 @@ loginSubmit?.addEventListener("click", async () => {
       // member data stored in localStorage
       localStorage.setItem("memberData", JSON.stringify(data.member));
 
-      alert("Login Successful!");
-      // redirect to profile page
-      window.location.href = "bcsDashboard.html";
+      // Toast show করো
+const toast = document.createElement("div");
+toast.textContent = "✓ Login Successful!";
+toast.style.cssText = `
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: linear-gradient(135deg, #1a1d6e, #2B2E83);
+  color: white;
+  padding: 12px 24px;
+  border-radius: 10px;
+  font-family: 'Cinzel', serif;
+  font-size: 14px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+  z-index: 9999;
+  animation: slideIn 0.3s ease;
+`;
+document.body.appendChild(toast);
+
+setTimeout(() => {
+  window.location.href = "bcsDashboard.html";
+}, 1000);
     } else {
       alert(data?.message || "Login failed!");
     }

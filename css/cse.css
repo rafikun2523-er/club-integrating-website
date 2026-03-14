@@ -48,7 +48,7 @@ body {
 /* Logo image */
 .logo img {
   width: 50px;   
-  height: auto;
+  height: 50px;
   background: #ffffff;
   padding: 4px;
   border-radius: 50%;
@@ -1464,4 +1464,9 @@ html {
 
 .toggle-eye:hover {
   color: #2B2E83;
+}
+
+@keyframes slideIn {
+  from { transform: translateX(60px); opacity: 0; }
+  to   { transform: translateX(0); opacity: 1; }
 }
