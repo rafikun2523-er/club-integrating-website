@@ -399,25 +399,18 @@ body {
   gap: 14px;
 }
 
-.info-item {
+.info-grid {
   display: flex;
   flex-direction: column;
-  gap: 4px;
 }
-
-.info-label {
-  font-size: 11px;
-  color: #aaa;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  font-family: 'Cinzel', serif;
-}
-
 .info-value {
   font-size: 14px;
   color: #2B2E83;
   font-family: 'Crimson Text', serif;
   font-weight: 600;
+  word-break: break-all;
+  overflow-wrap: break-word;
+  min-width: 0;
 }
 
 /* ── Security Card ── */

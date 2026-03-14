@@ -8,26 +8,20 @@ dotenv.config();
 
 const app = express();
 
-// connect database
 connectDB();
 
-// middleware
 app.use(cors({
-  origin: "http://127.0.0.1:5500" // Live Server URL
+  origin: "http://127.0.0.1:5500"
 }));
+
 app.use(express.json());
 
-// routes
+// ✅ Static files — listen এর আগে
+app.use("/photoUploads", express.static(path.join(__dirname, "photoUploads")));
+
 app.use("/api/members", require("./routes/memberRoutes"));
 
 const PORT = process.env.PORT || 5000;
-
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
-app.use("/photoUploads", express.static(path.join(__dirname, "photoUploads")));
-// JSON body parsing
-app.use(express.json());
-app.use("/api/members", require("./routes/memberRoutes"));
-
-app.listen(5000, () => console.log("Server running on port 5000"));

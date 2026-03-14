@@ -67,8 +67,15 @@ exports.loginMember = async (req, res) => {
     // Create JWT
     const token = jwt.sign({ studentID: member.studentID }, process.env.JWT_SECRET || "MY_SECRET_KEY", { expiresIn: "7d" });
 
-    res.json({ token, member: { studentID: member.studentID, name: member.name, photo: member.photo } });
-
+    res.json({ token, member: { 
+  studentID: member.studentID, 
+  name: member.name, 
+  photo: member.photo,
+  batch: member.batch,
+  department: member.department,
+  email: member.email,
+  phone: member.phone
+}});
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
