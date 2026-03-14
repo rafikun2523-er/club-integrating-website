@@ -4,7 +4,8 @@
   "description": "🎓🌟 University Clubs Hub",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node backend/server.js",
+    "dev": "nodemon backend/server.js"
   },
   "repository": {
     "type": "git",
@@ -17,5 +18,18 @@
   "bugs": {
     "url": "https://github.com/rafikun2523-er/club-integrating-website/issues"
   },
-  "homepage": "https://github.com/rafikun2523-er/club-integrating-website#readme"
+  "homepage": "https://github.com/rafikun2523-er/club-integrating-website#readme",
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.6",
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.3.0",
+    "multer": "^2.1.1",
+    "nodemailer": "^8.0.2"
+  }
 }

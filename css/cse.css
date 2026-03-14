@@ -47,11 +47,9 @@ body {
 }
 /* Logo text */
 .logo span {
-  font-size: 25px;
-  color: #ffffff;
   font-weight: 600;
-  white-space: nowrap;
-  font-family: 'Times New Roman', Times, serif;
+  font-size: 1.2rem;
+  color: #fff;
 }
 .navbar nav a {
   margin: 0 15px;
@@ -183,6 +181,7 @@ body {
   pointer-events:none;
   transition: opacity 0.3s ease;
   z-index:1000;
+
 }
 .modal.active {
   opacity:1;
@@ -211,7 +210,7 @@ body {
 
 .login-btn {
   width:100%; margin-top:10px; padding:10px;
-  background:#2f80ed; color:white; border:none; border-radius:20px; cursor:pointer;
+  background:#2B2E83; color:white; border:none; border-radius:20px; cursor:pointer;
 }
 
 .close {
@@ -234,10 +233,21 @@ body {
   margin-bottom: 30px;
 }
 .uni-header img {
-  width: 150px;
+  width: 70px;
+  max-width: 30%;
   height: auto;
   position: absolute;
-  left: 0;
+  left: 40px;
+  border: #ffffff;  /* your border color */
+  border-radius: 50%;          /* makes it circular */
+  padding: 4px;                 /* optional inner space for nicer look */
+  background: white;   
+}
+@media (max-width: 768px) {
+  .uni-header img {
+    width: 80px;          /* smaller on mobile */
+    max-width: 25%;
+  }
 }
 .uni-title {
   width: 100%;
@@ -247,7 +257,7 @@ body {
   font-size: 28px;
   font-weight: 700;
   letter-spacing: 3px;
-  color: #0b2c54;
+  color: #2B2E83;
   margin-bottom: 6px;
 }
 .uni-title p {
@@ -263,20 +273,33 @@ body {
 }
 .university-style input {
   width: 100%;
-  padding: 12px;
+  box-sizing: border-box;
+  padding: 12px 15px;
+  font-size: 16px;
   margin: 10px 0;
-  border-radius: 4px;
+  border-radius: 5px;
   border: 1px solid #ccc;
 }
 .university-style .login-btn {
   width: 100%;
-  padding: 12px;
-  background: #4e79a7;
-  border-radius: 4px;
+  padding: 12px 15px;
+  font-size: 16px;
+  background: #2B2E83;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+.university-style select {
+  width: 100%;           /* full width of form container */
+  box-sizing: border-box; /* include padding in width */
+  margin: 10px 0;        /* consistent spacing */
+  padding: 12px 15px;    /* same padding for all inputs */
+  font-size: 16px;       /* uniform font size */
+  border-radius: 5px;    /* rounded edges same as other inputs */
+  border: 1px solid #ccc; /* consistent border */
 }
 .forgot {
   margin-top: 20px;
-  color: #2f80ed;
+  color: #2B2E83;
   font-size: 14px;
   cursor: pointer;
 }
@@ -324,7 +347,7 @@ body {
 }
 .join-card i {
   font-size: 40px;
-  color: #2f80ed;
+  color: #2B2E83;
   margin-bottom: 15px;
 }
 .join-card h3 {
@@ -392,7 +415,7 @@ body {
 }
 .achievement-card i {
   font-size: 40px;
-  color: #2f80ed;
+  color: #2B2E83;
   margin-bottom: 15px;
   transition: transform 0.3s ease;
 }
@@ -495,6 +518,13 @@ body {
   transform: translateY(0);
   pointer-events: all; 
 }
+/* Footer logo adjustments */
+.footer-logo {
+  display: flex;
+  flex-direction: column; /* stack logo + heading */
+  align-items: center;    /* center everything */
+}
+
 
 /* Contact Footer*/
 
@@ -515,18 +545,49 @@ body {
 
 /* Logo Section */
 .footer-logo img {
-  width: 200px;
+  width: 100px;
+  max-width: 100%;
+  border: #ffffff;
   height: auto;
   padding: 0;
-  margin-bottom: 15px;
-
+  margin-bottom: 10px;
+  display: block;
 }
 
 .footer-logo h2 {
+  text-align: center;
   font-size: 18px;
   margin-bottom: 20px;
   font-weight: 600;
 }
+/* Social icons */
+.social-icons {
+  display: flex;
+  gap: 12px;
+  justify-content: center; /* center icons under logo/text */
+  margin-top: 10px;
+}
+/* Responsive scaling */
+@media (max-width: 900px) {
+  .footer-logo img {
+    width: 120px;
+  }
+  .footer-logo h2 {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 600px) {
+  .footer-logo img {
+    width: 100px;
+    margin-bottom: 8px;
+  }
+  .footer-logo h2 {
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+}
+
 
 /* Social Icons */
 .social-icons i {
@@ -549,12 +610,22 @@ body {
   padding-bottom: 6px;
   width: fit-content;
 }
+/* Footer email link white color */
+.footer-contact a {
+  color: #ffffff;          /* white color */
+  text-decoration: underline; /* optional: underline for email */
+  transition: 0.3s ease;
+}
 
+.footer-contact a:hover {
+  color: #f0f0f0;          /* slightly lighter on hover */
+}
 /* Links */
 .footer-links a {
   display: block;
   text-decoration: none;
   color: white;
+  cursor: pointer;
   margin-bottom: 10px;
   font-size: 15px;
   transition: 0.3s ease;
@@ -569,6 +640,7 @@ body {
 .footer-address p,
 .footer-contact p {
   font-size: 15px;
+  color: #ffffff;
   margin-bottom: 8px;
   line-height: 1.5;
 }
@@ -762,15 +834,15 @@ body {
 /* Search icon */
 .faq-search-icon {
   position: fixed;
-  left: 25px;
+  right: 20px;
   top: 100px;
-  font-size: 24px;
+  font-size: 20px;
   cursor: pointer;
   z-index: 1001;
   background: #2B2E83;
   color: white;
   padding: 10px 12px;
-  border-radius: 8px;
+  border-radius: 50px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
 
@@ -942,4 +1014,117 @@ body {
   position: relative;
   text-shadow: 0 0 8px rgba(255,255,255,0.6);
   transition: color 0.3s ease, transform 0.3s ease;
+}
+/* Make batch dropdown same size as other inputs */
+#regBatch {
+  width: 100%;         /* full width like inputs */
+  padding: 12px 15px;  /* same padding as inputs */
+  font-size: 16px;     /* match input font-size */
+  border: 1px solid #ccc; 
+  border-radius: 5px;  /* match input border radius */
+  box-sizing: border-box;
+  background:white;
+  margin: 10px 0;
+  margin-bottom: 15px; /* spacing like inputs */
+}
+html {
+  scroll-behavior: smooth;
+}
+.features-title h3 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #2B2E83;
+  margin-bottom: 15px;
+  text-align: left; /* center korle: center */
+  font-family: 'Cinzel', serif;
+}
+/* About Our Club Section */
+.about-club {
+  background: linear-gradient(135deg, #f0f4ff, #ffffff);
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.about-club h2 {
+  font-family: 'Cinzel', serif;
+  font-size: 36px;
+  margin-bottom: 20px;
+  color: #2B2E83;
+  font-weight: 700;
+}
+
+.about-club p {
+  font-size: 16px;
+  color: #555;
+  max-width: 700px;
+  margin: auto;
+  margin-bottom: 40px;
+  line-height: 1.7;
+}
+
+.about-highlights {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 25px;
+  max-width: 1000px;
+  margin: auto;
+}
+
+.about-highlights div {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  font-size: 16px;
+  color: #2B2E83;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.about-highlights div i {
+  font-size: 24px;
+  color: #2f80ed;
+}
+
+.about-highlights div:hover {
+  transform: translateY(-10px) scale(1.05);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+}
+.back-btn-fixed {
+  position: fixed;
+  top: 100px; /* navbar er niche */
+  left: 20px; /* right side */
+  width: 35px;
+  height: 35px;
+  background: #ffffff; /* white circle */
+  color: #001f4d; /* dark blue arrow */
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-size: 1.5rem;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  transition: 0.3s;
+  z-index: 1000;
+}
+
+.back-btn-fixed:hover {
+  background: #f0f0f0; /* subtle hover */
+  transform: scale(1.1);
+}
+.gender-display {
+  text-align: center;
+  font-weight: bold;
+  padding: 10px 12px; /* boro padding */
+  color: #333;
+  background-color: #f4f4f4; /* light box */
+  border: 1px solid #ccc;    /* visible border */
+  border-radius: 5px;        /* rounded edges */
+  width: 100%;               /* input er moto full width */
+  max-width: 250px;          /* optional max width */
+  margin: 10px auto;         /* center with spacing */
+  font-size: 16px;
 }

@@ -1,0 +1,282 @@
+.dashboard-events {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+.dashboard-events h2 {
+  font-size: 2rem;
+  color: #001f4d;
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+/* Tabs */
+.events-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.tab-btn {
+  padding: 10px 25px;
+  border: none;
+  border-radius: 25px;
+  background-color: #001f4d;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.tab-btn:hover {
+  background-color: #2B2E83;
+  transform: scale(1.05);
+}
+
+.tab-btn.active {
+  background-color: #00bfff;
+  color: #001f4d;
+}
+
+/* Events List */
+.events-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+/* Empty Message */
+.empty-msg {
+  text-align: center;
+  font-size: 1.1rem;
+  color: #2B2E83;
+  background-color: #e0e8ff;
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid #2B2E83;
+}
+/* Body Reset */
+body {
+  font-family: 'Cinzel', serif;
+  margin: 0;
+  background: #f9f9f9;
+  color: #001f4d;
+}
+
+/* Navbar / Logo */
+/* Navbar layout */
+.dashboard-navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Logo left, links right */
+  background-color: #2B2E83;
+  color: white;
+  padding: 12px 25px;
+}
+
+/* Navbar links */
+.dashboard-navbar nav a {
+  color: #ffffff; /* white text */
+  text-decoration: none;
+  margin-left: 20px;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.dashboard-navbar nav a:hover {
+  color: #00bfff; /* hover color */
+}
+.dashboard-navbar .logo {
+  display: flex;
+  align-items: center;
+}
+
+.dashboard-navbar .logo img {
+  height: 50px;
+  margin-right: 12px;
+  border-radius: 8px;
+}
+
+.dashboard-navbar .logo span {
+  font-weight: 600;
+  font-size: 1.2rem;
+}
+
+/* Events Section */
+.dashboard-events {
+  max-width: 900px;
+  margin: 40px auto;  /* space from navbar */
+  padding: 0 20px;
+}
+
+.dashboard-events h2 {
+  font-size: 2rem;
+  color: #001f4d;
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+/* Tabs */
+.events-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+/* Tabs */
+.tab-btn {
+  padding: 10px 25px;
+  border: none;
+  border-radius: 25px;
+  background-color: #001f4d; /* inactive tab */
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+  position: relative;
+}
+
+/* Active Tab */
+.tab-btn.active {
+  background-color: #00bfff; /* bright blue */
+  color: #001f4d;
+  box-shadow: 0 4px 10px rgba(0, 191, 255, 0.4); /* subtle glow */
+}
+
+/* Hover */
+.tab-btn:hover:not(.active) {
+  background-color: #2B2E83;
+  transform: scale(1.05);
+}
+
+.tab-btn:hover {
+  background-color: #2B2E83;
+  transform: scale(1.05);
+}
+/* Optional: underline active tab */
+.tab-btn.active::after {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 4px;
+  background-color: #ff9900; /* bright underline */
+  border-radius: 2px;
+}
+
+/* Event List */
+.events-list {
+  display: grid;
+  gap: 20px;
+}
+
+/* Empty Message */
+.empty-msg {
+  text-align: center;
+  font-size: 1.1rem;
+  color: #2B2E83;
+  background-color: #e0e8ff;
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid #2B2E83;
+}
+.dashboard-navbar .logo img {
+  height: 50px; /* or 60px max */
+}
+.dashboard-events {
+  margin-top: 80px; /* give space under navbar */
+}
+.dashboard-events {
+  max-width: 900px;
+  margin: 80px auto 40px auto; /* space under navbar */
+  padding: 0 20px;
+}
+/* Upcoming tab active style */
+.tab-btn.active[data-target="upcoming"] {
+  background-color: #00d4ff; /* bright cyan for joyful feel */
+  color: #001f4d;
+  box-shadow: 0 6px 15px rgba(0, 212, 255, 0.4);
+  transform: scale(1.05); /* slight bounce */
+}
+
+/* Event cards for upcoming */
+#upcoming .empty-msg, 
+#upcoming .event-card {
+  background: linear-gradient(135deg, #e0f7ff, #ffffff); /* soft cheerful gradient */
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: 0.3s;
+}
+
+/* Hover effect on event cards */
+#upcoming .event-card:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+}
+/* Events section headings */
+.events-section h3 {
+  font-size: 1.5rem;
+  color: #001f4d;
+  margin-bottom: 15px;
+  border-left: 5px solid #00bfff; /* colored left border for highlight */
+  padding-left: 10px;
+}
+
+/* Event Lists */
+.events-list {
+  display: grid;
+  gap: 20px;
+}
+
+/* Upcoming events joyful style */
+#upcoming .empty-msg, 
+#upcoming .event-card {
+  background: linear-gradient(135deg, #e0f7ff, #ffffff);
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: 0.3s;
+}
+
+#upcoming .event-card:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+}
+
+/* Past events subtle style */
+#past .empty-msg, 
+#past .event-card {
+  background: #f0f0f0;
+  border-radius: 12px;
+  padding: 18px;
+  border: 1px solid #d0d0d0;
+}
+.back-btn-fixed {
+  position: fixed;
+  top: 100px; /* navbar er niche */
+  left: 20px; /* right side */
+  width: 35px;
+  height: 35px;
+  background: #ffffff; /* white circle */
+  color: #001f4d; /* dark blue arrow */
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-size: 1.5rem;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  transition: 0.3s;
+  z-index: 1000;
+}
+
+.back-btn-fixed:hover {
+  background: #f0f0f0; /* subtle hover */
+  transform: scale(1.1);
+}

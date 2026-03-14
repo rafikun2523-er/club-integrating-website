@@ -1,0 +1,416 @@
+/* General Reset */
+body {
+  font-family: 'Cinzel', serif;
+  margin: 0;
+  background: #f9f9f9; /* mostly white */
+  color: #001f4d;       /* dark navy text for headings */
+}
+
+/* Navbar */
+.dashboard-navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #2B2E83; /* navy blue */
+  color: white;
+  padding: 12px 25px;
+}
+
+.dashboard-navbar .logo {
+  display: flex;
+  align-items: center;
+}
+
+.dashboard-navbar .logo img {
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 12px;
+  border-radius: 8px;
+}
+
+.dashboard-navbar .logo span {
+  font-weight: 600;
+  font-size: 1.2rem;
+  color: #fff;
+}
+
+/* Navbar links base */
+
+
+/* Create the underline pseudo-element */
+/* Dashboard navbar links */
+.dashboard-navbar nav a {
+  margin: 0 15px;                 /* spacing between links */
+  color: #fff;                     /* white text */
+  text-decoration: none;
+  font-size: 18px;                 /* slightly bigger */
+  font-family: 'Cinzel', serif;   /* match your page font */
+  display: inline-block;
+  position: relative;              /* needed for pseudo-element */
+  text-shadow: 0 0 8px rgba(255,255,255,0.6); /* subtle glow */
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+/* Hover: lift text slightly, keep color */
+.dashboard-navbar nav a:hover {
+  transform: translateY(-3px) scale(1.05); /* lift + small scale */
+  color: #fff;                             /* keep white text */
+}
+
+/* Underline pseudo-element */
+.dashboard-navbar nav a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -3px;                /* position under text */
+  width: 0%;                   /* start hidden */
+  height: 2px;                 /* thickness */
+  background-color: #ffffff;   /* white underline */
+  transition: width 0.3s ease; /* smooth expand */
+}
+
+/* Expand underline on hover */
+.dashboard-navbar nav a:hover::after {
+  width: 100%;                 /* full width */
+}
+/* Hero Section */
+.dashboard-hero {
+  text-align: center;
+  padding: 50px 20px;
+  background: #ffffff; /* white background */
+  border-bottom: 5px solid #001f4d; /* blue accent line */
+}
+
+.dashboard-hero h1 {
+  font-size: 2.8rem;
+  margin-bottom: 12px;
+  color: #001f4d; /* navy blue */
+}
+
+.dashboard-hero span#memberName {
+  color: #2B2E83; /* bright blue accent */
+}
+
+.dashboard-hero p {
+  font-size: 1.2rem;
+  margin-bottom: 40px;
+  color: #333; /* grayish text */
+}
+
+/* Cards */
+.dashboard-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 22px;
+  max-width: 1200px;
+  margin: 0 auto 50px auto;
+  padding: 0 20px;
+}
+
+.card {
+  background: #001f4d;       /* dark navy blue */
+  color: #ffffff;            /* white text */
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+  transition: 0.3s;
+  cursor: pointer;
+  text-align: center;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 25px rgba(0,0,0,0.25);
+}
+
+.card i {
+  font-size: 2.5rem;
+  color: #00bfff; /* bright blue icon */
+  margin-bottom: 15px;
+}
+
+.card h3 {
+  margin-bottom: 10px;
+  font-size: 1.3rem;
+}
+
+.card p {
+  font-size: 1rem;
+  color: #cce0ff; /* light blue description text */
+}
+/* Cards Grid */
+.dashboard-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 22px;
+  max-width: 1200px;
+  margin: 30px auto 50px auto;
+  padding: 0 20px;
+}
+
+/* Cards (Profile, Events, etc) */
+.card {
+  background: linear-gradient(145deg, #001f4d, #2B2E83);
+  border: 2px solid #00bfff; /* optional glowing border */
+  color: #ffffff;
+}
+
+.card:hover {
+  background: linear-gradient(145deg, #525a03, #525a03); /* colorful hover */
+  transform: translateY(-8px) scale(1.03);
+}
+.card i {
+  font-size: 2.5rem;
+  color: #2B2E83;
+  margin-bottom: 15px;
+}
+
+.card h3 {
+  margin-bottom: 10px;
+}
+
+.card p {
+  color: #cce0ff;
+}
+
+/* Profile Modal */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.5);
+}
+
+.modal-content {
+  background-color: #ffffff;
+  color: #001f4d;
+  margin: 8% auto;
+  padding: 30px;
+  border-radius: 12px;
+  width: 400px;
+  text-align: left;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+
+.modal-content .close {
+  color: #001f4d;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.modal-content .close:hover {
+  color: #2f80ed;
+}
+
+.profile-photo {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.profile-photo img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #2f80ed;
+  margin-bottom: 10px;
+}
+
+#uploadPhoto {
+  display: block;
+  margin: 0 auto;
+}
+
+.profile-info p {
+  font-size: 1rem;
+  margin: 8px 0;
+}
+
+.profile-info strong {
+  color: #001f4d;
+}
+.profile-photo {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.profile-photo img {
+  width: 100px;       /* fixed width */
+  height: 100px;      /* fixed height */
+  border-radius: 50%; /* make it circular */
+  object-fit: cover;  /* scale image properly */
+  border: 3px solid #2B2E83; /* blue border */
+  margin-bottom: 10px;
+}
+.profile-photo img {
+    width: 150px;   /* ba desired size */
+    height: 150px;
+    object-fit: cover;  /* image distort na hobe */
+    border-radius: 50%; /* round profile pic */
+    border: 2px solid #2f80ed; /* optional */
+}
+.back-btn-fixed {
+  position: fixed;
+  top: 100px; /* navbar er niche */
+  left: 20px; /* right side */
+  width: 35px;
+  height: 35px;
+  background: #ffffff; /* white circle */
+  color: #001f4d; /* dark blue arrow */
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-size: 1.5rem;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  transition: 0.3s;
+  z-index: 1000;
+}
+
+.back-btn-fixed:hover {
+  background: #f0f0f0; /* subtle hover */
+  transform: scale(1.1);
+}
+.menu-icon{
+  font-size:22px;
+  cursor:pointer;
+  color:white;
+}
+
+/* side menu */
+.side-menu{
+  position: fixed;
+  top: 70px;
+  left: -250px;
+  width: 250px;
+  height: 100%;
+  background:#2B2E83;
+  padding-top:80px;
+  transition:0.3s;
+  z-index:1000;
+}
+
+.side-menu h3{
+  color:white;
+  text-align:center;
+  margin-bottom:20px;
+}
+
+.side-menu a{
+  display:block;
+  padding:12px 20px;
+  color:white;
+  text-decoration:none;
+  font-size:16px;
+  transition:0.3s;
+}
+
+.side-menu a i{
+  margin-right:10px;
+}
+
+.side-menu a:hover{
+  background:#00bfff;
+}
+/* Bell container */
+.notification-container {
+  position: relative; /* dropdown relative to bell */
+  display: inline-block;
+  margin-left: 15px;
+}
+
+
+/* Dropdown */
+.notification-dropdown {
+  position: absolute;
+  top: 40px; /* bell icon এর নিচে show হবে */
+  right: 0;
+  width: 300px;
+  max-height: 400px;
+  background: linear-gradient(135deg, #e0f7ff, #ffffff); /* cheerful gradient */
+  border: 1px solid #00bfff;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  display: none;
+  overflow-y: auto;
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+
+/* Dropdown header */
+.notification-dropdown h4 {
+  margin: 0;
+  padding: 12px;
+  border-bottom: 1px solid #00bfff;
+  background: #001f4d;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+
+/* Notification items */
+.notification-dropdown ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.notification-dropdown li {
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.notification-dropdown li:hover {
+  background: #00bfff;
+  color: #fff;
+  transform: scale(1.02);
+}
+/* Hero welcome message animation */
+.dashboard-hero h1 {
+  font-size: 2.8rem;
+  margin-bottom: 12px;
+  color: #001f4d;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: slideFadeIn 1s forwards; /* slide & fade in */
+  animation-delay: 0.3s; /* small delay after page load */
+}
+
+@keyframes slideFadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Optional: highlight member name */
+.dashboard-hero span#memberName {
+  color: #2B2E83;
+  font-weight: 700;
+  transition: color 0.5s, transform 0.5s;
+}
+
+.dashboard-hero span#memberName:hover {
+  color: #00bfff;
+  transform: scale(1.05);
+}
+.section-title {
+  display: inline-block;
+  padding: 5px 15px;
+  background: #050a42;
+  color: white;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-weight: 600;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}

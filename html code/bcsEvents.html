@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BAUET Computer Club Events</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/bcsEvents.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body>
+
+<!-- Navbar -->
+<header class="dashboard-navbar">
+  <div class="logo">
+    <img src="../pic/csepic.jpeg" alt="BAUET Logo">
+    <span>BAUET Computer Society</span>
+  </div>
+  <nav>
+    <a href="../html code/cse.html" id="logoutBtn">Logout</a>
+  </nav>
+</header>
+<!-- Back Arrow Button -->
+<button class="back-btn-fixed" onclick="goBack()">
+  <i class="fa-solid fa-arrow-left"></i>
+</button>
+<script>
+function goBack() {
+  if (document.referrer) {
+    window.history.back(); // go one step back
+  } else {
+    window.location.href = "../html code/index.html"; // fallback if no previous page
+  }
+}
+</script>
+
+<!-- Events Section -->
+<section class="dashboard-events">
+  <h2>Events</h2>
+
+  <!-- Upcoming Events -->
+  <div class="events-section" id="upcoming-section">
+    <h3>Upcoming Events</h3>
+    <div class="events-list" id="upcoming">
+      <div class="empty-msg">No upcoming events yet. Stay tuned!</div>
+    </div>
+  </div>
+
+  <!-- Past Events -->
+  <div class="events-section" id="past-section">
+    <h3>Past Events</h3>
+    <div class="events-list" id="past">
+      <div class="empty-msg">No past events available for now.</div>
+    </div>
+  </div>
+</section>
+
+<!-- JS -->
+<script>
+  // Tabs JS (toggle sections)
+  const tabs = document.querySelectorAll(".tab-btn");
+  tabs.forEach(tab => {
+    tab.addEventListener("click", () => {
+      // Remove active class from all
+      tabs.forEach(t => t.classList.remove("active"));
+      tab.classList.add("active");
+
+      // Show/Hide sections
+      const target = tab.dataset.target;
+      document.getElementById("upcoming").style.display = (target === "upcoming") ? "block" : "none";
+      document.getElementById("past").style.display = (target === "past") ? "block" : "none";
+    });
+  });
+
+  // Logout button (optional)
+  document.getElementById("logoutBtn").addEventListener("click", () => {
+    localStorage.clear();
+    window.location.href = "index.html";
+  });
+</script>
+
+</body>
+</html>

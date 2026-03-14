@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Profile</title>
+
+<link rel="stylesheet" href="../css/bcsProfile.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+</head>
+
+<body>
+
+<header class="profile-header">
+<h2>My Profile</h2>
+</header>
+<!-- Back Arrow Button -->
+<button class="back-btn-fixed" onclick="goBack()">
+  <i class="fa-solid fa-arrow-left"></i>
+</button>
+<script>
+function goBack() {
+  if (document.referrer) {
+    window.history.back(); // go one step back
+  } else {
+    window.location.href = "../html code/index.html"; // fallback if no previous page
+  }
+}
+</script>
+
+<div class="profile-container">
+
+<!-- Profile Photo -->
+<div class="profile-photo-section">
+
+  <div class="avatar" id="avatarContainer">
+    <img id="profileImage">
+    <i class="fa-solid fa-user" id="defaultAvatar"></i>
+  </div>
+
+  <input type="file" id="uploadImage">
+
+</div>
+
+<!-- Profile Information -->
+
+<div class="profile-info">
+
+<p><strong>Student ID:</strong> <span id="studentID"></span></p>
+<p><strong>Name:</strong> <span id="name"></span></p>
+<p><strong>Batch:</strong> <span id="batch"></span></p>
+<p><strong>Department:</strong> <span id="department"></span></p>
+<p><strong>Email:</strong> <span id="email"></span></p>
+<p><strong>Phone:</strong> <span id="phone"></span></p>
+
+</div>
+
+<!-- Password Change -->
+
+<div class="password-box">
+
+<h3>Security</h3>
+
+<button id="openPassword">Change Password</button>
+
+<div class="password-form" id="passwordForm">
+
+<input type="password" id="oldPass" placeholder="Old Password">
+
+<input type="password" id="newPass" placeholder="New Password">
+
+<input type="password" id="confirmPass" placeholder="Confirm New Password">
+
+<button id="changePassword">Update Password</button>
+
+</div>
+
+</div>
+
+<script src="../java script/bcsProfile.js"></script>
+
+</body>
+</html>

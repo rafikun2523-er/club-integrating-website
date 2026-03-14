@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BAUET Computer Club Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/bcsDashboard.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body>
+
+<!-- Navbar -->
+<header class="dashboard-navbar">
+  <div class="logo">
+    <img src="../pic/csepic.jpeg" alt="BAUET Logo">
+    <span>BAUET Computer Society</span>
+  </div>
+<nav>
+  <a href="../html code/cse.html">Home</a>
+  <a href="../html code/bcsProfile.html">Profile</a>
+  <!-- Notifications -->
+  <a href="#">Notifications</a>
+    
+    <div id="notificationDropdown" class="notification-dropdown">
+      <h4>Notifications</h4>
+      <ul id="notificationList">
+        <li>No new notifications</li>
+      </ul>
+    </div>
+
+  
+</nav>
+  <div class="menu-icon" id="menuIcon">
+  <i class="fa-solid fa-bars"></i>
+</div>
+
+<div class="side-menu" id="sideMenu">
+
+  <h3>Dashboard</h3>
+
+  <a href="../html code/bcsProfile.html"><i class="fa-solid fa-user"></i> Profile</a>
+  <a href="../html code/bcsEvents.html"><i class="fa-solid fa-calendar"></i> Events</a>
+  <a href="#"><i class="fa-solid fa-laptop"></i> My participation </a>
+  <a href="#"><i class="fa-solid fa-award"></i> My certificates</a>
+  <a href="../html code/cse.html" id="sideLogout"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+
+</div>
+</header>
+<div id="notificationDropdown" class="notification-dropdown">
+  <h4>Notifications</h4>
+  <ul id="notificationList">
+    <li>No new notifications</li>
+  </ul>
+</div>
+<!-- Back Arrow Button -->
+<button class="back-btn-fixed" onclick="goBack()">
+  <i class="fa-solid fa-arrow-left"></i>
+</button>
+<script>
+function goBack() {
+  if (document.referrer) {
+    window.history.back(); // go one step back
+  } else {
+    window.location.href = "../html code/index.html"; // fallback if no previous page
+  }
+}
+</script>
+
+
+<!-- Hero Section -->
+<section class="dashboard-hero">
+  <h1>Welcome, <span id="memberName">Member</span>!</h1>
+  <p>Explore your dashboard and stay updated with BAUET Computer Society activities.</p>
+  <div class="dashboard-cards">
+
+  <div class="card">
+    <i class="fa-solid fa-calendar-check"></i>
+    <h2 id="eventsJoined"></h2>
+    <h3>Events Joined</h3>
+    <p id="eventsText"></p>
+  </div>
+
+  <div class="card">
+    <i class="fa-solid fa-award"></i>
+    <h2 id="certificates"></h2>
+    <h3>Certificates</h3>
+    <p id="certText"></p>
+  </div>
+
+  <div class="card">
+    <i class="fa-solid fa-calendar"></i>
+    <h2 id="upcomingEvents"></h2>
+    <h3>Upcoming Events</h3>
+    <p id="eventText"></p>
+  </div>
+
+  <div class="card">
+    <i class="fa-solid fa-user"></i>
+    <h2>1</h2>
+    <h3>My Profile</h3>
+    <p>Manage your personal information.</p>
+  </div>
+
+</div>
+</section>
+
+
+<!-- Profile Modal -->
+<div class="modal" id="profileModal">
+  <div class="modal-content">
+    <span class="close" id="closeProfile">&times;</span>
+    <h2>My Profile</h2>
+
+    <!-- Profile Photo -->
+    <div class="profile-photo">
+      <img id="profilePhoto" src="../pic/default-pic.jpg" alt="Profile Photo">
+    </div>
+
+    <!-- Profile Info -->
+    <div class="profile-info">
+      <p><strong>Student ID:</strong> <span id="profileID"></span></p>
+      <p><strong>Name:</strong> <span id="profileName"></span></p>
+      <p><strong>Batch:</strong> <span id="profileBatch"></span></p>
+      <p><strong>Department:</strong> <span id="profileDept"></span></p>
+      <p><strong>Email:</strong> <span id="profileEmail"></span></p>
+      <p><strong>Phone:</strong> <span id="profilePhone"></span></p>
+    </div>
+
+    <!-- Upload Profile Photo -->
+    <input type="file" id="uploadPhoto" accept="image/*">
+  </div>
+</div>
+
+<script src="../java script/bcsDashboard.js"></script>
+</body>
+</html>
