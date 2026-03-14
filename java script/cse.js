@@ -1,5 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
 
+
+  
 const batchInput = document.getElementById("regBatch");
 const baseYear = 2015;
 const now = new Date();
@@ -146,17 +148,43 @@ loginSubmit?.addEventListener("click", async () => {
     alert("Could not connect to server!");
   }
 });
+document.getElementById('joinBtn2')?.addEventListener('click', () => {
+  registerModal.classList.add('active');
+});
+// ── Password Eye Toggle ──
+document.querySelectorAll('.toggle-eye').forEach(eye => {
+  eye.addEventListener('click', () => {
+    const input = eye.parentElement.querySelector('input');
+    if (input.type === 'password') {
+      input.type = 'text';
+      eye.classList.remove('fa-eye');
+      eye.classList.add('fa-eye-slash');
+    } else {
+      input.type = 'password';
+      eye.classList.remove('fa-eye-slash');
+      eye.classList.add('fa-eye');
+    }
+  });
+});
   // ---------- Scroll Reveal Animation ----------
-  const revealSections = document.querySelectorAll(".why-join, .achievements");
-  function scrollReveal() {
-    const triggerBottom = window.innerHeight * 0.85;
-    revealSections.forEach(section => {
-      const sectionTop = section.getBoundingClientRect().top;
-      if (sectionTop < triggerBottom) section.classList.add("show");
-    });
-  }
-  window.addEventListener("scroll", scrollReveal);
-  window.addEventListener("load", scrollReveal);
+const revealSections = document.querySelectorAll(".why-join, .achievements");
+
+function scrollReveal() {
+  const triggerBottom = window.innerHeight * 0.9;
+  revealSections.forEach(section => {
+    const sectionTop = section.getBoundingClientRect().top;
+    if (sectionTop < triggerBottom) {
+      section.classList.add("show");
+      section.querySelectorAll('.join-card, .achievement-card').forEach((card, i) => {
+        setTimeout(() => card.classList.add("show"), i * 150);
+      });
+    }
+  });
+}
+
+window.addEventListener("scroll", scrollReveal);
+window.addEventListener("load", scrollReveal);
+setTimeout(scrollReveal, 300);
 
 
 
@@ -179,26 +207,19 @@ loginSubmit?.addEventListener("click", async () => {
   window.addEventListener("load", revealMVO);
 
 
+  // ── FAQ Accordion ──
+document.querySelectorAll('.faq-question-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const item = btn.parentElement;
+    const isOpen = item.classList.contains('open');
 
-  // ---------- FAQ Search ----------
-  const faqIcon = document.getElementById("faqSearchIcon");
-  const faqSidebar = document.getElementById("faqSidebar");
-  const faqInput = document.getElementById("faqSearchInput");
-  const faqListItems = document.querySelectorAll("#faqList li");
+    // সব বন্ধ করো
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
 
-  faqIcon?.addEventListener("click", () => {
-    faqSidebar.classList.toggle("show");
-    faqInput.value = "";
-    faqListItems.forEach(li => li.classList.remove("hide"));
-    faqInput.focus();
+    // clicked টা toggle করো
+    if (!isOpen) item.classList.add('open');
   });
-
-  faqInput?.addEventListener("input", () => {
-    const query = faqInput.value.toLowerCase();
-    faqListItems.forEach(li => {
-      li.classList.toggle("hide", !li.textContent.toLowerCase().includes(query));
-    });
-  });
+});
 
 
 
@@ -223,6 +244,20 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 });
 
 
+// ── Scroll to Top ──
+const scrollTopBtn = document.getElementById('scrollTopBtn');
+
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 400) {
+    scrollTopBtn.classList.add('show');
+  } else {
+    scrollTopBtn.classList.remove('show');
+  }
+});
+
+scrollTopBtn.addEventListener('click', () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
 
 // === Achievements dynamic display ===
 const achievements = [
@@ -259,6 +294,40 @@ function loadAchievements() {
 
 // Load achievements on page load
 // just call loadAchievements() inside top DOMContentLoaded
+// ── Mobile Navbar ──
+const hamburgerBtn = document.getElementById('hamburgerBtn');
+const mobileNav = document.querySelector('.navbar nav');
+
+hamburgerBtn?.addEventListener('click', () => {
+  hamburgerBtn.classList.toggle('active');
+  mobileNav.classList.toggle('open');
+});
+
+// Members dropdown — mobile
+const dropdown = document.querySelector('.navbar .dropdown');
+const dropbtn = dropdown?.querySelector('a.dropbtn');
+dropbtn?.addEventListener('click', (e) => {
+  if (window.innerWidth <= 768) {
+    e.preventDefault();
+    dropdown.classList.toggle('open');
+  }
+});
+
+// Mobile Login button
+document.getElementById('mobileLoginBtn')?.addEventListener('click', () => {
+  loginModal.classList.add('active');
+  mobileNav.classList.remove('open');
+  hamburgerBtn.classList.remove('active');
+});
+
+// Outside click — menu বন্ধ
+document.addEventListener('click', (e) => {
+  if (!e.target.closest('header.navbar')) {
+    mobileNav?.classList.remove('open');
+    hamburgerBtn?.classList.remove('active');
+  }
+});
 loadAchievements();
+
 
 });

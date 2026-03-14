@@ -27,7 +27,12 @@
   <img src="../pic/csepic.jpeg" alt="BAUET Logo">
   <span>BAUET Computer Society</span>
 </div>
-
+<!-- Hamburger Button (mobile only) -->
+<button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu">
+  <span></span>
+  <span></span>
+  <span></span>
+</button>
 <nav>  
 <a href="../html code/index.html" class="dropbt">Home</a>
 <a href="../html code/club.html" class="dropbt">Clubs</a>
@@ -59,6 +64,8 @@
     <a href="#achievements">Our Achievements</a>
     <a href="#achievements">Our Events</a>
     <a href="#aboutClub">About our club</a>
+     <div class="mobile-login-btn" id="mobileLoginBtn">Log in</div>
+    
   </nav>
   
     <button class="btn" id="joinBtn">Log in</button>
@@ -102,6 +109,15 @@
       <div><i class="fa-solid fa-brain"></i> Problem Solving</div>
       <div><i class="fa-solid fa-trophy"></i> Tech Competitions</div>
     </div>
+  </div>
+
+    <div class="hero-btns">
+    <button class="hero-btn-primary" id="joinBtn2">
+      <i class="fa-solid fa-user-plus"></i> Join Now
+    </button>
+    <a href="#aboutClub" class="hero-btn-secondary">
+      <i class="fa-solid fa-circle-info"></i> Learn More
+    </a>
   </div>
 </section>
 
@@ -186,69 +202,104 @@
 
 
 
-<!-- Ferequently asked questions section --> 
-<div id="faqSearchIcon" class="faq-search-icon">
- 🔍
-</div>
+<section class="faq-section" id="faq">
+  <h2>Frequently Asked Questions</h2>
+  <p>Everything you need to know about BAUET Computer Society</p>
 
-<div class="faq-sidebar" id="faqSidebar">
-  <h3>FAQ</h3>
-  <input type="text" id="faqSearchInput" placeholder="Search FAQs...">
-  <ul id="faqList">
+  <div class="faq-container">
 
-    <li>
-      <span class="faq-question">Who can join the club?</span>
-      <span class="faq-answer">Only students of BAUET are eligible to join this club. Beginners and tech enthusiasts from our university are most welcome</span>
-    </li>
+    <div class="faq-item">
+      <div class="faq-question-btn">
+        <span>Who can join the club?</span>
+        <i class="fa-solid fa-plus faq-icon"></i>
+      </div>
+      <div class="faq-answer-body">
+        <p>Only students of BAUET are eligible to join this club. Beginners and tech enthusiasts from our university are most welcome.</p>
+      </div>
+    </div>
 
-    <li>
-      <span class="faq-question">How to join the computer club?</span>
-      <span class="faq-answer">Click on 'Log In', then select 'Register Here' and provide the required information. Joining is completely free of cost.</span>
-    </li>
+    <div class="faq-item">
+      <div class="faq-question-btn">
+        <span>How to join the computer club?</span>
+        <i class="fa-solid fa-plus faq-icon"></i>
+      </div>
+      <div class="faq-answer-body">
+        <p>Click on 'Log In', then select 'Register Here' and provide the required information. Joining is completely free of cost.</p>
+      </div>
+    </div>
 
-    <li>
-      <span class="faq-question">Do I need prior experience in programming or computers to join the club?</span>
-      <span class="faq-answer">No prior skills or experience are required! This club welcomes all BAUET students whether you are a complete beginner or already proficient in technology</span>
-    </li>
+    <div class="faq-item">
+      <div class="faq-question-btn">
+        <span>Do I need prior experience in programming?</span>
+        <i class="fa-solid fa-plus faq-icon"></i>
+      </div>
+      <div class="faq-answer-body">
+        <p>No prior skills or experience are required! This club welcomes all BAUET students whether you are a complete beginner or already proficient in technology.</p>
+      </div>
+    </div>
 
-    <li>
-      <span class="faq-question">When does this club hold its competitions?</span>
-      <span class="faq-answer">Our club organizes competitions every semester. You have to be a member of our club to get the announcements for our upcoming contests or events.</span>
-    </li>
+    <div class="faq-item">
+      <div class="faq-question-btn">
+        <span>When does this club hold its competitions?</span>
+        <i class="fa-solid fa-plus faq-icon"></i>
+      </div>
+      <div class="faq-answer-body">
+        <p>Our club organizes competitions every semester. You have to be a member to get announcements for upcoming contests or events.</p>
+      </div>
+    </div>
 
-    <li>
-      <span class="faq-question">Can I participate in events without being a member?</span>
-      <span class="faq-answer">Yes, you can join events even without membership. However, we recommend becoming a member to enjoy full benefits, receive updates and have a smoother event experience.</span>
-    </li>
+    <div class="faq-item">
+      <div class="faq-question-btn">
+        <span>Can I participate in events without being a member?</span>
+        <i class="fa-solid fa-plus faq-icon"></i>
+      </div>
+      <div class="faq-answer-body">
+        <p>Yes, you can join events even without membership. However, we recommend becoming a member to enjoy full benefits and receive updates.</p>
+      </div>
+    </div>
 
-    <li>
-      <span class="faq-question">What benefits do members get?</span>
-      <span class="faq-answer">Club members gain exclusive access to workshops, hands-on projects, competitions and networking opportunities. Membership allows you to learn, collaborate and grow your skills in a supportive environment while staying updated on all club events and activities.</span>
-    </li>
+    <div class="faq-item">
+      <div class="faq-question-btn">
+        <span>What benefits do members get?</span>
+        <i class="fa-solid fa-plus faq-icon"></i>
+      </div>
+      <div class="faq-answer-body">
+        <p>Club members gain exclusive access to workshops, hands-on projects, competitions and networking opportunities while staying updated on all club events.</p>
+      </div>
+    </div>
 
-    <li>
-      <span class="faq-question">Do we get certificates?</span>
-      <span class="faq-answer">Active participants receive certificates for competitions and workshops.</span>
-    </li>
+    <div class="faq-item">
+      <div class="faq-question-btn">
+        <span>Do we get certificates?</span>
+        <i class="fa-solid fa-plus faq-icon"></i>
+      </div>
+      <div class="faq-answer-body">
+        <p>Active participants receive certificates for competitions and workshops.</p>
+      </div>
+    </div>
 
-    <li>
-      <span class="faq-question">Can I contribute to projects even if I am a newcomer?</span>
-      <span class="faq-answer">Yes! All newcomers are welcome to contribute to projects, regardless of prior experience. The club encourages learning and collaboration, so you can participate and grow your skills while working on real projects.</span>
-    </li>
+    <div class="faq-item">
+      <div class="faq-question-btn">
+        <span>Can I join multiple clubs?</span>
+        <i class="fa-solid fa-plus faq-icon"></i>
+      </div>
+      <div class="faq-answer-body">
+        <p>Yes, you can join other clubs while being part of our computer club.</p>
+      </div>
+    </div>
 
-    <li>
-      <span class="faq-question">Can I join multiple clubs?</span>
-      <span class="faq-answer">Yes, you can join other clubs while being part of our computer club.</span>
-    </li>
+    <div class="faq-item">
+      <div class="faq-question-btn">
+        <span>With whom can I contact for club-related queries?</span>
+        <i class="fa-solid fa-plus faq-icon"></i>
+      </div>
+      <div class="faq-answer-body">
+        <p>Use the Contact section or email computer.society.bauet@gmail.com for any inquiries.</p>
+      </div>
+    </div>
 
-    <li>
-      <span class="faq-question">With whom can I contact for club-related queries?</span>
-      <span class="faq-answer">Use the Contact section or email computer.society.bauet@gmail.com for inquiries.</span>
-    </li>
-
-  </ul>
-</div>
-
+  </div>
+</section>
 
 
 <!--Achievement section (depends on admin input)-->
@@ -327,13 +378,18 @@
 
 
 
+<button class="scroll-top-btn" id="scrollTopBtn">
+  <i class="fa-solid fa-arrow-up"></i>
+</button>
+
+
+
 <!-- Login Modal Option -->
 <div class="modal" id="loginModal">
   <div class="modal-content university-style">
 
     <div class="uni-header">
       <img src="../pic/anotherlogo.png" alt="BAUET Logo">
-
       <div class="uni-title">
         <h2>BAUET</h2>
         <p>Bangladesh Army University of Engineering & Technology</p>
@@ -342,21 +398,25 @@
 
     <span class="close">&times;</span>
 
-    <h3 style="margin-top:15px;">
-      Sign in with your student ID and password
-    </h3>
+    <div class="login-body">
+      <h3>Sign in with your student ID and password</h3>
 
-    <input type="text" id="loginID" placeholder="Student ID">
-    <input type="password" id="loginPassword" placeholder="Password">
+      <input type="text" id="loginID" placeholder="Student ID">
 
-    <button class="login-btn" id="loginSubmit">Login</button>
+      <div class="input-eye">
+        <input type="password" id="loginPassword" placeholder="Password">
+        <i class="fa-solid fa-eye toggle-eye"></i>
+      </div>
 
-    <p style="margin-top:10px;">
-      Not a member?
-      <span id="openRegister" style="color:#2f80ed;cursor:pointer;">
-        Register here
-      </span>
-    </p>
+      <button class="login-btn" id="loginSubmit">Login</button>
+
+      <p>Not a member?
+        <span id="openRegister" style="color:#2f80ed;cursor:pointer;">
+          Register here
+        </span>
+      </p>
+    </div>
+
   </div>
 </div>
 
@@ -364,6 +424,7 @@
 
 <!-- Registration Modal in join us section-->
 <div class="modal" id="registerModal">
+  
   <div class="modal-content">
     <span class="close">&times;</span>
     <h2>Register to join BAUET Computer Society</h2>
@@ -374,9 +435,15 @@
     <input type="text" id="regDept" placeholder="Department">
     <input type="email" id="regEmail" placeholder="Email">
     <input type="text" id="regPhone" placeholder="Phone Number">
-    <input type="password" id="regPassword" placeholder="Password">
-    <input type="password" id="regConfirm" placeholder="Confirm Password">
+    <div class="input-eye">
+  <input type="password" id="regPassword" placeholder="Password">
+  <i class="fa-solid fa-eye toggle-eye"></i>
+</div>
 
+<div class="input-eye">
+  <input type="password" id="regConfirm" placeholder="Confirm Password">
+  <i class="fa-solid fa-eye toggle-eye"></i>
+</div>
     <button class="login-btn" id="registerSubmit">
       Register Now
     </button>
