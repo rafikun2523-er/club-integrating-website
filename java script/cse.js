@@ -1,40 +1,45 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-  
-const batchInput = document.getElementById("regBatch");
-const baseYear = 2015;
-const now = new Date();
-const year = now.getFullYear();
-const month = now.getMonth() + 1;
-let semester;
-if (month <= 6) {
-  semester = 1;
-} else {
-  semester = 2;
-}
-const maxBatch = (year - baseYear) * 2 + semester;
-// set input limits
-batchInput.min = 1;
-batchInput.max = maxBatch;
-batchInput.placeholder = `Batch (1-${maxBatch})`;
+  const BASE_URL = window.location.hostname === "127.0.0.1" || window.location.hostname === "localhost"
+    ? "http://localhost:5000"
+    : `http://${window.location.hostname}:5000`;
 
-  // ---------- Modal Elements ----------
-  const joinBtn = document.getElementById("joinBtn");
-  const loginModal = document.getElementById("loginModal");
-  const registerModal = document.getElementById("registerModal");
-  const closeBtns = document.querySelectorAll(".close");
-  const openRegister = document.getElementById("openRegister");
+  function showToast(msg, isError = false) {
+    const toast = document.createElement("div");
+    toast.textContent = msg;
+    toast.style.cssText = `
+      position: fixed; top: 20px; right: 20px;
+      background: ${isError ? "linear-gradient(135deg, #8b0000, #c0392b)" : "linear-gradient(135deg, #1a1d6e, #2B2E83)"};
+      color: white; padding: 12px 24px; border-radius: 10px;
+      font-family: 'Cinzel', serif; font-size: 14px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.2); z-index: 9999;
+    `;
+    document.body.appendChild(toast);
+    setTimeout(() => { if (document.body.contains(toast)) document.body.removeChild(toast); }, 3000);
+  }
 
-  // ---------- Registration Elements ----------
+  const batchInput = document.getElementById("regBatch");
+  const baseYear = 2015;
+  const now = new Date();
+  const semester = (now.getMonth() + 1) <= 6 ? 1 : 2;
+  const maxBatch = (now.getFullYear() - baseYear) * 2 + semester;
+  if (batchInput) {
+    batchInput.min = 1;
+    batchInput.max = maxBatch;
+    batchInput.placeholder = `Batch (1-${maxBatch})`;
+  }
+
+  const joinBtn        = document.getElementById("joinBtn");
+  const loginModal     = document.getElementById("loginModal");
+  const registerModal  = document.getElementById("registerModal");
+  const closeBtns      = document.querySelectorAll(".close");
+  const openRegister   = document.getElementById("openRegister");
   const registerSubmit = document.getElementById("registerSubmit");
+  const loginSubmit    = document.getElementById("loginSubmit");
 
-  // ---------- Login Elements ----------
-  const loginSubmit = document.getElementById("loginSubmit");
-
-  // ---------- Open Login Modal ----------
   joinBtn?.addEventListener("click", () => loginModal.classList.add("active"));
+  document.getElementById("joinBtn2")?.addEventListener("click", () => registerModal.classList.add("active"));
 
-  // ---------- Close Modals ----------
   closeBtns.forEach(btn => {
     btn.addEventListener("click", () => {
       loginModal.classList.remove("active");
@@ -42,191 +47,113 @@ batchInput.placeholder = `Batch (1-${maxBatch})`;
     });
   });
 
+  document.querySelectorAll(".modal").forEach(modal => {
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) {
+        loginModal.classList.remove("active");
+        registerModal.classList.remove("active");
+      }
+    });
+  });
 
-
-  // ---------- Open Register Modal from Login ----------
   openRegister?.addEventListener("click", () => {
     loginModal.classList.remove("active");
     registerModal.classList.add("active");
   });
 
-  // ---------- Registration ----------
   registerSubmit?.addEventListener("click", async () => {
-  const id = document.getElementById("regID").value.trim();
-  const name = document.getElementById("regName").value.trim();
-  const batch = Number(document.getElementById("regBatch").value.trim());
-  const dept = document.getElementById("regDept").value.trim();
-  const email = document.getElementById("regEmail").value.trim();
-  const phone = document.getElementById("regPhone").value.trim();
-  const password = document.getElementById("regPassword").value;
-  const confirm = document.getElementById("regConfirm").value;
+    const id       = document.getElementById("regID").value.trim();
+    const name     = document.getElementById("regName").value.trim();
+    const batch    = Number(document.getElementById("regBatch").value.trim());
+    const dept     = document.getElementById("regDept").value.trim();
+    const email    = document.getElementById("regEmail").value.trim();
+    const phone    = document.getElementById("regPhone").value.trim();
+    const password = document.getElementById("regPassword").value;
+    const confirm  = document.getElementById("regConfirm").value;
 
-  // ---------- Validation ----------
-  if (!id || !name || !batch || !dept || !email || !phone || !password || !confirm) {
-    alert("Please fill all required fields!");
-    return;
-  }
-  if (password !== confirm) {
-    alert("Passwords do not match!");
-    return;
-  }
-  if (password.length < 6) {
-    alert("Password must be at least 6 characters long!");
-    return;
-  }
-
-  try {
-    // ---------- Fetch call ----------
-    const res = await fetch("http://localhost:5000/api/members/register", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ studentID: id, name, batch, department: dept, email, phone, password })
-    });
-
-   let data;
-try {
-  data = await res.json(); // try parsing JSON
-} catch (jsonErr) {
-  console.error("Server returned invalid JSON:", jsonErr);
-  data = {}; // fallback to empty object
-}
-
-if (res.ok) {
-  registerModal.classList.remove("active");
-loginModal.classList.add("active");
-document.getElementById("loginID").value = id;
-
-const toast = document.createElement("div");
-toast.textContent = "✓ Registration Successful! You can now login.";
-toast.style.cssText = `
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  background: linear-gradient(135deg, #1a1d6e, #2B2E83);
-  color: white;
-  padding: 12px 24px;
-  border-radius: 10px;
-  font-family: 'Cinzel', serif;
-  font-size: 14px;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
-  z-index: 9999;
-  animation: slideIn 0.3s ease;
-`;
-document.body.appendChild(toast);
-setTimeout(() => document.body.removeChild(toast), 3000);
-} 
-else {
-  // data might be empty, so use optional chaining
-  console.error("Server error response:", data?.message || data);
-  alert(data?.message || "Registration failed!");
-}
-
-  } catch (err) {
-    console.error("Fetch error:", err);
-    alert("Could not connect to server. Make sure the backend is running and CORS is enabled.");
-  }
-});
-
-// ---------- Login ----------
-loginSubmit?.addEventListener("click", async () => {
-  const id = document.getElementById("loginID").value.trim();
-  const password = document.getElementById("loginPassword").value.trim();
-
-  if (!id || !password) {
-    alert("Please enter both ID and password");
-    return;
-  }
-
-  try {
-    const res = await fetch("http://localhost:5000/api/members/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ studentID: id, password })
-    });
-
-    const data = await res.json();
-
-    if (res.ok) {
-      // ✅ JWT token stored in localStorage
-       console.log("JWT Token:", data.token); 
-      localStorage.setItem("token", data.token);
-      // member data stored in localStorage
-      localStorage.setItem("memberData", JSON.stringify(data.member));
-
-      // Toast show করো
-const toast = document.createElement("div");
-toast.textContent = "✓ Login Successful!";
-toast.style.cssText = `
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  background: linear-gradient(135deg, #1a1d6e, #2B2E83);
-  color: white;
-  padding: 12px 24px;
-  border-radius: 10px;
-  font-family: 'Cinzel', serif;
-  font-size: 14px;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
-  z-index: 9999;
-  animation: slideIn 0.3s ease;
-`;
-document.body.appendChild(toast);
-
-setTimeout(() => {
-  window.location.href = "bcsDashboard.html";
-}, 1000);
-    } else {
-      alert(data?.message || "Login failed!");
+    if (!id || !name || !batch || !dept || !email || !phone || !password || !confirm) {
+      showToast("Please fill all required fields!", true); return;
     }
+    if (password !== confirm) { showToast("Passwords do not match!", true); return; }
+    if (password.length < 6) { showToast("Password must be at least 6 characters!", true); return; }
 
-  } catch (err) {
-    console.error("Fetch error:", err);
-    alert("Could not connect to server!");
-  }
-});
-document.getElementById('joinBtn2')?.addEventListener('click', () => {
-  registerModal.classList.add('active');
-});
-// ── Password Eye Toggle ──
-document.querySelectorAll('.toggle-eye').forEach(eye => {
-  eye.addEventListener('click', () => {
-    const input = eye.parentElement.querySelector('input');
-    if (input.type === 'password') {
-      input.type = 'text';
-      eye.classList.remove('fa-eye');
-      eye.classList.add('fa-eye-slash');
-    } else {
-      input.type = 'password';
-      eye.classList.remove('fa-eye-slash');
-      eye.classList.add('fa-eye');
-    }
-  });
-});
-  // ---------- Scroll Reveal Animation ----------
-const revealSections = document.querySelectorAll(".why-join, .achievements");
-
-function scrollReveal() {
-  const triggerBottom = window.innerHeight * 0.9;
-  revealSections.forEach(section => {
-    const sectionTop = section.getBoundingClientRect().top;
-    if (sectionTop < triggerBottom) {
-      section.classList.add("show");
-      section.querySelectorAll('.join-card, .achievement-card').forEach((card, i) => {
-        setTimeout(() => card.classList.add("show"), i * 150);
+    try {
+      const res = await fetch(`${BASE_URL}/api/members/register`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ studentID: id, name, batch, department: dept, email, phone, password })
       });
+      let data;
+      try { data = await res.json(); } catch { data = {}; }
+      if (res.ok) {
+        registerModal.classList.remove("active");
+        loginModal.classList.add("active");
+        document.getElementById("loginID").value = id;
+        showToast("✓ Registration Successful! You can now login.");
+      } else {
+        showToast(data?.message || "Registration failed!", true);
+      }
+    } catch (err) {
+      showToast("Could not connect to server!", true);
     }
   });
-}
 
-window.addEventListener("scroll", scrollReveal);
-window.addEventListener("load", scrollReveal);
-setTimeout(scrollReveal, 300);
+  loginSubmit?.addEventListener("click", async () => {
+    const id       = document.getElementById("loginID").value.trim();
+    const password = document.getElementById("loginPassword").value.trim();
+    if (!id || !password) { showToast("Please enter both ID and password!", true); return; }
+    try {
+      const res = await fetch(`${BASE_URL}/api/members/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ studentID: id, password })
+      });
+      const data = await res.json();
+      if (res.ok) {
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("memberData", JSON.stringify(data.member));
+        showToast("✓ Login Successful!");
+        setTimeout(() => { window.location.href = "bcsDashboard.html"; }, 1000);
+      } else {
+        showToast(data?.message || "Login failed!", true);
+      }
+    } catch (err) {
+      showToast("Could not connect to server!", true);
+    }
+  });
 
+  document.querySelectorAll(".toggle-eye").forEach(eye => {
+    eye.addEventListener("click", () => {
+      const input = eye.parentElement.querySelector("input");
+      if (input.type === "password") {
+        input.type = "text";
+        eye.classList.replace("fa-eye", "fa-eye-slash");
+      } else {
+        input.type = "password";
+        eye.classList.replace("fa-eye-slash", "fa-eye");
+      }
+    });
+  });
 
+  const revealSections = document.querySelectorAll(".why-join, .achievements");
+  function scrollReveal() {
+    const triggerBottom = window.innerHeight * 0.9;
+    revealSections.forEach(section => {
+      const sectionTop = section.getBoundingClientRect().top;
+      if (sectionTop < triggerBottom) {
+        section.classList.add("show");
+        section.querySelectorAll(".join-card, .achievement-card").forEach((card, i) => {
+          setTimeout(() => card.classList.add("show"), i * 150);
+        });
+      }
+    });
+  }
+  window.addEventListener("scroll", scrollReveal);
+  window.addEventListener("load", scrollReveal);
+  setTimeout(scrollReveal, 300);
 
-  // ---------- MVO Section Animation ----------
   const mvoSection = document.querySelector(".mvo-section");
-  const mvoCards = document.querySelectorAll(".mvo-card");
+  const mvoCards   = document.querySelectorAll(".mvo-card");
   function revealMVO() {
     const triggerBottom = window.innerHeight * 0.85;
     if (mvoSection) {
@@ -242,128 +169,88 @@ setTimeout(scrollReveal, 300);
   window.addEventListener("scroll", revealMVO);
   window.addEventListener("load", revealMVO);
 
-
-  // ── FAQ Accordion ──
-document.querySelectorAll('.faq-question-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const item = btn.parentElement;
-    const isOpen = item.classList.contains('open');
-
-    // সব বন্ধ করো
-    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
-
-    // clicked টা toggle করো
-    if (!isOpen) item.classList.add('open');
+  document.querySelectorAll(".faq-question-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const item   = btn.parentElement;
+      const isOpen = item.classList.contains("open");
+      document.querySelectorAll(".faq-item").forEach(i => i.classList.remove("open"));
+      if (!isOpen) item.classList.add("open");
+    });
   });
-});
 
-
-
-  // ---------- Welcome Popup ----------
   const popup = document.getElementById("welcomePopup");
   popup?.classList.add("show");
   setTimeout(() => popup?.classList.remove("show"), 4000);
-  
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener('click', function(e) {
-    e.preventDefault();
-    const target = document.querySelector(this.getAttribute('href'));
-    const headerOffset = 70; // navbar height
-    const elementPosition = target.offsetTop;
-    const offsetPosition = elementPosition - headerOffset;
 
-    window.scrollTo({
-      top: offsetPosition,
-      behavior: "smooth"
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener("click", function (e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute("href"));
+      if (!target) return;
+      window.scrollTo({ top: target.offsetTop - 70, behavior: "smooth" });
     });
   });
-});
 
-
-// ── Scroll to Top ──
-const scrollTopBtn = document.getElementById('scrollTopBtn');
-
-window.addEventListener('scroll', () => {
-  if (window.scrollY > 400) {
-    scrollTopBtn.classList.add('show');
-  } else {
-    scrollTopBtn.classList.remove('show');
-  }
-});
-
-scrollTopBtn.addEventListener('click', () => {
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-});
-
-// === Achievements dynamic display ===
-const achievements = [
-  // You can leave this empty for now to show "No achievements yet"
-  // { title: "Champion – National Programming Contest", description: "...", photo: "..." },
-];
-
-function loadAchievements() {
-  const container = document.getElementById("achievementCards");
-  const noMsg = document.getElementById("noAchievementsMsg");
-
-  container.innerHTML = "";
-
-  if (achievements.length === 0) {
-    noMsg.style.display = "block";
-    return;
-  } else {
-    noMsg.style.display = "none";
-  }
-
-  achievements.forEach(ach => {
-    const card = document.createElement("div");
-    card.className = "achievement-card";
-    card.innerHTML = `
-      <img src="${ach.photo}" alt="${ach.title}">
-      <div class="achievement-info">
-        <h3>${ach.title}</h3>
-        <p>${ach.description}</p>
-      </div>
-    `;
-    container.appendChild(card);
+  const scrollTopBtn = document.getElementById("scrollTopBtn");
+  window.addEventListener("scroll", () => {
+    scrollTopBtn?.classList.toggle("show", window.scrollY > 400);
   });
-}
+  scrollTopBtn?.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
 
-// Load achievements on page load
-// just call loadAchievements() inside top DOMContentLoaded
-// ── Mobile Navbar ──
-const hamburgerBtn = document.getElementById('hamburgerBtn');
-const mobileNav = document.querySelector('.navbar nav');
+  const achievements = [];
+  function loadAchievements() {
+    const container = document.getElementById("achievementCards");
+    const noMsg     = document.getElementById("noAchievementsMsg");
+    if (!container) return;
+    container.innerHTML = "";
+    if (achievements.length === 0) { noMsg.style.display = "block"; return; }
+    noMsg.style.display = "none";
+    achievements.forEach(ach => {
+      const card = document.createElement("div");
+      card.className = "achievement-card";
+      card.innerHTML = `<img src="${ach.photo}" alt="${ach.title}"><div class="achievement-info"><h3>${ach.title}</h3><p>${ach.description}</p></div>`;
+      container.appendChild(card);
+    });
+  }
+  loadAchievements();
 
-hamburgerBtn?.addEventListener('click', () => {
-  hamburgerBtn.classList.toggle('active');
-  mobileNav.classList.toggle('open');
-});
+  const hamburgerBtn = document.getElementById("hamburgerBtn");
+  const mobileNav    = document.querySelector(".navbar nav");
 
-// Members dropdown — mobile
-const dropdown = document.querySelector('.navbar .dropdown');
-const dropbtn = dropdown?.querySelector('a.dropbtn');
-dropbtn?.addEventListener('click', (e) => {
-  if (window.innerWidth <= 768) {
+  hamburgerBtn?.addEventListener("click", () => {
+    hamburgerBtn.classList.toggle("active");
+    mobileNav.classList.toggle("open");
+  });
+
+  const dropdown = document.querySelector(".navbar .dropdown");
+  const dropbtn  = dropdown?.querySelector("a.dropbtn");
+  dropbtn?.addEventListener("click", (e) => {
+    if (window.innerWidth <= 768) { e.preventDefault(); dropdown.classList.toggle("open"); }
+  });
+
+  document.getElementById("mobileLoginBtn")?.addEventListener("click", () => {
+    loginModal.classList.add("active");
+    mobileNav.classList.remove("open");
+    hamburgerBtn.classList.remove("active");
+  });
+
+  document.addEventListener("click", (e) => {
+    if (!e.target.closest("header.navbar")) {
+      mobileNav?.classList.remove("open");
+      hamburgerBtn?.classList.remove("active");
+    }
+  });
+
+  document.getElementById("eventsNavLink")?.addEventListener("click", (e) => {
     e.preventDefault();
-    dropdown.classList.toggle('open');
-  }
-});
-
-// Mobile Login button
-document.getElementById('mobileLoginBtn')?.addEventListener('click', () => {
-  loginModal.classList.add('active');
-  mobileNav.classList.remove('open');
-  hamburgerBtn.classList.remove('active');
-});
-
-// Outside click — menu বন্ধ
-document.addEventListener('click', (e) => {
-  if (!e.target.closest('header.navbar')) {
-    mobileNav?.classList.remove('open');
-    hamburgerBtn?.classList.remove('active');
-  }
-});
-loadAchievements();
-
+    const token = localStorage.getItem("token");
+    if (token) {
+      window.location.href = "../html code/bcsEvents.html?tab=past";
+    } else {
+      loginModal.classList.add("active");
+    }
+  });
 
 });

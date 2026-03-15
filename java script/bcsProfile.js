@@ -1,5 +1,9 @@
 document.addEventListener("DOMContentLoaded", () => {
 
+  const BASE_URL = window.location.hostname === "127.0.0.1" || window.location.hostname === "localhost"
+  ? "http://localhost:5000"
+  : `http://${window.location.hostname}:5000`;
+
   // ── Auth Check ──
   let member = null;
   try { member = JSON.parse(localStorage.getItem("memberData")); }
@@ -51,8 +55,8 @@ document.addEventListener("DOMContentLoaded", () => {
   if (member.photo && member.photo !== "" && member.photo !== "null") {
     const photoUrl = member.photo.startsWith("http")
       ? member.photo
-      : "http://localhost:5000" + member.photo;
-
+     : BASE_URL + member.photo;
+     
     profileImage.src = photoUrl;
     profileImage.style.display = "block";
     avatarCircle.style.display = "none";
@@ -83,7 +87,7 @@ updatePhoto();
     formData.append("photo", file);
 
     try {
-      const res = await fetch("http://localhost:5000/api/members/upload-photo", {
+      const res = await fetch(`${BASE_URL}/api/members/upload-photo`, {
         method: "POST",
         headers: { "Authorization": "Bearer " + token },
         body: formData
@@ -92,7 +96,7 @@ updatePhoto();
       const data = await res.json();
 
       if (res.ok) {
-        member.photo = "http://localhost:5000" + data.photo;
+        member.photo = BASE_URL + data.photo;
         localStorage.setItem("memberData", JSON.stringify(member));
         updatePhoto();
         showToast("✓ Photo updated successfully!");
@@ -155,7 +159,7 @@ updatePhoto();
     if (!token) { showToast("Please login first!", true); return; }
 
     try {
-      const res = await fetch("http://localhost:5000/api/members/change-password", {
+      const res = await fetch(`${BASE_URL}/api/members/change-password`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -167,14 +171,15 @@ updatePhoto();
       const data = await res.json();
 
       if (res.ok) {
-        showToast("✓ Password updated successfully!");
-        document.getElementById("oldPass").value     = "";
-        document.getElementById("newPass").value     = "";
-        document.getElementById("confirmPass").value = "";
-        passwordForm.classList.remove("open");
-      } else {
-        showToast(data?.message || "Password update failed!", true);
-      }
+  showToast("✓ Password updated successfully!");
+  document.getElementById("oldPass").value     = "";
+  document.getElementById("newPass").value     = "";
+  document.getElementById("confirmPass").value = "";
+  passwordForm.classList.remove("open");
+} else {
+  // alert() বাদ দিয়ে toast দেখাও
+  showToast(data?.message || "Password update failed!", true);
+}
     } catch (err) {
       console.error(err);
       showToast("Could not connect to server!", true);

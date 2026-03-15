@@ -36,6 +36,34 @@ exports.registerMember = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+// Change Password
+exports.changePassword = async (req, res) => {
+  try {
+    const { oldPassword, newPassword } = req.body;
+
+    const member = await Member.findOne({ studentID: req.user.studentID });
+    if (!member) return res.status(404).json({ message: "Member not found!" });
+
+    // Old password check
+    const isMatch = await bcrypt.compare(oldPassword, member.password);
+    if (!isMatch) return res.status(400).json({ message: "Current password is incorrect!" });
+
+    // New password validation
+    if (newPassword.length < 6) {
+      return res.status(400).json({ message: "New password must be at least 6 characters!" });
+    }
+
+    // Hash new password
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    member.password = hashedPassword;
+    await member.save();
+
+    res.json({ message: "Password updated successfully!" });
+
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
 // Upload Profile Photo
 exports.uploadPhoto = async (req, res) => {
   try {

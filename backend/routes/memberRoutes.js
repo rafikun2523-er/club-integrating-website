@@ -6,8 +6,8 @@ const authenticateToken = require("../middleware/auth");
 
 const {
   registerMember,
-  loginMember
-  
+  loginMember,
+  changePassword
 } = require("../controllers/memberController");
 
 router.post("/register", registerMember);
@@ -20,5 +20,9 @@ router.post(
   memberController.upload.single("photo"),
   memberController.uploadPhoto
 );
-
+router.post(
+  "/change-password",
+  authenticateToken,
+  changePassword
+);
 module.exports = router;
