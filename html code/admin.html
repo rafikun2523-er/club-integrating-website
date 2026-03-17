@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Admin Dashboard</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/admin.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+</head>
+
+<body>
+
+<!-- ===== NAVBAR ===== -->
+<div class="navbar">
+
+<div class="logo">
+<img src="../pic/anotherlogo.png">
+<span>Unified Club Portal</span>
+</div>
+
+<nav>
+<a href="../html code/index.html">Home</a>
+<a href="../html code/club.html">Clubs</a>
+<a href="../html code/about.html">About</a>
+<a href="#" class="active-link">Admin</a>
+</nav>
+
+</div>
+
+
+<!-- ===== DASHBOARD ===== -->
+<section class="admin-container">
+
+<h1 class="dashboard-title">
+<i class="fas fa-chart-line"></i> Admin Dashboard
+</h1>
+
+
+<!-- ===== ANALYTICS CARDS ===== -->
+
+<div class="analytics">
+
+<div class="card">
+<i class="fas fa-users"></i>
+<h3>Total Students</h3>
+<p>150</p>
+</div>
+
+<div class="card">
+<i class="fas fa-layer-group"></i>
+<h3>Total Clubs</h3>
+<p>8</p>
+</div>
+
+<div class="card">
+<i class="fas fa-calendar"></i>
+<h3>Total Events</h3>
+<p>5</p>
+</div>
+
+</div>
+
+
+<!-- ===== MANAGE CLUBS ===== -->
+
+<div class="admin-section">
+
+<h2><i class="fas fa-users-cog"></i> Manage Clubs</h2>
+
+<button class="admin-btn">Add Club</button>
+
+<table>
+
+<tr>
+<th>Club</th>
+<th>President</th>
+<th> Vice President</th>
+<th>Action</th>
+</tr>
+
+<tr>
+<td>BAUET Computer Society</td>
+<td>Md.Ratul Hasan</td>
+<td>Md.Nasim Ahmed <br>Mst.Maisha Tasnim</td>
+<td>
+<button>Edit</button>
+<button>Delete</button>
+</td>
+</tr>
+
+</table>
+
+
+</div>
+
+
+<!-- ===== MANAGE EVENTS ===== -->
+
+<div class="admin-section">
+
+<h2><i class="fas fa-calendar-alt"></i> Manage Events</h2>
+
+<button class="admin-btn">Add Event</button>
+
+<table>
+
+<tr>
+<th>Event</th>
+<th>Date</th>
+<th>Action</th>
+</tr>
+
+<tr>
+<td>Programming Contest</td>
+<td>20 June</td>
+<td>
+<button>Edit</button>
+<button>Delete</button>
+</td>
+</tr>
+
+<tr>
+<td>Mind Storm</td>
+<td>10 May</td>
+<td>
+<button>Edit</button>
+<button>Delete</button>
+</td>
+</tr>
+<tr>
+<td>Competitive Programming</td>
+<td>15 January</td>
+<td>
+<button>Edit</button>
+<button>Delete</button>
+</td>
+</tr>
+
+</table>
+
+
+<!-- ===== NOTICES ===== -->
+
+<div class="admin-section">
+
+<h2><i class="fas fa-bullhorn"></i> Post Notice</h2>
+<button class="admin-btn">Publish Notice</button>
+
+<textarea placeholder="Write announcement..."></textarea>
+
+
+
+</div>
+
+
+
+<!-- ===== STUDENTS ===== -->
+
+<div class="admin-section">
+
+<h2><i class="fas fa-user-graduate"></i> Student Members</h2>
+
+<button class="admin-btn">Import CSV</button>
+
+<table>
+
+<tr>
+<th>Name</th>
+<th>ID</th>
+<th>Department</th>
+</tr>
+
+<tr>
+<td>Ali</td>
+<td>221-35</td>
+<td>CSE</td>
+</tr>
+
+</table>
+
+</div>
+
+
+
+<!-- ===== EVENT CALENDAR ===== -->
+
+<div class="admin-section">
+
+<h2><i class="fas fa-calendar-week"></i> Event Calendar</h2>
+
+<div class="calendar-box">
+Calendar integration will appear here
+</div>
+
+</div>
+
+</section>
+<!-- Footer section -->
+<footer class="contact-footer">
+  <div class="footer-container">
+
+    <div class="footer-logo">
+      <img src="../pic/anotherlogo.png" alt="BAUET Logo">
+      <h2>BAUET Computer Club</h2>
+
+      <div class="social-icons">
+        <i class="fab fa-facebook-f"></i>
+        <i class="fab fa-x-twitter"></i>
+        <i class="fab fa-youtube"></i>
+        <i class="fab fa-linkedin-in"></i>
+      </div>
+    </div>
+
+    <div class="footer-links">
+      <h3>Quick Links</h3>
+      <a href="#">About Us</a>
+      <a href="#">Our Members</a>
+      <a href="#">Events</a>
+      <a href="#">Achievements</a>
+    </div>
+
+    <div class="footer-address">
+      <h3>Address</h3>
+      <p>BAUET Campus</p>
+      <p>Qadirabad Cantonment,Dayarampur</p>
+      <p>Natore, Bangladesh</p>
+    </div>
+
+    <div class="footer-contact">
+      <h3>Contact</h3>
+      <p>Phone: +880 1XXXXXXXXX</p>
+      <p>Email: computerclub@bauet.ac.bd</p>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    Copyright ©2026, BAUET Computer Club. All Rights Reserved.
+  </div>
+</footer>
+
+<!-- Login Modal in Join us option -->
+<div class="modal" id="loginModal">
+  <div class="modal-content university-style">
+
+    <div class="uni-header">
+      <img src="../pic/anotherlogo.png" alt="BAUET Logo">
+
+      <div class="uni-title">
+        <h2>BAUET</h2>
+        <p>Bangladesh Army University of Engineering & Technology</p>
+      </div>
+    </div>
+
+    <span class="close">&times;</span>
+
+    <h3 style="margin-top:15px;">
+      Sign in with your student ID and password
+    </h3>
+
+    <input type="text" id="loginID" placeholder="Student ID">
+    <input type="password" id="loginPassword" placeholder="Password">
+
+    <button class="login-btn" id="loginSubmit">Login</button>
+
+    <p style="margin-top:10px;">
+      Not a member?
+      <span id="openRegister" style="color:#2f80ed;cursor:pointer;">
+        Register here
+      </span>
+    </p>
+
+  </div>
+</div>
+
+<!-- Registration Modal in join us section-->
+<div class="modal" id="registerModal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2>Computer Club Registration</h2>
+
+    <input type="text" id="regID" placeholder="Student ID">
+    <input type="text" id="regName" placeholder="Full Name">
+    <input type="text" id="regBatch" placeholder="Batch">
+    <input type="text" id="regDept" placeholder="Department">
+    <input type="email" id="regEmail" placeholder="Email">
+    <input type="text" id="regPhone" placeholder="Phone Number">
+    <input type="password" id="regPassword" placeholder="Password">
+    <input type="password" id="regConfirm" placeholder="Confirm Password">
+
+    <button class="login-btn" id="registerSubmit">
+      Register & Pay
+    </button>
+  </div>
+</div>
+
+
+<script src="../java script/admin.js"></script>
+
+</body>
+</html>

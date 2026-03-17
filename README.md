@@ -237,7 +237,13 @@ Students can learn about the club activities, view events, and apply to join the
 
 ### Admin Dashboard
 
-(Upcomming........)
+- Show admin dashboard
+- Manage clubs & events(add/edit/delete)
+- Manage student members
+- Bulk member import via CSV
+- Event calendar view
+![Admin Page](pic/admin_page.png.png)
+
 
 ---
 
