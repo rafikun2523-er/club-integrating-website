@@ -571,11 +571,7 @@ body {
   opacity: 1;
   transform: translateY(0);
 }
-/*  Dropdown Menu */
-.dropdown {
-  position: relative;
-  display: inline-block;
-}
+
 
 
 /* Main button */
@@ -595,57 +591,7 @@ body {
   transform: translateY(-3px);
 }
 
-.dropdown-content {
-  position: absolute;
-  top: 45px;
-  left: 0;
-  background-color: #ffffff;   
-  min-width: 220px;
-  border-radius: 10px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-  overflow: hidden;
-  border: 1px solid rgba(0,0,0,0.05);
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(10px);
-  transition: all 0.3s ease;
-  z-index: 1000;
-  max-height: 300px;
-  overflow-y: auto;
-}
-.dropdown-section {
-  padding: 10px 15px;
-}
 
-.dropdown-section strong {
-  font-size: 18px;
-  display: block;
-  margin-bottom: 8px;
-  padding-bottom: 5px;
-  border-bottom: 1px solid #eee;
-}
-
-
-.dropdown-content a {
-  display: block;
-  padding: 12px 18px;
-  color: #2B2E83 !important;   
-  text-decoration: none;
-  font-size: 16px;
-  font-weight: 500;
-  background: white;
-}
-
-.dropdown-content a:hover {
-  background: #f0f4ff;
-}
-
-.dropdown:hover .dropdown-content {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
-  pointer-events: all; 
-}
 .contact-footer {
   background: linear-gradient(135deg, #1a1d6e, #2B2E83, #3a4fcf);
   color: white;
@@ -665,8 +611,9 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
-  padding-top: 8px;
+  gap: 10px;
+  font-family: 'Cinzel', serif;
+  
 }
 
 .footer-logo img {
@@ -679,6 +626,7 @@ body {
   font-size: 16px;
   font-weight: 600;
   color: white;
+  font-family: 'Cinzel', serif;
 }
 
 .social-icons {
@@ -701,6 +649,7 @@ body {
 
 .contact-footer h3 {
   font-size: 14px;
+  font-family: 'Cinzel', serif;
   font-weight: 600;
   color: white;
   margin-bottom: 14px;
@@ -711,19 +660,20 @@ body {
 
 .footer-links a {
   display: block;
-  color: rgba(255,255,255,0.7);
   text-decoration: none;
-  font-size: 14px;
+  color: rgba(255,255,255,0.7);
+  cursor: pointer;
+  margin-bottom: 10px;
+  font-size: 15px;
   font-family: 'Crimson Text', serif;
-  margin-bottom: 8px;
-  transition: all 0.2s ease;
+  transition: 0.3s ease;
 }
 
 .footer-links a:hover {
-  color: white;
+  opacity: 0.9;
   padding-left: 5px;
+  color: white;
 }
-
 .footer-address p,
 .footer-contact p {
   font-size: 14px;
@@ -1090,60 +1040,7 @@ html {
   text-align: left; /* center korle: center */
   font-family: 'Cinzel', serif;
 }
-/* About Our Club Section */
-.about-club {
-  background: linear-gradient(135deg, #f0f4ff, #ffffff);
-  text-align: center;
-  padding: 60px 20px;
-}
 
-.about-club h2 {
-  font-family: 'Cinzel', serif;
-  font-size: 36px;
-  margin-bottom: 20px;
-  color: #2B2E83;
-  font-weight: 700;
-}
-
-.about-club p {
-  font-size: 16px;
-  color: #555;
-  max-width: 700px;
-  margin: auto;
-  margin-bottom: 40px;
-  line-height: 1.7;
-}
-
-.about-highlights {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 25px;
-  max-width: 1000px;
-  margin: auto;
-}
-
-.about-highlights div {
-  background: #ffffff;
-  padding: 20px;
-  border-radius: 15px;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
-  font-size: 16px;
-  color: #2B2E83;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.about-highlights div i {
-  font-size: 24px;
-  color: #2f80ed;
-}
-
-.about-highlights div:hover {
-  transform: translateY(-10px) scale(1.05);
-  box-shadow: 0 12px 25px rgba(0,0,0,0.15);
-}
 .back-btn-fixed {
   position: fixed;
   top: 100px; /* navbar er niche */

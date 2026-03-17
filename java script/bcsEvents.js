@@ -1,142 +1,98 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-  // ── Auth Check ──
-  const member = JSON.parse(localStorage.getItem("memberData"));
-  if (!member) {
-    window.location.href = "../html code/index.html";
-    return;
+  const BASE_URL = window.location.hostname === "127.0.0.1" || window.location.hostname === "localhost"
+    ? "http://localhost:5000"
+    : `http://${window.location.hostname}:5000`;
+
+  function showToast(msg, isError = false) {
+    const toast = document.createElement("div");
+    toast.textContent = msg;
+    toast.style.cssText = `
+      position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
+      background: ${isError ? "linear-gradient(135deg,#8b0000,#c0392b)" : "linear-gradient(135deg,#1a1d6e,#2B2E83)"};
+      color: white; padding: 12px 32px; border-radius: 10px; min-width: 280px; text-align: center;
+      font-family: 'Cinzel', serif; font-size: 14px; box-shadow: 0 4px 16px rgba(0,0,0,0.2); z-index: 9999;
+    `;
+    document.body.appendChild(toast);
+    setTimeout(() => { if (document.body.contains(toast)) document.body.removeChild(toast); }, 3000);
   }
 
-  // ── Fill Member Info ──
-  const initials = member.name
-    ? member.name.split(" ").map(w => w[0]).join("").toUpperCase().slice(0, 2)
-    : "?";
+  // Upcoming card — login check
+  const upcomingCard = document.getElementById("upcomingCard");
+  const loginModal   = document.getElementById("loginModal");
 
-  const sideAvatarEl = document.getElementById("sideAvatar");
-  if (sideAvatarEl) sideAvatarEl.textContent = initials;
-
-  const sideNameEl = document.getElementById("sideName");
-  if (sideNameEl) sideNameEl.textContent = member.name || "Member";
-
-  // ── Events Data (admin ready হলে backend থেকে আসবে) ──
-  const events = {
-    upcoming: [],
-    past: []
-  };
-
-  // ── Render Events ──
-  const container = document.getElementById("eventsContainer");
-
-  function renderEvents(tab) {
-    container.innerHTML = "";
-    const list = events[tab];
-
-    if (!list || list.length === 0) {
-      const emptyMsg = document.createElement("div");
-      emptyMsg.className = "empty-msg";
-      emptyMsg.innerHTML = `
-        <i class="fa-solid fa-calendar-xmark"></i>
-        <p>${tab === "upcoming"
-          ? "No upcoming events yet. Stay tuned!"
-          : "No past events available for now."
-        }</p>
-      `;
-      container.appendChild(emptyMsg);
-      return;
+  upcomingCard?.addEventListener("click", () => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      window.location.href = "../html code/bcsEventsUpcoming.html";
+    } else {
+      loginModal.classList.add("active");
     }
+  });
 
-    list.forEach(event => {
-      const card = document.createElement("div");
-      card.className = `event-card${tab === "past" ? " past" : ""}`;
-      card.innerHTML = `
-        <div class="event-card-icon">
-          <i class="fa-solid fa-calendar-days"></i>
-        </div>
-        <div class="event-card-info">
-          <h3>${event.title}</h3>
-          <p>${event.description}</p>
-          <div class="event-meta">
-            <span><i class="fa-solid fa-calendar"></i> ${event.date}</span>
-            <span><i class="fa-solid fa-location-dot"></i> ${event.location}</span>
-          </div>
-        </div>
-      `;
-      container.appendChild(card);
+  // Modal close
+  document.querySelector(".close")?.addEventListener("click", () => {
+    loginModal.classList.remove("active");
+  });
+
+  loginModal?.addEventListener("click", (e) => {
+    if (e.target === loginModal) loginModal.classList.remove("active");
+  });
+
+  // Login
+  document.getElementById("loginSubmit")?.addEventListener("click", async () => {
+    const id       = document.getElementById("loginID").value.trim();
+    const password = document.getElementById("loginPassword").value.trim();
+    if (!id || !password) { showToast("Please enter both ID and password!", true); return; }
+
+    try {
+      const res  = await fetch(`${BASE_URL}/api/members/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ studentID: id, password })
+      });
+      const data = await res.json();
+      if (res.ok) {
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("memberData", JSON.stringify(data.member));
+        showToast("✓ Login Successful!");
+        setTimeout(() => {
+          window.location.href = "../html code/bcsEventsUpcoming.html";
+        }, 1000);
+      } else {
+        showToast(data?.message || "Login failed!", true);
+      }
+    } catch { showToast("Could not connect to server!", true); }
+  });
+
+  // Eye toggle
+  document.querySelectorAll(".toggle-eye").forEach(eye => {
+    eye.addEventListener("click", () => {
+      const input = eye.parentElement.querySelector("input");
+      if (input.type === "password") {
+        input.type = "text";
+        eye.classList.replace("fa-eye", "fa-eye-slash");
+      } else {
+        input.type = "password";
+        eye.classList.replace("fa-eye-slash", "fa-eye");
+      }
     });
-  }
-
-  // ── Tabs ──
-  const tabBtns = document.querySelectorAll(".tab-btn");
-
-  tabBtns.forEach(btn => {
-    btn.addEventListener("click", () => {
-      tabBtns.forEach(b => b.classList.remove("active"));
-      btn.classList.add("active");
-      renderEvents(btn.dataset.tab);
-    });
   });
 
-  // Initial render
-  renderEvents("upcoming");
+  // Mobile Navbar
+  const hamburgerBtn = document.getElementById("hamburgerBtn");
+  const mobileNav    = document.getElementById("mobileNav");
 
-  // ── Side Menu ──
-  const menuIcon    = document.getElementById("menuIcon");
-  const sideMenu    = document.getElementById("sideMenu");
-  const sideOverlay = document.getElementById("sideOverlay");
-
-  function openMenu() {
-    sideMenu.classList.add("open");
-    sideOverlay.classList.add("show");
-  }
-
-  function closeMenu() {
-    sideMenu.classList.remove("open");
-    sideOverlay.classList.remove("show");
-  }
-
-  menuIcon?.addEventListener("click", () => {
-    sideMenu.classList.contains("open") ? closeMenu() : openMenu();
-  });
-
-  sideOverlay?.addEventListener("click", closeMenu);
-
-  // ── Logout ──
-  const sideLogout  = document.getElementById("sideLogout");
-  const logoutToast = document.getElementById("logoutToast");
-
-  sideLogout?.addEventListener("click", (e) => {
-    e.preventDefault();
-    localStorage.clear();
-    logoutToast.style.display = "flex";
-    setTimeout(() => {
-      logoutToast.style.display = "none";
-      window.location.href = "../html code/index.html";
-    }, 1200);
-  });
-
-  // ── Notification Bell ──
-  const bell     = document.getElementById("notificationBell");
-  const dropdown = document.getElementById("notificationDropdown");
-
-  bell?.addEventListener("click", (e) => {
-    e.preventDefault();
-    const isOpen = dropdown.style.display === "block";
-    dropdown.style.display = isOpen ? "none" : "block";
+  hamburgerBtn?.addEventListener("click", () => {
+    hamburgerBtn.classList.toggle("active");
+    mobileNav.classList.toggle("open");
   });
 
   document.addEventListener("click", (e) => {
-    if (!e.target.closest(".notification-wrapper")) {
-      if (dropdown) dropdown.style.display = "none";
+    if (!e.target.closest("header.navbar") && !e.target.closest(".mobile-nav")) {
+      mobileNav?.classList.remove("open");
+      hamburgerBtn?.classList.remove("active");
     }
   });
-
-  const notifications = JSON.parse(localStorage.getItem("clubNotifications") || "[]");
-  const notificationList = document.getElementById("notificationList");
-
-  if (notificationList) {
-    notificationList.innerHTML = notifications.length
-      ? notifications.map(n => `<li>${n}</li>`).join("")
-      : "<li>No new notifications</li>";
-  }
 
 });

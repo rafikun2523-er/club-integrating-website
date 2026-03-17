@@ -145,7 +145,15 @@ body {
   flex-direction: column;
   padding-bottom: 20px;
 }
+.side-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  z-index: 1050;
+  display: none;
+}
 
+.side-overlay.show { display: block; }
 .side-menu.open { left: 0; }
 
 .side-menu-header {
@@ -370,7 +378,7 @@ body {
 }
 
 .empty-state i {
-  font-size: 40px;
+  font-size: 36px;
   color: #dde1ff;
   margin-bottom: 12px;
   display: block;

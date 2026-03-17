@@ -46,78 +46,50 @@ document.addEventListener("DOMContentLoaded", () => {
   const sideNameEl = document.getElementById("sideName");
   if (sideNameEl) sideNameEl.textContent = member.name || "Member";
 
-  // ── Upcoming Events ──
-  async function loadUpcomingEvents() {
-    const container = document.getElementById("upcomingEventsContainer");
+  
 
-    try {
-      const res = await fetch("http://localhost:5000/api/events/upcoming");
-      if (!res.ok) throw new Error("No events");
+async function loadAnnouncements() {
+  const container = document.getElementById("announcementsContainer");
 
-      const events = await res.json();
+  try {
+    const res = await fetch(`${BASE_URL}/api/announcements`);
+    if (!res.ok) throw new Error("No announcements");
 
-      if (!events || events.length === 0) {
-        showEmptyState(container, "fa-calendar-xmark", "No upcoming events yet. Stay tuned!");
-        return;
-      }
+    const announcements = await res.json();
 
-      // Show max 3 events
-      events.slice(0, 3).forEach(event => {
-        const date = new Date(event.date);
-        const card = document.createElement("div");
-        card.className = "event-preview-card";
-        card.innerHTML = `
-          <div class="event-date-box">
-            <span class="day">${date.getDate()}</span>
-            <span class="month">${date.toLocaleString("en", { month: "short" })}</span>
-          </div>
-          <div class="event-preview-info">
-            <h3>${event.title}</h3>
-            <p><i class="fa-solid fa-location-dot"></i> ${event.location || "TBA"}</p>
-          </div>
-        `;
-        container.appendChild(card);
-      });
-
-    } catch (err) {
-      // API নেই বা empty — empty state দেখাও
-      showEmptyState(container, "fa-calendar-xmark", "No upcoming events yet. Stay tuned!");
+    if (!announcements || announcements.length === 0) {
+      container.innerHTML = `
+        <div class="empty-state">
+          <i class="fa-solid fa-bullhorn"></i>
+          <p>No announcements yet.</p>
+        </div>
+      `;
+      return;
     }
+
+    announcements.slice(0, 4).forEach(ann => {
+      const card = document.createElement("div");
+      card.className = "announcement-card";
+      card.innerHTML = `
+        <div class="announcement-dot"></div>
+        <div>
+          <h3>${ann.title}</h3>
+          <p>${ann.message}</p>
+          <p class="ann-date">${new Date(ann.createdAt).toLocaleDateString("en-BD")}</p>
+        </div>
+      `;
+      container.appendChild(card);
+    });
+
+  } catch {
+    container.innerHTML = `
+      <div class="empty-state">
+        <i class="fa-solid fa-bullhorn"></i>
+        <p>No announcements yet.</p>
+      </div>
+    `;
   }
-
-  // ── Announcements ──
-  async function loadAnnouncements() {
-    const container = document.getElementById("announcementsContainer");
-
-    try {
-      const res = await fetch("http://localhost:5000/api/announcements");
-      if (!res.ok) throw new Error("No announcements");
-
-      const announcements = await res.json();
-
-      if (!announcements || announcements.length === 0) {
-        showEmptyState(container, "fa-bullhorn", "No announcements yet.");
-        return;
-      }
-
-      announcements.slice(0, 4).forEach(ann => {
-        const card = document.createElement("div");
-        card.className = "announcement-card";
-        card.innerHTML = `
-          <div class="announcement-dot"></div>
-          <div>
-            <h3>${ann.title}</h3>
-            <p>${ann.message}</p>
-            <p class="ann-date">${new Date(ann.createdAt).toLocaleDateString("en-BD")}</p>
-          </div>
-        `;
-        container.appendChild(card);
-      });
-
-    } catch (err) {
-      showEmptyState(container, "fa-bullhorn", "No announcements yet.");
-    }
-  }
+}
 
   // ── Empty State Helper ──
   function showEmptyState(container, icon, msg) {

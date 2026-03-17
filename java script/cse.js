@@ -7,13 +7,22 @@ document.addEventListener("DOMContentLoaded", () => {
   function showToast(msg, isError = false) {
     const toast = document.createElement("div");
     toast.textContent = msg;
-    toast.style.cssText = `
-      position: fixed; top: 20px; right: 20px;
-      background: ${isError ? "linear-gradient(135deg, #8b0000, #c0392b)" : "linear-gradient(135deg, #1a1d6e, #2B2E83)"};
-      color: white; padding: 12px 24px; border-radius: 10px;
-      font-family: 'Cinzel', serif; font-size: 14px;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.2); z-index: 9999;
-    `;
+  toast.style.cssText = `
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 280px;
+  text-align: center;
+  background: ${isError ? "linear-gradient(135deg, #8b0000, #c0392b)" : "linear-gradient(135deg, #1a1d6e, #2B2E83)"};
+  color: white;
+  padding: 12px 32px;
+  border-radius: 10px;
+  font-family: 'Cinzel', serif;
+  font-size: 14px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+  z-index: 9999;
+`;
     document.body.appendChild(toast);
     setTimeout(() => { if (document.body.contains(toast)) document.body.removeChild(toast); }, 3000);
   }
@@ -89,7 +98,7 @@ document.addEventListener("DOMContentLoaded", () => {
         registerModal.classList.remove("active");
         loginModal.classList.add("active");
         document.getElementById("loginID").value = id;
-        showToast("✓ Registration Successful! You can now login.");
+        showToast("✓ Registration Successful! Now you can now login. Before login, please check the member list to confirm you've been added");
       } else {
         showToast(data?.message || "Registration failed!", true);
       }
@@ -252,5 +261,14 @@ document.addEventListener("DOMContentLoaded", () => {
       loginModal.classList.add("active");
     }
   });
+  document.getElementById("footerEventsLink")?.addEventListener("click", (e) => {
+  e.preventDefault();
+  const token = localStorage.getItem("token");
+  if (token) {
+    window.location.href = "../html code/bcsEvents.html?tab=past";
+  } else {
+    loginModal.classList.add("active");
+  }
+});
 
 });
