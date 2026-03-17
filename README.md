@@ -242,7 +242,7 @@ Students can learn about the club activities, view events, and apply to join the
 - Manage student members
 - Bulk member import via CSV
 - Event calendar view
-![Admin Page](pic/admin_page.png.png)
+![Admin Page](pic/admin_page.png)
 
 
 ---
