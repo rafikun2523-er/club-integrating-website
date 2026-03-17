@@ -31,7 +31,7 @@
 * [x] Add club rating / review system
 * [x] Enable profile picture upload
 * [x] Create student profile page
-* [ ] Show notifications from admin
+* [X] Show notifications from admin
 * [ ] Allow students to join clubs
 * [ ] Allow students to register for events
 
