@@ -15,6 +15,8 @@
 
 <body>
 
+  
+
 <!-- Welcome Message popup -->
   <div id="welcomePopup" class="welcome-popup">
   <i class="fa-solid fa-desktop"></i>
@@ -28,6 +30,11 @@
   <img src="../pic/csepic.jpeg" alt="BAUET Logo">
   <span>BAUET Computer Society</span>
 </div>
+
+<button class="dark-toggle" id="darkModeToggle">
+  <i class="fa-solid fa-moon"></i>
+</button>
+
 <!-- Hamburger Button (mobile only) -->
 <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu">
   <span></span>
@@ -41,10 +48,11 @@
  
 <a href="../html code/bcsMembers.html" class="dropbt">Members</a>
 
-    <a href="#achievements">Our Achievements</a>
+    <a href="../html code/bcsAchievements.html">Our Achievements</a>
     <a href="../html code/bcsEventsPast.html" class="dropbt">Our Events</a>
     
      <div class="mobile-login-btn" id="mobileLoginBtn">Log in</div>
+     
     
   </nav>
   
@@ -68,9 +76,24 @@
 
 <!-- hero section -->
 <section class="hero">
-  <div class="hero-image">
-    <img src="../pic/cse2.jpeg" alt="Computer Club">
+  
+<div class="hero-image">
+  <div class="carousel">
+    <div class="carousel-track">
+      <img src="../pic/bcs1.jpeg" alt="Event 1" class="carousel-slide active">
+      <img src="../pic/bcs2.jpeg" alt="Event 2" class="carousel-slide">
+      <img src="../pic/bcs3.jpeg" alt="Event 3" class="carousel-slide">
+      <img src="../pic/bcs4.jpeg" alt="Event 4" class="carousel-slide">
+    </div>
+    <button class="carousel-btn prev" id="carouselPrev">
+      <i class="fa-solid fa-chevron-left"></i>
+    </button>
+    <button class="carousel-btn next" id="carouselNext">
+      <i class="fa-solid fa-chevron-right"></i>
+    </button>
+    <div class="carousel-dots" id="carouselDots"></div>
   </div>
+</div>
 
   <div class="hero-content">
     <h1>We Code with Logic,<br>We Build the Future.</h1>
@@ -283,23 +306,6 @@
 </section>
 
 
-<!--Achievement section (depends on admin input)-->
-
-<section class="achievements" id="achievements">
-  <h2>Our Achievements</h2>
-  <p>Celebrating the technical excellence and innovation of our members.</p>
-
-  <div class="achievement-cards" id="achievementCards">
-    <!-- JS will inject achievement cards here -->
-  </div>
-
-  <p id="noAchievementsMsg" style="text-align:center; color:#777; display:none;">
-    No achievements yet.
-  </p>
-</section>
-
-
-
 
 
 <!-- Footer section -->
@@ -418,8 +424,9 @@
 </div>
 
 
-
+<script src="../java script/config.js"></script>
 <script src="../java script/cse.js"></script>
+
 
 </body>
 </html>

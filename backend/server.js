@@ -11,7 +11,7 @@ const app = express();
 connectDB();
 
 app.use(cors({
-  origin: "http://127.0.0.1:5500"
+  origin: (origin, callback) => callback(null, true) // ✅ সব allow
 }));
 
 app.use(express.json());
@@ -22,6 +22,6 @@ app.use("/photoUploads", express.static(path.join(__dirname, "photoUploads")));
 app.use("/api/members", require("./routes/memberRoutes"));
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
+app.listen(PORT, "0.0.0.0", () => {
   console.log(`Server running on port ${PORT}`);
 });

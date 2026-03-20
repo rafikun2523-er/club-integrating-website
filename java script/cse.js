@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
+  
 
   const BASE_URL = window.location.hostname === "127.0.0.1" || window.location.hostname === "localhost"
     ? "http://localhost:5000"
@@ -7,22 +8,22 @@ document.addEventListener("DOMContentLoaded", () => {
   function showToast(msg, isError = false) {
     const toast = document.createElement("div");
     toast.textContent = msg;
-  toast.style.cssText = `
-  position: fixed;
-  top: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  min-width: 280px;
-  text-align: center;
-  background: ${isError ? "linear-gradient(135deg, #8b0000, #c0392b)" : "linear-gradient(135deg, #1a1d6e, #2B2E83)"};
-  color: white;
-  padding: 12px 32px;
-  border-radius: 10px;
-  font-family: 'Cinzel', serif;
-  font-size: 14px;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.3);
-  z-index: 9999;
-`;
+    toast.style.cssText = `
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    min-width: 280px;
+    text-align: center;
+    background: ${isError ? "linear-gradient(135deg, #8b0000, #c0392b)" : "linear-gradient(135deg, #1a1d6e, #2B2E83)"};
+    color: white;
+    padding: 12px 32px;
+    border-radius: 10px;
+    font-family: 'Cinzel', serif;
+    font-size: 14px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+    z-index: 9999;
+    `;
     document.body.appendChild(toast);
     setTimeout(() => { if (document.body.contains(toast)) document.body.removeChild(toast); }, 3000);
   }
@@ -189,7 +190,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const popup = document.getElementById("welcomePopup");
   popup?.classList.add("show");
-  setTimeout(() => popup?.classList.remove("show"), 4000);
+  setTimeout(() => popup?.classList.remove("show"), 1000);
 
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener("click", function (e) {
@@ -270,5 +271,69 @@ document.addEventListener("DOMContentLoaded", () => {
     loginModal.classList.add("active");
   }
 });
+// ===== Dark Mode =====
+const darkToggle = document.getElementById("darkModeToggle");
+
+darkToggle?.addEventListener("click", () => {
+  document.body.classList.toggle("dark-mode");
+  const isDark = document.body.classList.contains("dark-mode");
+  localStorage.setItem("darkMode", isDark);
+  darkToggle.innerHTML = isDark
+    ? '<i class="fa-solid fa-sun"></i>'
+    : '<i class="fa-solid fa-moon"></i>';
+});
+
+if (localStorage.getItem("darkMode") === "true") {
+  document.body.classList.add("dark-mode");
+  if (darkToggle) darkToggle.innerHTML = '<i class="fa-solid fa-sun"></i>';
+}
+
+// ── Active Navbar Link ──
+const currentPage = window.location.pathname.split("/").pop();
+document.querySelectorAll(".navbar nav a, .navbar nav .dropbt").forEach(link => {
+  const linkPage = link.getAttribute("href")?.split("/").pop();
+  if (linkPage === currentPage) {
+    link.classList.add("active");
+  }
+});
+// ── Carousel ──
+const slides = document.querySelectorAll(".carousel-slide");
+const dotsContainer = document.getElementById("carouselDots");
+let current = 0;
+let autoPlay;
+
+// Dots বানাও
+slides.forEach((_, i) => {
+  const dot = document.createElement("div");
+  dot.className = "carousel-dot" + (i === 0 ? " active" : "");
+  dot.addEventListener("click", () => goTo(i));
+  dotsContainer.appendChild(dot);
+});
+
+function goTo(index) {
+  slides[current].classList.remove("active");
+  dotsContainer.children[current].classList.remove("active");
+  current = (index + slides.length) % slides.length;
+  slides[current].classList.add("active");
+  dotsContainer.children[current].classList.add("active");
+}
+
+function startAutoPlay() {
+  autoPlay = setInterval(() => goTo(current + 1), 3000);
+}
+
+document.getElementById("carouselPrev")?.addEventListener("click", () => {
+  clearInterval(autoPlay);
+  goTo(current - 1);
+  startAutoPlay();
+});
+
+document.getElementById("carouselNext")?.addEventListener("click", () => {
+  clearInterval(autoPlay);
+  goTo(current + 1);
+  startAutoPlay();
+});
+
+startAutoPlay();
 
 });
