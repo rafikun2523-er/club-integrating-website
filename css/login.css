@@ -33,41 +33,59 @@ body{
 
 .login-box{
     background: rgba(255,255,255,0.15);
-    padding: 40px;
-    width: 350px;
-    border-radius: 15px;
-    backdrop-filter: blur(15px);
-    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-    text-align: center;
-    color: white;
-    transition: 0.3s;
+    padding:40px;
+    width:350px;
+    border-radius:15px;
+    backdrop-filter:blur(15px);
+    box-shadow:0 8px 32px rgba(0,0,0,0.3);
+    text-align:center;
+    color:white;
+    transition:0.3s;
 }
 
 .login-box:hover{
-    transform: scale(1.03);
+    transform:scale(1.03);
 }
 
 .login-box h1{
-    margin-bottom: 30px;
+    margin-bottom:30px;
 }
 
 /* Floating Input */
 .input-group{
-    position: relative;
-    margin-bottom: 25px;
+    position:relative;
+    margin-bottom:25px;
 }
 
 .input-group input{
     width:100%;
-    padding:10px 5px;
+    padding:12px 10px;
     border:none;
-    border-bottom:2px solid white;
-    background: transparent;
+    border-bottom:2px solid rgba(255,255,255,0.6);
+    background:transparent;
     color:white;
     font-size:16px;
     outline:none;
+    transition:0.3s;
 }
 
+/* focus effect */
+.input-group input:focus{
+    border-bottom:2px solid #00ffff;
+    box-shadow:0 5px 15px rgba(0,255,255,0.4);
+}
+
+/* remove browser autofill white background */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active{
+    -webkit-box-shadow:0 0 0 30px transparent inset !important;
+    -webkit-text-fill-color:white !important;
+    transition:background-color 5000s ease-in-out 0s;
+}
+
+/* label */
 .input-group label{
     position:absolute;
     top:10px;
@@ -98,10 +116,10 @@ button{
 
 button:hover{
     background:#0072ff;
-    transform: scale(1.05);
+    transform:scale(1.05);
 }
 
-/* Popup Styles */
+/* Popup */
 .popup{
     display:none;
     position:fixed;
@@ -109,24 +127,26 @@ button:hover{
     left:0;
     width:100%;
     height:100%;
-    background: rgba(0,0,0,0.6);
+    background:rgba(0,0,0,0.6);
     justify-content:center;
     align-items:center;
     z-index:10;
 }
 
 .popup-content{
-    background:white;
+    background:linear-gradient(135deg,#1e3c72,#2a5298);
     padding:30px;
     width:300px;
-    border-radius:10px;
+    border-radius:15px;
     text-align:center;
     position:relative;
+    color:white;
+    box-shadow:0 10px 25px rgba(0,0,0,0.4);
+    animation:popupAnim 0.4s ease;
 }
 
 .popup-content p{
-    font-size:16px;
-    color:#333;
+    font-size:18px;
 }
 
 .close{
@@ -135,12 +155,26 @@ button:hover{
     right:15px;
     font-size:20px;
     cursor:pointer;
-    color:#333;
+    color:white;
 }
-@keyframes shake {
-    0% { transform: translateX(0); }
-    25% { transform: translateX(-5px); }
-    50% { transform: translateX(5px); }
-    75% { transform: translateX(-5px); }
-    100% { transform: translateX(0); }
+
+/* popup animation */
+@keyframes popupAnim{
+    0%{
+        transform:scale(0.7);
+        opacity:0;
+    }
+    100%{
+        transform:scale(1);
+        opacity:1;
+    }
+}
+
+/* shake animation */
+@keyframes shake{
+    0%{transform:translateX(0);}
+    25%{transform:translateX(-5px);}
+    50%{transform:translateX(5px);}
+    75%{transform:translateX(-5px);}
+    100%{transform:translateX(0);}
 }
