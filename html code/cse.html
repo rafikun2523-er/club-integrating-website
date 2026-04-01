@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>BAUET Computer Club</title>
+  <title>BAUET Computer Society</title>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/cse.css">
@@ -50,6 +50,7 @@
 
     <a href="../html code/bcsAchievements.html">Our Achievements</a>
     <a href="../html code/bcsEventsPast.html" class="dropbt">Our Events</a>
+    <a href="../html code/bcsAbout.html" class="dropbt">About Club</a>
     
      <div class="mobile-login-btn" id="mobileLoginBtn">Log in</div>
      
@@ -96,11 +97,12 @@
 </div>
 
   <div class="hero-content">
-    <h1>We Code with Logic,<br>We Build the Future.</h1>
+    <h1>Code Today. Lead Tomorrow.</h1>
     <p>
-      BAUET Computer Club focuses on programming, software development,
+      BAUET Computer Society focuses on programming, software development,
       innovation and leadership through workshops, hackathons and tech competitions.
     </p>
+    
 
   <div class="features-title">
   <h3>Our Expertise:</h3>
@@ -303,6 +305,20 @@
     </div>
 
   </div>
+
+  <button id="faqShowMore" style="
+  margin-top: 16px;
+  padding: 10px 28px;
+  border: 2px solid #2B2E83;
+  background: transparent;
+  color: #2B2E83;
+  border-radius: 25px;
+  font-family: 'Cinzel', serif;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+">Show More ▼</button>
+
 </section>
 
 
@@ -395,13 +411,11 @@
 
 
 
-<!-- Registration Modal in join us section-->
+<!-- Registration Modal -->
 <div class="modal" id="registerModal">
-  
   <div class="modal-content">
     <span class="close">&times;</span>
     <h2>Register to join BAUET Computer Society</h2>
-
     <input type="text" id="regID" placeholder="Student ID">
     <input type="text" id="regName" placeholder="Full Name">
     <input type="number" id="regBatch" required>
@@ -409,22 +423,42 @@
     <input type="email" id="regEmail" placeholder="Email">
     <input type="text" id="regPhone" placeholder="Phone Number">
     <div class="input-eye">
-  <input type="password" id="regPassword" placeholder="Password">
-  <i class="fa-solid fa-eye toggle-eye"></i>
+      <input type="password" id="regPassword" placeholder="Password">
+      <i class="fa-solid fa-eye toggle-eye"></i>
+    </div>
+    <div class="input-eye">
+      <input type="password" id="regConfirm" placeholder="Confirm Password">
+      <i class="fa-solid fa-eye toggle-eye"></i>
+    </div>
+    <button class="login-btn" id="registerSubmit">Register Now</button>
+  </div>
 </div>
 
-<div class="input-eye">
-  <input type="password" id="regConfirm" placeholder="Confirm Password">
-  <i class="fa-solid fa-eye toggle-eye"></i>
-</div>
-    <button class="login-btn" id="registerSubmit">
-      Register Now
-    </button>
+<!-- ✅ OTP Modal — registerModal এর বাইরে -->
+<div class="modal" id="otpModal">
+  <div class="modal-content university-style">
+    <div class="uni-header">
+      <img src="../pic/anotherlogo.png" alt="BAUET Logo">
+      <div class="uni-title">
+        <h2>BAUET</h2>
+        <p>Bangladesh Army University of Engineering & Technology</p>
+      </div>
+    </div>
+    <span class="close" id="otpClose">&times;</span>
+    <div class="login-body">
+      <h3>Enter the OTP sent to your email</h3>
+      <input type="text" id="otpInput" placeholder="6-digit OTP" maxlength="6">
+      <button class="login-btn" id="otpSubmit">Verify OTP</button>
+      <p>Didn't receive? 
+        <span id="resendOTP" style="color:#2f80ed;cursor:pointer;">Resend OTP</span>
+      </p>
+    </div>
   </div>
 </div>
 
 
-<script src="../java script/config.js"></script>
+
+<script src="../backend/config.js"></script>
 <script src="../java script/cse.js"></script>
 
 

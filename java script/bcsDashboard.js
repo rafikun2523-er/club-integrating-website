@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const BASE_URL = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
   ? "http://localhost:5000"
   : `http://${window.location.hostname}:5000`;
+  const token = localStorage.getItem("token");
 
   // ── Auth Check ──
   const member = JSON.parse(localStorage.getItem("memberData"));
@@ -54,7 +55,10 @@ if (member.photo && !member.photo.startsWith("http")) {
     const container = document.getElementById("upcomingEventsContainer");
 
     try {
-      const res = await fetch(`${BASE_URL}/api/events/upcoming`);
+      const res = await fetch(`${BASE_URL}/api/events/upcoming`, {
+  headers: { "Authorization": "Bearer " + token }
+});
+      
       if (!res.ok) throw new Error("No events");
 
       const events = await res.json();

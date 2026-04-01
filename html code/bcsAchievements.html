@@ -16,7 +16,7 @@
 <!-- Navbar -->
 <header class="navbar">
   <div class="logo">
-    <img src="../pic/anotherlogo.png" alt="BAUET Logo">
+    <img src="../pic/csepic.jpeg" alt="BAUET Logo">
     <span>BAUET Computer Society</span>
   </div>
   <button class="hamburger" id="hamburgerBtn">
@@ -102,6 +102,9 @@
   </div>
 </div>
 
+
+
+
 <!-- Footer -->
 <footer class="contact-footer">
   <div class="footer-container">
@@ -138,13 +141,54 @@
   </div>
 </footer>
 
+
+<!-- Login Modal Option -->
+<div class="modal" id="loginModal">
+  <div class="modal-content university-style">
+
+    <div class="uni-header">
+      <img src="../pic/anotherlogo.png" alt="BAUET Logo">
+      <div class="uni-title">
+        <h2>BAUET</h2>
+        <p>Bangladesh Army University of Engineering & Technology</p>
+      </div>
+    </div>
+
+    <span class="close">&times;</span>
+
+    <div class="login-body">
+      <h3>Sign in with your student ID and password</h3>
+
+      <input type="text" id="loginID" placeholder="Student ID">
+
+      <div class="input-eye">
+        <input type="password" id="loginPassword" placeholder="Password">
+        <i class="fa-solid fa-eye toggle-eye"></i>
+      </div>
+
+      <button class="login-btn" id="loginSubmit">Login</button>
+
+      <p>Not a member?
+        <span id="openRegister" style="color:#2f80ed;cursor:pointer;">
+          Register here
+        </span>
+      </p>
+    </div>
+
+  </div>
+</div>
+
+
+
 <!-- Scroll to Top -->
 <button class="scroll-top-btn" id="scrollTopBtn">
   <i class="fa-solid fa-arrow-up"></i>
 </button>
 
+
+<script src="../backend/config.js"></script>
 <script src="../java script/bcsAchievements.js"></script>
-<script src="../java script/config.js"></script>
+
 
 </body>
 </html>

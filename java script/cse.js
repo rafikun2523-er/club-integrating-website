@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-  
 
   const BASE_URL = window.location.hostname === "127.0.0.1" || window.location.hostname === "localhost"
     ? "http://localhost:5000"
@@ -42,6 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const joinBtn        = document.getElementById("joinBtn");
   const loginModal     = document.getElementById("loginModal");
   const registerModal  = document.getElementById("registerModal");
+  const otpModal       = document.getElementById("otpModal");
   const closeBtns      = document.querySelectorAll(".close");
   const openRegister   = document.getElementById("openRegister");
   const registerSubmit = document.getElementById("registerSubmit");
@@ -50,15 +50,22 @@ document.addEventListener("DOMContentLoaded", () => {
   joinBtn?.addEventListener("click", () => loginModal.classList.add("active"));
   document.getElementById("joinBtn2")?.addEventListener("click", () => registerModal.classList.add("active"));
 
+  // ✅ OTP modal skip করো
   closeBtns.forEach(btn => {
     btn.addEventListener("click", () => {
+      if (btn.id === "otpClose") {
+        otpModal.classList.remove("active");
+        return;
+      }
       loginModal.classList.remove("active");
       registerModal.classList.remove("active");
     });
   });
 
+  // ✅ OTP modal click outside skip করো
   document.querySelectorAll(".modal").forEach(modal => {
     modal.addEventListener("click", (e) => {
+      if (modal.id === "otpModal") return;
       if (e.target === modal) {
         loginModal.classList.remove("active");
         registerModal.classList.remove("active");
@@ -97,9 +104,9 @@ document.addEventListener("DOMContentLoaded", () => {
       try { data = await res.json(); } catch { data = {}; }
       if (res.ok) {
         registerModal.classList.remove("active");
-        loginModal.classList.add("active");
-        document.getElementById("loginID").value = id;
-        showToast("✓ Registration Successful! Now you can now login. Before login, please check the member list to confirm you've been added");
+        localStorage.setItem("pendingStudentID", id);
+        otpModal.classList.add("active");
+        showToast("✓ OTP sent to your email!");
       } else {
         showToast(data?.message || "Registration failed!", true);
       }
@@ -132,6 +139,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+  // ✅ Eye Toggle
   document.querySelectorAll(".toggle-eye").forEach(eye => {
     eye.addEventListener("click", () => {
       const input = eye.parentElement.querySelector("input");
@@ -226,6 +234,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   loadAchievements();
 
+  // ✅ Hamburger
   const hamburgerBtn = document.getElementById("hamburgerBtn");
   const mobileNav    = document.querySelector(".navbar nav");
 
@@ -262,78 +271,152 @@ document.addEventListener("DOMContentLoaded", () => {
       loginModal.classList.add("active");
     }
   });
+
   document.getElementById("footerEventsLink")?.addEventListener("click", (e) => {
-  e.preventDefault();
-  const token = localStorage.getItem("token");
-  if (token) {
-    window.location.href = "../html code/bcsEvents.html?tab=past";
-  } else {
-    loginModal.classList.add("active");
+    e.preventDefault();
+    const token = localStorage.getItem("token");
+    if (token) {
+      window.location.href = "../html code/bcsEvents.html?tab=past";
+    } else {
+      loginModal.classList.add("active");
+    }
+  });
+
+  // ✅ Dark Mode
+  const darkToggle = document.getElementById("darkModeToggle");
+  darkToggle?.addEventListener("click", () => {
+    document.body.classList.toggle("dark-mode");
+    const isDark = document.body.classList.contains("dark-mode");
+    localStorage.setItem("darkMode", isDark);
+    darkToggle.innerHTML = isDark
+      ? '<i class="fa-solid fa-sun"></i>'
+      : '<i class="fa-solid fa-moon"></i>';
+  });
+
+  if (localStorage.getItem("darkMode") === "true") {
+    document.body.classList.add("dark-mode");
+    if (darkToggle) darkToggle.innerHTML = '<i class="fa-solid fa-sun"></i>';
   }
-});
-// ===== Dark Mode =====
-const darkToggle = document.getElementById("darkModeToggle");
 
-darkToggle?.addEventListener("click", () => {
-  document.body.classList.toggle("dark-mode");
-  const isDark = document.body.classList.contains("dark-mode");
-  localStorage.setItem("darkMode", isDark);
-  darkToggle.innerHTML = isDark
-    ? '<i class="fa-solid fa-sun"></i>'
-    : '<i class="fa-solid fa-moon"></i>';
-});
+  // ✅ Active Navbar Link
+  const currentPage = window.location.pathname.split("/").pop();
+  document.querySelectorAll(".navbar nav a, .navbar nav .dropbt").forEach(link => {
+    const linkPage = link.getAttribute("href")?.split("/").pop();
+    if (linkPage === currentPage) link.classList.add("active");
+  });
 
-if (localStorage.getItem("darkMode") === "true") {
-  document.body.classList.add("dark-mode");
-  if (darkToggle) darkToggle.innerHTML = '<i class="fa-solid fa-sun"></i>';
-}
+  // ✅ Carousel
+  const slides = document.querySelectorAll(".carousel-slide");
+  const dotsContainer = document.getElementById("carouselDots");
+  let current = 0;
+  let autoPlay;
 
-// ── Active Navbar Link ──
-const currentPage = window.location.pathname.split("/").pop();
-document.querySelectorAll(".navbar nav a, .navbar nav .dropbt").forEach(link => {
-  const linkPage = link.getAttribute("href")?.split("/").pop();
-  if (linkPage === currentPage) {
-    link.classList.add("active");
+  slides.forEach((_, i) => {
+    const dot = document.createElement("div");
+    dot.className = "carousel-dot" + (i === 0 ? " active" : "");
+    dot.addEventListener("click", () => goTo(i));
+    dotsContainer.appendChild(dot);
+  });
+
+  function goTo(index) {
+    slides[current].classList.remove("active");
+    dotsContainer.children[current].classList.remove("active");
+    current = (index + slides.length) % slides.length;
+    slides[current].classList.add("active");
+    dotsContainer.children[current].classList.add("active");
   }
-});
-// ── Carousel ──
-const slides = document.querySelectorAll(".carousel-slide");
-const dotsContainer = document.getElementById("carouselDots");
-let current = 0;
-let autoPlay;
 
-// Dots বানাও
-slides.forEach((_, i) => {
-  const dot = document.createElement("div");
-  dot.className = "carousel-dot" + (i === 0 ? " active" : "");
-  dot.addEventListener("click", () => goTo(i));
-  dotsContainer.appendChild(dot);
-});
+  function startAutoPlay() {
+    autoPlay = setInterval(() => goTo(current + 1), 3000);
+  }
 
-function goTo(index) {
-  slides[current].classList.remove("active");
-  dotsContainer.children[current].classList.remove("active");
-  current = (index + slides.length) % slides.length;
-  slides[current].classList.add("active");
-  dotsContainer.children[current].classList.add("active");
-}
+  document.getElementById("carouselPrev")?.addEventListener("click", () => {
+    clearInterval(autoPlay);
+    goTo(current - 1);
+    startAutoPlay();
+  });
 
-function startAutoPlay() {
-  autoPlay = setInterval(() => goTo(current + 1), 3000);
-}
+  document.getElementById("carouselNext")?.addEventListener("click", () => {
+    clearInterval(autoPlay);
+    goTo(current + 1);
+    startAutoPlay();
+  });
 
-document.getElementById("carouselPrev")?.addEventListener("click", () => {
-  clearInterval(autoPlay);
-  goTo(current - 1);
   startAutoPlay();
+
+  // ✅ OTP Modal Close
+  document.getElementById("otpClose")?.addEventListener("click", () => {
+    otpModal.classList.remove("active");
+  });
+
+  // ✅ OTP Submit
+  document.getElementById("otpSubmit")?.addEventListener("click", async () => {
+    const otp       = document.getElementById("otpInput").value.trim();
+    const studentID = localStorage.getItem("pendingStudentID");
+
+    if (!otp || otp.length !== 6) {
+      showToast("Please enter 6-digit OTP!", true);
+      return;
+    }
+
+    try {
+      const res  = await fetch(`${BASE_URL}/api/members/verify-otp`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ studentID, otp })
+      });
+      const data = await res.json();
+
+      if (res.ok) {
+        otpModal.classList.remove("active");
+        localStorage.removeItem("pendingStudentID");
+        loginModal.classList.add("active");
+        document.getElementById("loginID").value = studentID;
+        showToast("✓ Email verified! You can now login.");
+      } else {
+        showToast(data?.message || "Invalid OTP!", true);
+      }
+    } catch {
+      showToast("Could not connect to server!", true);
+    }
+  });
+
+  // ✅ Resend OTP
+  document.getElementById("resendOTP")?.addEventListener("click", async () => {
+    const studentID = localStorage.getItem("pendingStudentID");
+    if (!studentID) return;
+
+    try {
+      const res  = await fetch(`${BASE_URL}/api/members/resend-otp`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ studentID })
+      });
+      const data = await res.json();
+      if (res.ok) {
+        showToast("✓ OTP resent to your email!");
+      } else {
+        showToast(data?.message || "Failed to resend OTP!", true);
+      }
+    } catch {
+      showToast("Could not connect to server!", true);
+    }
+  });
+
+  // ── FAQ Show More ──
+const faqItems = document.querySelectorAll(".faq-item");
+const showMoreBtn = document.getElementById("faqShowMore");
+
+// প্রথম 3টা দেখাও
+faqItems.forEach((item, i) => {
+  if (i >= 3) item.style.display = "none";
 });
 
-document.getElementById("carouselNext")?.addEventListener("click", () => {
-  clearInterval(autoPlay);
-  goTo(current + 1);
-  startAutoPlay();
+showMoreBtn?.addEventListener("click", () => {
+  const isHidden = showMoreBtn.textContent.includes("Show");
+  faqItems.forEach((item, i) => {
+    if (i >= 3) item.style.display = isHidden ? "block" : "none";
+  });
+  showMoreBtn.textContent = isHidden ? "Show Less ▲" : "Show More ▼";
 });
-
-startAutoPlay();
-
 });

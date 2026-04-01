@@ -293,6 +293,7 @@ body {
 .uni-title p {
   font-size: 12px;
   color: rgba(255,255,255,0.75);
+  font-family: 'Crimson Text', serif;
 }
 
 .university-style h3 {
@@ -354,6 +355,7 @@ body {
   padding-bottom: 14px;
   border-bottom: 2px solid #eef0ff;
   margin: 0;
+  font-family: 'Cinzel', serif ;
 }
 
 .login-body input {
@@ -362,10 +364,11 @@ body {
   padding: 12px 16px;
   font-size: 15px;
   border-radius: 8px;
-  border: 1.5px solid #dde1ff;
-  background: #fafbff;
+   border: 1.5px solid #dde1ff !important;
+  background: #fafbff !important;
   margin: 0;
   transition: border-color 0.2s ease;
+  font-family: 'Crimson Text', serif; 
 }
 
 .login-body input:focus {
@@ -382,7 +385,9 @@ body {
   background: linear-gradient(135deg, #2B2E83, #3a4fcf);
   color: white;
   border: none;
-  border-radius: 8px;
+  border-radius: 8px !important; /* ✅ কম rounded */
+  font-family: 'Cinzel', serif !important;
+  letter-spacing: 1px;
   cursor: pointer;
   margin: 4px 0 0;
   transition: opacity 0.2s ease;
@@ -394,10 +399,15 @@ body {
 
 .login-body p {
   text-align: center;
-  font-size: 13px;
+  font-size: 12px;
+  font-family: 'Cinzel', serif ;
   color: #777;
   margin: 0;
   padding-bottom: 4px;
+}
+/* Register here */
+.login-body p span {
+  font-family: 'Cinzel', serif ;
 }
 
 .university-style > p {
@@ -1549,3 +1559,4 @@ body.dark-mode .login-body p {
     height: 250px;
   }
 }
+

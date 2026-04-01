@@ -24,6 +24,7 @@ const MemberSchema = new mongoose.Schema({
 
   email: { 
     type: String, required: true,
+    unique: true,
     validate: {
       validator: v => /^[\w.-]+@gmail\.com$/.test(v),
       message: props => `${props.value} is not a valid Gmail!`
@@ -36,10 +37,16 @@ const MemberSchema = new mongoose.Schema({
       message: props => `${props.value} is not a valid Bangladeshi phone number!`
     }
   },
+  // models/member.js এ এই দুইটা field যোগ করো
+otp:       { type: String, default: "" },
+otpExpiry: { type: Date,   default: null },
+isVerified: { type: Boolean, default: false }, // আগে true ছিল → false করো
+  role: { type: String, enum: ["member", "admin"], default: "member" },
   password: { type: String, required: true },
   isVerified: { type: Boolean, default: true },
   photo: { type: String, default: "" } 
 });
+
 
 
 module.exports = mongoose.model("Member", MemberSchema);
