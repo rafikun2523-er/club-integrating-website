@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Events — Unified Club Portal BAUET</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/events.css">
+</head>
+<body>
+<nav class="navbar">
+  <a class="nav-logo" href="index.html">
+    <div class="logo-circle">LOGO</div>
+    <span class="nav-brand">Unified Club Portal</span>
+  </a>
+  <div class="nav-links">
+    <a class="nav-link" href="../html code/index.html">Home</a>
+    <a class="nav-link" href="../html code/club.html">Clubs</a>
+    <a class="nav-link active" href="events.html">Events</a>
+    <a class="nav-link" href="../html code/about.html">About</a>
+    <a class="nav-link" href="../html code/admin.html">Admin</a>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="breadcrumb">Home / Events</div>
+  <h1>All Events</h1>
+  <p>Stay updated with everything happening at BAUET.</p>
+</div>
+
+<div class="section bg-light">
+  <div class="events-filter">
+    <input type="text" id="search-input" placeholder="🔍 Search events..." oninput="filterEvents()">
+    <select id="club-filter" onchange="filterEvents()">
+      <option value="">All Clubs</option>
+      <option value="Computer Society">Computer Society</option>
+      <option value="Debate Club">Debate Club</option>
+      <option value="Cultural Club">Cultural Club</option>
+      <option value="Photography Club">Photography Club</option>
+      <option value="Sports Club">Sports Club</option>
+    </select>
+    <select id="status-filter" onchange="filterEvents()">
+      <option value="">All Status</option>
+      <option value="open">Registration Open</option>
+      <option value="soon">Upcoming</option>
+    </select>
+  </div>
+  <div class="events-list" id="events-container"></div>
+</div>
+
+<footer class="footer">
+  <div class="footer-grid">
+    <div><div class="footer-brand">🎓 Unified Club Portal</div><div class="footer-about">BAUET's central digital hub for all club activities.</div></div>
+    <div><div class="footer-col-title">Quick Links</div><div class="footer-links"><a class="footer-link" href="index.html">Home</a><a class="footer-link" href="clubs.html">Clubs</a><a class="footer-link" href="events.html">Events</a><a class="footer-link" href="about.html">About</a></div></div>
+    <div><div class="footer-col-title">Contact</div><div class="footer-links"><span class="footer-link">📍 BAUET, Natore</span><span class="footer-link">✉️ info@bauet.ac.bd</span></div></div>
+    <div><div class="footer-col-title">Follow Us</div><div class="footer-links"><span class="footer-link">Facebook</span><span class="footer-link">LinkedIn</span></div></div>
+  </div>
+  <div class="footer-bottom">© 2026 Unified Club Portal, BAUET · All Rights Reserved</div>
+</footer>
+<script src="../java script/events.js"></script>
+</body>
+</html>

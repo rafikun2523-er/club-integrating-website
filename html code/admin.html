@@ -1,307 +1,155 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Admin Dashboard</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<link rel="stylesheet" href="../css/style.css">
-<link rel="stylesheet" href="../css/admin.css">
-
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin — Unified Club Portal BAUET</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/admin.css">
 </head>
-
 <body>
 
-<!-- ===== NAVBAR ===== -->
-<div class="navbar">
-
-<div class="logo">
-<img src="../pic/anotherlogo.png">
-<span>Unified Club Portal</span>
+<div class="admin-topbar">
+  <div class="admin-tb-left">
+    <div class="tb-logo">BCS</div>
+    <span class="admin-tb-title">BAUET Computer Society — Admin</span>
+  </div>
+  <div class="admin-tb-right">
+    <div class="tb-notif" onclick="switchPanel('approvals')">
+      <span style="font-size:18px;color:white;">🔔</span>
+      <div class="notif-dot"></div>
+    </div>
+    <span class="tb-badge-a">Admin Panel</span>
+    <a class="tb-exit" href="../html code/index.html">← Exit Admin</a>
+  </div>
 </div>
 
-<nav>
-<a href="../html code/index.html">Home</a>
-<a href="../html code/club.html">Clubs</a>
-<a href="../html code/about.html">About</a>
-<a href="#" class="active-link">Admin</a>
-</nav>
+<div class="admin-layout">
+  <div class="sidebar">
+    <div class="sb-section">MAIN</div>
+    <div class="sb-item active" id="sb-dashboard"     onclick="switchPanel('dashboard')"><span>📊 Dashboard</span></div>
+    <div class="sb-item"        id="sb-members"       onclick="switchPanel('members')"><span>👥 Members</span></div>
+    <div class="sb-item"        id="sb-approvals"     onclick="switchPanel('approvals')"><span>✅ Approvals</span><span class="sb-badge" id="approval-badge">5</span></div>
+    <div class="sb-section">MANAGE</div>
+    <div class="sb-item"        id="sb-events"        onclick="switchPanel('events')"><span>📅 Events</span></div>
+    <div class="sb-item"        id="sb-announcements" onclick="switchPanel('announcements')"><span>📢 Announcements</span></div>
+    <div class="sb-item"        id="sb-achievements"  onclick="switchPanel('achievements')"><span>🏆 Achievements</span></div>
+    <div class="sb-section">SYSTEM</div>
+    <div class="sb-item"        id="sb-settings"      onclick="switchPanel('settings')"><span>⚙️ Settings</span></div>
+  </div>
 
-</div>
+  <div class="admin-content">
 
-
-<!-- ===== DASHBOARD ===== -->
-<section class="admin-container">
-
-<h1 class="dashboard-title">
-<i class="fas fa-chart-line"></i> Admin Dashboard
-</h1>
-
-
-<!-- ===== ANALYTICS CARDS ===== -->
-
-<div class="analytics">
-
-<div class="card">
-<i class="fas fa-users"></i>
-<h3>Total Students</h3>
-<p>150</p>
-</div>
-
-<div class="card">
-<i class="fas fa-layer-group"></i>
-<h3>Total Clubs</h3>
-<p>8</p>
-</div>
-
-<div class="card">
-<i class="fas fa-calendar"></i>
-<h3>Total Events</h3>
-<p>5</p>
-</div>
-
-</div>
-
-
-<!-- ===== MANAGE CLUBS ===== -->
-
-<div class="admin-section">
-
-<h2><i class="fas fa-users-cog"></i> Manage Clubs</h2>
-
-
-
-<table>
-
-<tr>
-<th>Club</th>
-<th>President</th>
-<th> Vice President</th>
-<th>Action</th>
-</tr>
-
-<tr>
-<td>BAUET Computer Society</td>
-<td>Md.Ratul Hasan</td>
-<td>Md.Nasim Ahmed <br>Mst.Maisha Tasnim</td>
-<td>
-<button>Edit</button>
-<button>Delete</button>
-</td>
-</tr>
-
-</table>
-
-
-</div>
-
-
-<!-- ===== MANAGE EVENTS ===== -->
-
-<div class="admin-section">
-
-<h2><i class="fas fa-calendar-alt"></i> Manage Events</h2>
-
-<button class="admin-btn" onclick="addEvent()">Add Event</button>
-
-<table>
-
-<tr>
-<th>Event</th>
-<th>Date</th>
-<th>Action</th>
-</tr>
-
-<tr>
-<td>Programming Contest</td>
-<td>20 June</td>
-<td>
-<button>Edit</button>
-<button>Delete</button>
-</td>
-</tr>
-
-<tr>
-<td>Mind Storm</td>
-<td>10 May</td>
-<td>
-<button>Edit</button>
-<button>Delete</button>
-</td>
-</tr>
-<tr>
-<td>Competitive Programming</td>
-<td>15 January</td>
-<td>
-<button>Edit</button>
-<button>Delete</button>
-</td>
-</tr>
-
-</table>
-
-
-<!-- ===== NOTICES ===== -->
-
-<div class="admin-section">
-
-<h2><i class="fas fa-bullhorn"></i> Post Notice</h2>
-
-<button class="admin-btn" onclick="addNotice()">Publish Notice</button>
-
-<textarea id="noticeText" placeholder="Write announcement..."></textarea>
-
-
-
-</div>
-
-
-
-<!-- ===== STUDENTS ===== -->
-
-<div class="admin-section">
-
-<h2><i class="fas fa-user-graduate"></i> Student Members</h2>
-
-<button class="admin-btn">Import CSV</button>
-
-<table>
-
-<tr>
-<th>Name</th>
-<th>ID</th>
-<th>Department</th>
-</tr>
-
-<tr>
-<td>Ali</td>
-<td>221-35</td>
-<td>CSE</td>
-</tr>
-
-</table>
-
-</div>
-
-
-
-<!-- ===== EVENT CALENDAR ===== -->
-
-<div class="admin-section">
-
-<h2><i class="fas fa-calendar-week"></i> Event Calendar</h2>
-
-<div class="calendar-box">
-Calendar integration will appear here
-</div>
-
-</div>
-
-</section>
-<!-- Footer section -->
-<footer class="contact-footer">
-  <div class="footer-container">
-
-    <div class="footer-logo">
-      <img src="../pic/anotherlogo.png" alt="BAUET Logo">
-      <h2>BAUET Computer Club</h2>
-
-      <div class="social-icons">
-        <i class="fab fa-facebook-f"></i>
-        <i class="fab fa-x-twitter"></i>
-        <i class="fab fa-youtube"></i>
-        <i class="fab fa-linkedin-in"></i>
+    <!-- DASHBOARD -->
+    <div class="a-panel active" id="panel-dashboard">
+      <div class="stats-row">
+        <div class="stat-card-a"><div class="slabel">Total Members</div><div class="snum">24</div><div class="ssub">+3 this week</div></div>
+        <div class="stat-card-a"><div class="slabel">Upcoming Events</div><div class="snum">2</div><div class="ssub">Next: Programming Contest</div></div>
+        <div class="stat-card-a"><div class="slabel">Pending Approvals</div><div class="snum red">5</div><div class="ssub red">Needs attention</div></div>
+        <div class="stat-card-a"><div class="slabel">Announcements</div><div class="snum">3</div><div class="ssub">Active</div></div>
+      </div>
+      <div class="agrid2">
+        <div class="acard">
+          <div class="acard-head"><span class="acard-title">Recent Members</span><button class="abtn light" onclick="switchPanel('members')">View All</button></div>
+          <div class="mrow"><div class="minfo"><div class="avt">TT</div><span>Tahsina Tasnim</span></div><span class="db">CSE</span><button class="abtn red">Remove</button></div>
+          <div class="mrow"><div class="minfo"><div class="avt">SR</div><span>Sakib Rahman</span></div><span class="db">EEE</span><button class="abtn red">Remove</button></div>
+          <div class="mrow"><div class="minfo"><div class="avt">RA</div><span>Raisa Akter</span></div><span class="db">CSE</span><button class="abtn red">Remove</button></div>
+        </div>
+        <div class="acard">
+          <div class="acard-head"><span class="acard-title">Manage Events</span><button class="abtn blue" onclick="openMod('event-modal')">+ Add Event</button></div>
+          <div class="ev-row"><div><div class="evn">Programming Contest</div><div class="evd">20 June 2026</div></div><div class="rb"><button class="abtn light">Edit</button><button class="abtn red">Delete</button></div></div>
+          <div class="ev-row"><div><div class="evn">Mind Storm 2026</div><div class="evd">10 July 2026</div></div><div class="rb"><button class="abtn light">Edit</button><button class="abtn red">Delete</button></div></div>
+        </div>
+      </div>
+      <div class="agrid2">
+        <div class="acard"><div class="acard-head"><span class="acard-title">Post Announcement</span><button class="abtn blue" onclick="publishAnnounce()">Publish</button></div><textarea class="abox" id="announce-input" placeholder="Write announcement here..."></textarea></div>
+        <div class="acard">
+          <div class="acard-head"><span class="acard-title">Achievements</span><button class="abtn blue" onclick="openMod('ach-modal')">+ Add</button></div>
+          <div id="ach-dash">
+            <div class="ach-row"><span>🏅 ICPC 2019 — 76th place</span><button class="abtn red">Delete</button></div>
+            <div class="ach-row"><span>🥇 Robolution 2019 — Champion</span><button class="abtn red">Delete</button></div>
+          </div>
+        </div>
       </div>
     </div>
 
-    <div class="footer-links">
-      <h3>Quick Links</h3>
-      <a href="#">About Us</a>
-      <a href="#">Our Members</a>
-      <a href="#">Events</a>
-      <a href="#">Achievements</a>
-    </div>
-
-    <div class="footer-address">
-      <h3>Address</h3>
-      <p>BAUET Campus</p>
-      <p>Qadirabad Cantonment,Dayarampur</p>
-      <p>Natore, Bangladesh</p>
-    </div>
-
-    <div class="footer-contact">
-      <h3>Contact</h3>
-      <p>Phone: +880 1XXXXXXXXX</p>
-      <p>Email: computerclub@bauet.ac.bd</p>
-    </div>
-
-  </div>
-
-  <div class="footer-bottom">
-    Copyright ©2026, BAUET Computer Club. All Rights Reserved.
-  </div>
-</footer>
-
-<!-- Login Modal in Join us option -->
-<div class="modal" id="loginModal">
-  <div class="modal-content university-style">
-
-    <div class="uni-header">
-      <img src="../pic/anotherlogo.png" alt="BAUET Logo">
-
-      <div class="uni-title">
-        <h2>BAUET</h2>
-        <p>Bangladesh Army University of Engineering & Technology</p>
+    <!-- MEMBERS -->
+    <div class="a-panel" id="panel-members">
+      <div class="acard">
+        <div class="acard-head"><span class="acard-title">All Members</span><button class="abtn blue" onclick="openMod('member-modal')">+ Add Member</button></div>
+        <div class="sbar">
+          <input type="text" placeholder="🔍 Search by name or ID..." oninput="filterMembers(this.value)">
+          <select onchange="filterDept(this.value)"><option value="">All Departments</option><option value="CSE">CSE</option><option value="EEE">EEE</option><option value="CE">CE</option><option value="ME">ME</option></select>
+        </div>
+        <table class="atable"><thead><tr><th>Name</th><th>Student ID</th><th>Department</th><th>Joined</th><th>Status</th><th>Action</th></tr></thead><tbody id="members-tbody"></tbody></table>
       </div>
     </div>
 
-    <span class="close">&times;</span>
+    <!-- APPROVALS -->
+    <div class="a-panel" id="panel-approvals">
+      <div class="acard">
+        <div class="acard-head"><span class="acard-title">Pending Join Requests</span><div style="display:flex;gap:8px;"><button class="abtn green" onclick="approveAll()">Approve All</button><button class="abtn red" onclick="rejectAll()">Reject All</button></div></div>
+        <div id="approvals-list"></div>
+      </div>
+    </div>
 
-    <h3 style="margin-top:15px;">
-      Sign in with your student ID and password
-    </h3>
+    <!-- EVENTS -->
+    <div class="a-panel" id="panel-events">
+      <div class="acard">
+        <div class="acard-head"><span class="acard-title">All Events</span><button class="abtn blue" onclick="openMod('event-modal')">+ Add Event</button></div>
+        <table class="atable"><thead><tr><th>Event Name</th><th>Date</th><th>Venue</th><th>Status</th><th>Action</th></tr></thead><tbody id="events-tbody"></tbody></table>
+      </div>
+    </div>
 
-    <input type="text" id="loginID" placeholder="Student ID">
-    <input type="password" id="loginPassword" placeholder="Password">
+    <!-- ANNOUNCEMENTS -->
+    <div class="a-panel" id="panel-announcements">
+      <div class="acard" style="margin-bottom:16px;">
+        <div class="acard-head"><span class="acard-title">New Announcement</span></div>
+        <textarea class="abox" style="height:90px;" id="announce-input2" placeholder="Write announcement here..."></textarea>
+        <div style="margin-top:10px;display:flex;gap:8px;">
+          <button class="abtn blue" style="padding:7px 18px;" onclick="publishAnnounce2()">Publish</button>
+          <select style="padding:6px 12px;border:1px solid #dde0ff;border-radius:8px;font-size:12px;color:#555;outline:none;"><option>All Members</option><option>CSE Only</option><option>EEE Only</option></select>
+        </div>
+      </div>
+      <div class="acard">
+        <div class="acard-head"><span class="acard-title">Published Announcements</span></div>
+        <div id="announce-list">
+          <div class="ann-item"><div class="ann-title">Hackathon Registration Open</div><div class="ann-body">Registration for BAUET Hackathon 2026 is now open. Last date: 13 April.</div><div class="ann-foot"><span>7 Apr 2026</span><button class="abtn red">Delete</button></div></div>
+          <div class="ann-item"><div class="ann-title">Monthly Meeting — April</div><div class="ann-body">Monthly club meeting on 12 April at 3PM in Room 301.</div><div class="ann-foot"><span>5 Apr 2026</span><button class="abtn red">Delete</button></div></div>
+        </div>
+      </div>
+    </div>
 
-    <button class="login-btn" id="loginSubmit">Login</button>
+    <!-- ACHIEVEMENTS -->
+    <div class="a-panel" id="panel-achievements">
+      <div class="acard">
+        <div class="acard-head"><span class="acard-title">Club Achievements</span><button class="abtn blue" onclick="openMod('ach-modal')">+ Add Achievement</button></div>
+        <table class="atable"><thead><tr><th>Title</th><th>Year</th><th>Category</th><th>Action</th></tr></thead>
+        <tbody id="ach-tbody">
+          <tr><td>🏅 ICPC — 76th place</td><td>2019</td><td><span class="db" style="background:#fff8e8;color:#a06800;">Competition</span></td><td><button class="abtn red">Delete</button></td></tr>
+          <tr><td>🥇 Robolution — Champion</td><td>2019</td><td><span class="db" style="background:#e8fff3;color:#1a7a4a;">Robotics</span></td><td><button class="abtn red">Delete</button></td></tr>
+          <tr><td>🎖️ NSU Tech Fest — 2nd Place</td><td>2022</td><td><span class="db" style="background:#fff0f0;color:#a32d2d;">Tech Fest</span></td><td><button class="abtn red">Delete</button></td></tr>
+        </tbody></table>
+      </div>
+    </div>
 
-    <p style="margin-top:10px;">
-      Not a member?
-      <span id="openRegister" style="color:#2f80ed;cursor:pointer;">
-        Register here
-      </span>
-    </p>
+    <!-- SETTINGS -->
+    <div class="a-panel" id="panel-settings">
+      <div class="agrid2">
+        <div class="acard"><div class="acard-head"><span class="acard-title">Club Information</span></div><div class="sform"><label>Club Name</label><input value="BAUET Computer Society"><label>Faculty Advisor</label><input value="Dr. Md. Rafiqul Islam"><label>Contact Email</label><input value="bcs@bauet.ac.bd"><button class="abtn blue" style="padding:8px 20px;margin-top:6px;" onclick="toast('Settings saved!')">Save Changes</button></div></div>
+        <div class="acard"><div class="acard-head"><span class="acard-title">Admin Account</span></div><div class="sform"><label>Admin Name</label><input value="Anan Rahman"><label>Current Password</label><input type="password" value="12345678"><label>New Password</label><input type="password" placeholder="Enter new password"><button class="abtn blue" style="padding:8px 20px;margin-top:6px;" onclick="toast('Password updated!')">Update Password</button></div></div>
+      </div>
+    </div>
 
   </div>
 </div>
 
-<!-- Registration Modal in join us section-->
-<div class="modal" id="registerModal">
-  <div class="modal-content">
-    <span class="close">&times;</span>
-    <h2>Computer Club Registration</h2>
+<!-- MODALS -->
+<div class="modal-overlay" id="event-modal"><div class="modal"><button class="close-modal" onclick="closeMod('event-modal')">✕</button><div class="modal-title">Add New Event</div><input placeholder="Event Name" id="ev-name"><input type="date" id="ev-date"><input placeholder="Venue" id="ev-venue"><select id="ev-status"><option>Upcoming</option><option>Registration Open</option><option>Completed</option></select><div class="modal-footer"><button class="abtn light" onclick="closeMod('event-modal')">Cancel</button><button class="abtn blue" onclick="addEvent()">Add Event</button></div></div></div>
+<div class="modal-overlay" id="member-modal"><div class="modal"><button class="close-modal" onclick="closeMod('member-modal')">✕</button><div class="modal-title">Add New Member</div><input placeholder="Full Name" id="mem-name"><input placeholder="Student ID" id="mem-id"><select id="mem-dept"><option value="CSE">CSE</option><option value="EEE">EEE</option><option value="CE">CE</option><option value="ME">ME</option></select><div class="modal-footer"><button class="abtn light" onclick="closeMod('member-modal')">Cancel</button><button class="abtn blue" onclick="addMember()">Add Member</button></div></div></div>
+<div class="modal-overlay" id="ach-modal"><div class="modal"><button class="close-modal" onclick="closeMod('ach-modal')">✕</button><div class="modal-title">Add Achievement</div><input placeholder="Achievement Title" id="ach-title"><input placeholder="Year" id="ach-year"><select id="ach-cat"><option>Competition</option><option>Robotics</option><option>Tech Fest</option><option>Other</option></select><div class="modal-footer"><button class="abtn light" onclick="closeMod('ach-modal')">Cancel</button><button class="abtn blue" onclick="addAchievement()">Add</button></div></div></div>
 
-    <input type="text" id="regID" placeholder="Student ID">
-    <input type="text" id="regName" placeholder="Full Name">
-    <input type="text" id="regBatch" placeholder="Batch">
-    <input type="text" id="regDept" placeholder="Department">
-    <input type="email" id="regEmail" placeholder="Email">
-    <input type="text" id="regPhone" placeholder="Phone Number">
-    <input type="password" id="regPassword" placeholder="Password">
-    <input type="password" id="regConfirm" placeholder="Confirm Password">
-
-    <button class="login-btn" id="registerSubmit">
-      Register & Pay
-    </button>
-  </div>
-</div>
-
-
+<div class="toast" id="toast-msg"></div>
 <script src="../java script/admin.js"></script>
-
 </body>
 </html>

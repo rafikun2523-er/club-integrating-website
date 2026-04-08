@@ -1,168 +1,177 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-const batchInput = document.getElementById("regBatch");
-const baseYear = 2015;
-const now = new Date();
-const year = now.getFullYear();
-const month = now.getMonth() + 1;
-let semester;
-if (month <= 6) {
-  semester = 1;
-} else {
-  semester = 2;
-}
-const maxBatch = (year - baseYear) * 2 + semester;
-// set input limits
-batchInput.min = 1;
-batchInput.max = maxBatch;
-batchInput.placeholder = `Batch (1-${maxBatch})`;
+  const BASE_URL = window.location.hostname === "127.0.0.1" || window.location.hostname === "localhost"
+    ? "http://localhost:5000"
+    : `http://${window.location.hostname}:5000`;
 
-  // ---------- Modal Elements ----------
-  const joinBtn = document.getElementById("joinBtn");
-  const loginModal = document.getElementById("loginModal");
-  const registerModal = document.getElementById("registerModal");
-  const closeBtns = document.querySelectorAll(".close");
-  const openRegister = document.getElementById("openRegister");
+  function showToast(msg, isError = false) {
+    const toast = document.createElement("div");
+    toast.textContent = msg;
+    toast.style.cssText = `
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    min-width: 280px;
+    text-align: center;
+    background: ${isError ? "linear-gradient(135deg, #8b0000, #c0392b)" : "linear-gradient(135deg, #1a1d6e, #2B2E83)"};
+    color: white;
+    padding: 12px 32px;
+    border-radius: 10px;
+    font-family: 'Cinzel', serif;
+    font-size: 14px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+    z-index: 9999;
+    `;
+    document.body.appendChild(toast);
+    setTimeout(() => { if (document.body.contains(toast)) document.body.removeChild(toast); }, 3000);
+  }
 
-  // ---------- Registration Elements ----------
+  const batchInput = document.getElementById("regBatch");
+  const baseYear = 2015;
+  const now = new Date();
+  const semester = (now.getMonth() + 1) <= 6 ? 1 : 2;
+  const maxBatch = (now.getFullYear() - baseYear) * 2 + semester;
+  if (batchInput) {
+    batchInput.min = 1;
+    batchInput.max = maxBatch;
+    batchInput.placeholder = `Batch (1-${maxBatch})`;
+  }
+
+  const joinBtn        = document.getElementById("joinBtn");
+  const loginModal     = document.getElementById("loginModal");
+  const registerModal  = document.getElementById("registerModal");
+  const otpModal       = document.getElementById("otpModal");
+  const closeBtns      = document.querySelectorAll(".close");
+  const openRegister   = document.getElementById("openRegister");
   const registerSubmit = document.getElementById("registerSubmit");
+  const loginSubmit    = document.getElementById("loginSubmit");
 
-  // ---------- Login Elements ----------
-  const loginSubmit = document.getElementById("loginSubmit");
-
-  // ---------- Open Login Modal ----------
   joinBtn?.addEventListener("click", () => loginModal.classList.add("active"));
+  document.getElementById("joinBtn2")?.addEventListener("click", () => registerModal.classList.add("active"));
 
-  // ---------- Close Modals ----------
+  // ✅ OTP modal skip করো
   closeBtns.forEach(btn => {
     btn.addEventListener("click", () => {
+      if (btn.id === "otpClose") {
+        otpModal.classList.remove("active");
+        return;
+      }
       loginModal.classList.remove("active");
       registerModal.classList.remove("active");
     });
   });
 
+  // ✅ OTP modal click outside skip করো
+  document.querySelectorAll(".modal").forEach(modal => {
+    modal.addEventListener("click", (e) => {
+      if (modal.id === "otpModal") return;
+      if (e.target === modal) {
+        loginModal.classList.remove("active");
+        registerModal.classList.remove("active");
+      }
+    });
+  });
 
-
-  // ---------- Open Register Modal from Login ----------
   openRegister?.addEventListener("click", () => {
     loginModal.classList.remove("active");
     registerModal.classList.add("active");
   });
 
-  // ---------- Registration ----------
   registerSubmit?.addEventListener("click", async () => {
-  const id = document.getElementById("regID").value.trim();
-  const name = document.getElementById("regName").value.trim();
-  const batch = Number(document.getElementById("regBatch").value.trim());
-  const dept = document.getElementById("regDept").value.trim();
-  const email = document.getElementById("regEmail").value.trim();
-  const phone = document.getElementById("regPhone").value.trim();
-  const password = document.getElementById("regPassword").value;
-  const confirm = document.getElementById("regConfirm").value;
+    const id       = document.getElementById("regID").value.trim();
+    const name     = document.getElementById("regName").value.trim();
+    const batch    = Number(document.getElementById("regBatch").value.trim());
+    const dept     = document.getElementById("regDept").value.trim();
+    const email    = document.getElementById("regEmail").value.trim();
+    const phone    = document.getElementById("regPhone").value.trim();
+    const password = document.getElementById("regPassword").value;
+    const confirm  = document.getElementById("regConfirm").value;
 
-  // ---------- Validation ----------
-  if (!id || !name || !batch || !dept || !email || !phone || !password || !confirm) {
-    alert("Please fill all required fields!");
-    return;
-  }
-  if (password !== confirm) {
-    alert("Passwords do not match!");
-    return;
-  }
-  if (password.length < 6) {
-    alert("Password must be at least 6 characters long!");
-    return;
-  }
-
-  try {
-    // ---------- Fetch call ----------
-    const res = await fetch("http://localhost:5000/api/members/register", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ studentID: id, name, batch, department: dept, email, phone, password })
-    });
-
-   let data;
-try {
-  data = await res.json(); // try parsing JSON
-} catch (jsonErr) {
-  console.error("Server returned invalid JSON:", jsonErr);
-  data = {}; // fallback to empty object
-}
-
-if (res.ok) {
-  alert("🎉 Registration Successful! You can now login.");
-  registerModal.classList.remove("active");
-  loginModal.classList.add("active");
-  document.getElementById("loginID").value = id;
-} 
-else {
-  // data might be empty, so use optional chaining
-  console.error("Server error response:", data?.message || data);
-  alert(data?.message || "Registration failed!");
-}
-
-  } catch (err) {
-    console.error("Fetch error:", err);
-    alert("Could not connect to server. Make sure the backend is running and CORS is enabled.");
-  }
-});
-
-// ---------- Login ----------
-loginSubmit?.addEventListener("click", async () => {
-  const id = document.getElementById("loginID").value.trim();
-  const password = document.getElementById("loginPassword").value.trim();
-
-  if (!id || !password) {
-    alert("Please enter both ID and password");
-    return;
-  }
-
-  try {
-    const res = await fetch("http://localhost:5000/api/members/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ studentID: id, password })
-    });
-
-    const data = await res.json();
-
-    if (res.ok) {
-      // ✅ JWT token stored in localStorage
-       console.log("JWT Token:", data.token); 
-      localStorage.setItem("token", data.token);
-      // member data stored in localStorage
-      localStorage.setItem("memberData", JSON.stringify(data.member));
-
-      alert("Login Successful!");
-      // redirect to profile page
-      window.location.href = "bcsDashboard.html";
-    } else {
-      alert(data?.message || "Login failed!");
+    if (!id || !name || !batch || !dept || !email || !phone || !password || !confirm) {
+      showToast("Please fill all required fields!", true); return;
     }
+    if (password !== confirm) { showToast("Passwords do not match!", true); return; }
+    if (password.length < 6) { showToast("Password must be at least 6 characters!", true); return; }
 
-  } catch (err) {
-    console.error("Fetch error:", err);
-    alert("Could not connect to server!");
-  }
-});
-  // ---------- Scroll Reveal Animation ----------
+    try {
+      const res = await fetch(`${BASE_URL}/api/members/register`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ studentID: id, name, batch, department: dept, email, phone, password })
+      });
+      let data;
+      try { data = await res.json(); } catch { data = {}; }
+      if (res.ok) {
+        registerModal.classList.remove("active");
+        localStorage.setItem("pendingStudentID", id);
+        otpModal.classList.add("active");
+        showToast("✓ OTP sent to your email!");
+      } else {
+        showToast(data?.message || "Registration failed!", true);
+      }
+    } catch (err) {
+      showToast("Could not connect to server!", true);
+    }
+  });
+
+  loginSubmit?.addEventListener("click", async () => {
+    const id       = document.getElementById("loginID").value.trim();
+    const password = document.getElementById("loginPassword").value.trim();
+    if (!id || !password) { showToast("Please enter both ID and password!", true); return; }
+    try {
+      const res = await fetch(`${BASE_URL}/api/members/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ studentID: id, password })
+      });
+      const data = await res.json();
+      if (res.ok) {
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("memberData", JSON.stringify(data.member));
+        showToast("✓ Login Successful!");
+        setTimeout(() => { window.location.href = "bcsDashboard.html"; }, 1000);
+      } else {
+        showToast(data?.message || "Login failed!", true);
+      }
+    } catch (err) {
+      showToast("Could not connect to server!", true);
+    }
+  });
+
+  // ✅ Eye Toggle
+  document.querySelectorAll(".toggle-eye").forEach(eye => {
+    eye.addEventListener("click", () => {
+      const input = eye.parentElement.querySelector("input");
+      if (input.type === "password") {
+        input.type = "text";
+        eye.classList.replace("fa-eye", "fa-eye-slash");
+      } else {
+        input.type = "password";
+        eye.classList.replace("fa-eye-slash", "fa-eye");
+      }
+    });
+  });
+
   const revealSections = document.querySelectorAll(".why-join, .achievements");
   function scrollReveal() {
-    const triggerBottom = window.innerHeight * 0.85;
+    const triggerBottom = window.innerHeight * 0.9;
     revealSections.forEach(section => {
       const sectionTop = section.getBoundingClientRect().top;
-      if (sectionTop < triggerBottom) section.classList.add("show");
+      if (sectionTop < triggerBottom) {
+        section.classList.add("show");
+        section.querySelectorAll(".join-card, .achievement-card").forEach((card, i) => {
+          setTimeout(() => card.classList.add("show"), i * 150);
+        });
+      }
     });
   }
   window.addEventListener("scroll", scrollReveal);
   window.addEventListener("load", scrollReveal);
+  setTimeout(scrollReveal, 300);
 
-
-
-  // ---------- MVO Section Animation ----------
   const mvoSection = document.querySelector(".mvo-section");
-  const mvoCards = document.querySelectorAll(".mvo-card");
+  const mvoCards   = document.querySelectorAll(".mvo-card");
   function revealMVO() {
     const triggerBottom = window.innerHeight * 0.85;
     if (mvoSection) {
@@ -178,87 +187,236 @@ loginSubmit?.addEventListener("click", async () => {
   window.addEventListener("scroll", revealMVO);
   window.addEventListener("load", revealMVO);
 
-
-
-  // ---------- FAQ Search ----------
-  const faqIcon = document.getElementById("faqSearchIcon");
-  const faqSidebar = document.getElementById("faqSidebar");
-  const faqInput = document.getElementById("faqSearchInput");
-  const faqListItems = document.querySelectorAll("#faqList li");
-
-  faqIcon?.addEventListener("click", () => {
-    faqSidebar.classList.toggle("show");
-    faqInput.value = "";
-    faqListItems.forEach(li => li.classList.remove("hide"));
-    faqInput.focus();
-  });
-
-  faqInput?.addEventListener("input", () => {
-    const query = faqInput.value.toLowerCase();
-    faqListItems.forEach(li => {
-      li.classList.toggle("hide", !li.textContent.toLowerCase().includes(query));
+  document.querySelectorAll(".faq-question-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const item   = btn.parentElement;
+      const isOpen = item.classList.contains("open");
+      document.querySelectorAll(".faq-item").forEach(i => i.classList.remove("open"));
+      if (!isOpen) item.classList.add("open");
     });
   });
 
-
-
-  // ---------- Welcome Popup ----------
   const popup = document.getElementById("welcomePopup");
   popup?.classList.add("show");
-  setTimeout(() => popup?.classList.remove("show"), 4000);
-  
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener('click', function(e) {
-    e.preventDefault();
-    const target = document.querySelector(this.getAttribute('href'));
-    const headerOffset = 70; // navbar height
-    const elementPosition = target.offsetTop;
-    const offsetPosition = elementPosition - headerOffset;
+  setTimeout(() => popup?.classList.remove("show"), 1000);
 
-    window.scrollTo({
-      top: offsetPosition,
-      behavior: "smooth"
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener("click", function (e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute("href"));
+      if (!target) return;
+      window.scrollTo({ top: target.offsetTop - 70, behavior: "smooth" });
     });
   });
-});
 
+  const scrollTopBtn = document.getElementById("scrollTopBtn");
+  window.addEventListener("scroll", () => {
+    scrollTopBtn?.classList.toggle("show", window.scrollY > 400);
+  });
+  scrollTopBtn?.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
 
-
-// === Achievements dynamic display ===
-const achievements = [
-  // You can leave this empty for now to show "No achievements yet"
-  // { title: "Champion – National Programming Contest", description: "...", photo: "..." },
-];
-
-function loadAchievements() {
-  const container = document.getElementById("achievementCards");
-  const noMsg = document.getElementById("noAchievementsMsg");
-
-  container.innerHTML = "";
-
-  if (achievements.length === 0) {
-    noMsg.style.display = "block";
-    return;
-  } else {
+  const achievements = [];
+  function loadAchievements() {
+    const container = document.getElementById("achievementCards");
+    const noMsg     = document.getElementById("noAchievementsMsg");
+    if (!container) return;
+    container.innerHTML = "";
+    if (achievements.length === 0) { noMsg.style.display = "block"; return; }
     noMsg.style.display = "none";
+    achievements.forEach(ach => {
+      const card = document.createElement("div");
+      card.className = "achievement-card";
+      card.innerHTML = `<img src="${ach.photo}" alt="${ach.title}"><div class="achievement-info"><h3>${ach.title}</h3><p>${ach.description}</p></div>`;
+      container.appendChild(card);
+    });
+  }
+  loadAchievements();
+
+  // ✅ Hamburger
+  const hamburgerBtn = document.getElementById("hamburgerBtn");
+  const mobileNav    = document.querySelector(".navbar nav");
+
+  hamburgerBtn?.addEventListener("click", () => {
+    hamburgerBtn.classList.toggle("active");
+    mobileNav.classList.toggle("open");
+  });
+
+  const dropdown = document.querySelector(".navbar .dropdown");
+  const dropbtn  = dropdown?.querySelector("a.dropbtn");
+  dropbtn?.addEventListener("click", (e) => {
+    if (window.innerWidth <= 768) { e.preventDefault(); dropdown.classList.toggle("open"); }
+  });
+
+  document.getElementById("mobileLoginBtn")?.addEventListener("click", () => {
+    loginModal.classList.add("active");
+    mobileNav.classList.remove("open");
+    hamburgerBtn.classList.remove("active");
+  });
+
+  document.addEventListener("click", (e) => {
+    if (!e.target.closest("header.navbar")) {
+      mobileNav?.classList.remove("open");
+      hamburgerBtn?.classList.remove("active");
+    }
+  });
+
+  document.getElementById("eventsNavLink")?.addEventListener("click", (e) => {
+    e.preventDefault();
+    const token = localStorage.getItem("token");
+    if (token) {
+      window.location.href = "../html code/bcsEvents.html?tab=past";
+    } else {
+      loginModal.classList.add("active");
+    }
+  });
+
+  document.getElementById("footerEventsLink")?.addEventListener("click", (e) => {
+    e.preventDefault();
+    const token = localStorage.getItem("token");
+    if (token) {
+      window.location.href = "../html code/bcsEvents.html?tab=past";
+    } else {
+      loginModal.classList.add("active");
+    }
+  });
+
+  // ✅ Dark Mode
+  const darkToggle = document.getElementById("darkModeToggle");
+  darkToggle?.addEventListener("click", () => {
+    document.body.classList.toggle("dark-mode");
+    const isDark = document.body.classList.contains("dark-mode");
+    localStorage.setItem("darkMode", isDark);
+    darkToggle.innerHTML = isDark
+      ? '<i class="fa-solid fa-sun"></i>'
+      : '<i class="fa-solid fa-moon"></i>';
+  });
+
+  if (localStorage.getItem("darkMode") === "true") {
+    document.body.classList.add("dark-mode");
+    if (darkToggle) darkToggle.innerHTML = '<i class="fa-solid fa-sun"></i>';
   }
 
-  achievements.forEach(ach => {
-    const card = document.createElement("div");
-    card.className = "achievement-card";
-    card.innerHTML = `
-      <img src="${ach.photo}" alt="${ach.title}">
-      <div class="achievement-info">
-        <h3>${ach.title}</h3>
-        <p>${ach.description}</p>
-      </div>
-    `;
-    container.appendChild(card);
+  // ✅ Active Navbar Link
+  const currentPage = window.location.pathname.split("/").pop();
+  document.querySelectorAll(".navbar nav a, .navbar nav .dropbt").forEach(link => {
+    const linkPage = link.getAttribute("href")?.split("/").pop();
+    if (linkPage === currentPage) link.classList.add("active");
   });
-}
 
-// Load achievements on page load
-// just call loadAchievements() inside top DOMContentLoaded
-loadAchievements();
+  // ✅ Carousel
+  const slides = document.querySelectorAll(".carousel-slide");
+  const dotsContainer = document.getElementById("carouselDots");
+  let current = 0;
+  let autoPlay;
 
+  slides.forEach((_, i) => {
+    const dot = document.createElement("div");
+    dot.className = "carousel-dot" + (i === 0 ? " active" : "");
+    dot.addEventListener("click", () => goTo(i));
+    dotsContainer.appendChild(dot);
+  });
+
+  function goTo(index) {
+    slides[current].classList.remove("active");
+    dotsContainer.children[current].classList.remove("active");
+    current = (index + slides.length) % slides.length;
+    slides[current].classList.add("active");
+    dotsContainer.children[current].classList.add("active");
+  }
+
+  function startAutoPlay() {
+    autoPlay = setInterval(() => goTo(current + 1), 3000);
+  }
+
+  document.getElementById("carouselPrev")?.addEventListener("click", () => {
+    clearInterval(autoPlay);
+    goTo(current - 1);
+    startAutoPlay();
+  });
+
+  document.getElementById("carouselNext")?.addEventListener("click", () => {
+    clearInterval(autoPlay);
+    goTo(current + 1);
+    startAutoPlay();
+  });
+
+  startAutoPlay();
+
+  // ✅ OTP Modal Close
+  document.getElementById("otpClose")?.addEventListener("click", () => {
+    otpModal.classList.remove("active");
+  });
+
+  // ✅ OTP Submit
+  document.getElementById("otpSubmit")?.addEventListener("click", async () => {
+    const otp       = document.getElementById("otpInput").value.trim();
+    const studentID = localStorage.getItem("pendingStudentID");
+
+    if (!otp || otp.length !== 6) {
+      showToast("Please enter 6-digit OTP!", true);
+      return;
+    }
+
+    try {
+      const res  = await fetch(`${BASE_URL}/api/members/verify-otp`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ studentID, otp })
+      });
+      const data = await res.json();
+
+      if (res.ok) {
+        otpModal.classList.remove("active");
+        localStorage.removeItem("pendingStudentID");
+        loginModal.classList.add("active");
+        document.getElementById("loginID").value = studentID;
+        showToast("✓ Email verified! You can now login.");
+      } else {
+        showToast(data?.message || "Invalid OTP!", true);
+      }
+    } catch {
+      showToast("Could not connect to server!", true);
+    }
+  });
+
+  // ✅ Resend OTP
+  document.getElementById("resendOTP")?.addEventListener("click", async () => {
+    const studentID = localStorage.getItem("pendingStudentID");
+    if (!studentID) return;
+
+    try {
+      const res  = await fetch(`${BASE_URL}/api/members/resend-otp`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ studentID })
+      });
+      const data = await res.json();
+      if (res.ok) {
+        showToast("✓ OTP resent to your email!");
+      } else {
+        showToast(data?.message || "Failed to resend OTP!", true);
+      }
+    } catch {
+      showToast("Could not connect to server!", true);
+    }
+  });
+
+  // ── FAQ Show More ──
+const faqItems = document.querySelectorAll(".faq-item");
+const showMoreBtn = document.getElementById("faqShowMore");
+
+// প্রথম 3টা দেখাও
+faqItems.forEach((item, i) => {
+  if (i >= 3) item.style.display = "none";
+});
+
+showMoreBtn?.addEventListener("click", () => {
+  const isHidden = showMoreBtn.textContent.includes("Show");
+  faqItems.forEach((item, i) => {
+    if (i >= 3) item.style.display = isHidden ? "block" : "none";
+  });
+  showMoreBtn.textContent = isHidden ? "Show Less ▲" : "Show More ▼";
+});
 });

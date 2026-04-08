@@ -1,130 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>University Clubs</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- CSS -->
-    <link rel="stylesheet" href="../css/style2.css">
-
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clubs — Unified Club Portal BAUET</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/style2.css">
 </head>
-
 <body>
+<nav class="navbar">
+  <a class="nav-logo" href="index.html">
+    <div class="logo-circle">LOGO</div>
+    <span class="nav-brand">Unified Club Portal</span>
+  </a>
+  <div class="nav-links">
+    <a class="nav-link" href="../html code/index.html">Home</a>
+    <a class="nav-link active" href="club.html">Clubs</a>
+    <a class="nav-link" href="../html code/events.html">Events</a>
+    <a class="nav-link" href="../html code/about.html">About</a>
+    <a class="nav-link" href="../html code/admin.html">Admin</a>
+  </div>
+</nav>
 
-<!-- ===== NAVBAR ===== -->
-<div class="navbar">
-    <div class="logo">
-        <img src="../pic/anotherlogo.png" alt="Logo">
-        <span>Unified Club Portal</span>
-    </div>
-    <nav>
-        <a href="../html code/index.html">Home</a>
-        <a href="#" class="active">Clubs</a>
-        <a href="../html code/about.html">About</a>
-    </nav>
+<div class="page-header">
+  <div class="breadcrumb">Home / Clubs</div>
+  <h1>All Clubs</h1>
+  <p>Browse and join any club at BAUET University.</p>
 </div>
 
-<!-- ===== CLUB SECTION WITH BACKGROUND ===== -->
-<section class="club-section">
+<div class="section bg-light">
+  <div class="clubs-grid" id="clubs-grid"></div>
+</div>
 
-    <h1 class="club-heading">Our Clubs</h1>
-
-    <div class="club-container">
-
-        <a href="cse.html" class="club-card">
-            <i class="fas fa-laptop-code"></i>
-            <span>Computer Society</span>
-        </a>
-
-        <a href="../html code/debate.html" class="club-card">
-            <i class="fas fa-microphone"></i>
-            <span>Debating Society</span>
-        </a>
-
-        <a href="../html code/cultural.html" class="club-card">
-            <i class="fas fa-music"></i>
-            <span>Cultural Club</span>
-        </a>
-
-        <a href="../html code/pthotography.html" class="club-card">
-            <i class="fas fa-camera"></i>
-            <span>Photography & Media Club</span>
-        </a>
-
-        <a href="nature.html" class="club-card">
-            <i class="fas fa-leaf"></i>
-            <span>Nature & Environment Club</span>
-        </a>
-
-        <a href="llcb.html" class="club-card">
-            <i class="fas fa-briefcase"></i>
-            <span>Language & Literature Club</span>
-        </a>
-
+<!-- Club Detail Modal -->
+<div class="modal-overlay" id="club-modal">
+  <div class="club-modal-box">
+    <button class="close-btn" id="close-modal">✕</button>
+    <div class="modal-banner" id="modal-banner">
+      <div class="modal-icon" id="modal-icon">💻</div>
     </div>
-
-</section>
-
-<!-- ===== FOOTER ===== -->
-<footer class="contact-footer">
-    <div class="footer-container">
-
-        <!-- Logo Section -->
-        <div class="footer-logo">
-            <img src="../pic/anotherlogo.png" alt="Logo">
-            <h2>Unified Club Portal</h2>
-            <div class="social-icons">
-                <i class="fab fa-facebook-f"></i>
-                <i class="fab fa-youtube"></i>
-                <i class="fab fa-linkedin-in"></i>
-                <i class="fab fa-whatsapp"></i>
-            </div>
-        </div>
-
-        <!-- Clubs -->
-        <div class="footer-box">
-            <h3>Clubs</h3>
-            <a href="computer.html">Computer</a>
-            <a href="debate.html">Debate</a>
-            <a href="cultural.html">Cultural</a>
-            <a href="photography.html">Photo</a>
-            <a href="nature.html">Nature</a>
-            <a href="career.html">Career</a>
-        </div>
-
-        <!-- Quick Links -->
-        <div class="footer-box">
-            <h3>Quick Links</h3>
-            <a href="../html code/index.html">Home</a>
-            <a href="#">Events</a>
-            <a href="#">Join Club</a>
-            <a href="../html code/about.html">About</a>
-        </div>
-
-        <!-- Contact -->
-        <div class="footer-contact">
-            <h3>Contact</h3>
-            <p>BAUET, Qadirabad, Natore</p>
-            <p>info@bauet.ac.bd</p>
-            <p>+880 XXXX-XXXXXX</p>
-        </div>
-
-        <!-- Address -->
-        <div class="footer-address">
-            <h3>University</h3>
-            <p>Bangladesh Army University of Engineering & Technology</p>
-            <p>Established for academic excellence and leadership development.</p>
-        </div>
-
+    <div class="modal-body">
+      <span class="modal-tag" id="modal-tag">Technology</span>
+      <h2 class="modal-name" id="modal-name">Computer Society</h2>
+      <p class="modal-desc" id="modal-desc"></p>
+      <div class="modal-stats">
+        <div class="ms"><div class="ms-num" id="modal-members"></div><div class="ms-label">Members</div></div>
+        <div class="ms"><div class="ms-num" id="modal-events"></div><div class="ms-label">Events/Year</div></div>
+        <div class="ms"><div class="ms-num" id="modal-since"></div><div class="ms-label">Founded</div></div>
+      </div>
+      <div class="modal-team" id="modal-team"></div>
+      <button class="btn-p" style="width:100%;margin-top:16px;text-align:center;">Join This Club</button>
     </div>
+  </div>
+</div>
 
-    <p class="footer-bottom">
-        © 2026 Unified Club Portal | All Rights Reserved
-    </p>
+<footer class="footer">
+  <div class="footer-grid">
+    <div><div class="footer-brand">🎓 Unified Club Portal</div><div class="footer-about">BAUET's central digital hub for all club activities.</div></div>
+    <div><div class="footer-col-title">Quick Links</div><div class="footer-links"><a class="footer-link" href="index.html">Home</a><a class="footer-link" href="clubs.html">Clubs</a><a class="footer-link" href="events.html">Events</a><a class="footer-link" href="about.html">About</a></div></div>
+    <div><div class="footer-col-title">Contact</div><div class="footer-links"><span class="footer-link">📍 BAUET, Natore</span><span class="footer-link">✉️ info@bauet.ac.bd</span></div></div>
+    <div><div class="footer-col-title">Follow Us</div><div class="footer-links"><span class="footer-link">Facebook</span><span class="footer-link">LinkedIn</span></div></div>
+  </div>
+  <div class="footer-bottom">© 2026 Unified Club Portal, BAUET · All Rights Reserved</div>
 </footer>
-
+<script src="../java script/clubs.js"></script>
 </body>
 </html>

@@ -1,83 +1,159 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>My Profile</title>
-
-<link rel="stylesheet" href="../css/bcsProfile.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BAUET Computer Society — My Profile</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/bcsProfile.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 </head>
-
 <body>
 
-<header class="profile-header">
-<h2>My Profile</h2>
+<!-- Navbar -->
+<header class="dashboard-navbar">
+  <div class="logo">
+    <img src="../pic/csepic.jpeg" alt="BAUET Logo">
+    <span>BAUET Computer Society</span>
+  </div>
+  <nav>
+    <a href="../html code/bcsDashboard.html"><i class="fa-solid fa-gauge"></i> Dashboard</a>
+    <a href="../html code/bcsEvents.html"><i class="fa-solid fa-calendar"></i> Events</a>
+    <div class="notification-wrapper">
+      <a href="#" id="notificationBell"><i class="fa-solid fa-bell"></i> Notifications</a>
+      <div id="notificationDropdown" class="notification-dropdown">
+        <h4><i class="fa-solid fa-bell"></i> Notifications</h4>
+        <ul id="notificationList"><li>No new notifications</li></ul>
+      </div>
+    </div>
+  </nav>
+  <div class="menu-icon" id="menuIcon"><i class="fa-solid fa-bars"></i></div>
 </header>
-<!-- Back Arrow Button -->
+
+<!-- Side Menu -->
+<div class="side-menu" id="sideMenu">
+  <div class="side-menu-header">
+    <div class="side-avatar" id="sideAvatar">?</div>
+    <p id="sideName">Member</p>
+  </div>
+  <a href="../html code/bcsDashboard.html"><i class="fa-solid fa-gauge"></i> Dashboard</a>
+  <a href="../html code/bcsProfile.html" class="active-link"><i class="fa-solid fa-user"></i> Profile</a>
+  <a href="../html code/bcsEvents.html"><i class="fa-solid fa-calendar"></i> Events</a>
+  <a href="#"><i class="fa-solid fa-laptop"></i> My Participation</a>
+  <a href="#"><i class="fa-solid fa-award"></i> My Certificates</a>
+  <a href="#" id="sideLogout"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+</div>
+<div class="side-overlay" id="sideOverlay"></div>
+
+<!-- Back Button -->
 <button class="back-btn-fixed" onclick="goBack()">
   <i class="fa-solid fa-arrow-left"></i>
 </button>
 <script>
 function goBack() {
-  if (document.referrer) {
-    window.history.back(); // go one step back
-  } else {
-    window.location.href = "../html code/index.html"; // fallback if no previous page
-  }
+  if (document.referrer) { window.history.back(); }
+  else { window.location.href = "../html code/bcsDashboard.html"; }
 }
 </script>
 
-<div class="profile-container">
-
-<!-- Profile Photo -->
-<div class="profile-photo-section">
-
-  <div class="avatar" id="avatarContainer">
-    <img id="profileImage">
-    <i class="fa-solid fa-user" id="defaultAvatar"></i>
+<!-- Hero -->
+<section class="dashboard-hero">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <h1><i class="fa-solid fa-user"></i> My Profile</h1>
+      <p>Manage your personal information and security settings.</p>
+    </div>
   </div>
+</section>
 
-  <input type="file" id="uploadImage">
+<!-- Profile Section -->
+<section class="profile-section">
+  <div class="profile-grid">
 
+    <!-- Left: Photo + Upload -->
+    <div class="profile-photo-card">
+      <div class="avatar-wrapper">
+        <div class="avatar-circle" id="avatarCircle">?</div>
+        <img id="profileImage" alt="Profile Photo" style="display:none;">
+      </div>
+      <p class="member-name" id="profileNameDisplay">—</p>
+      <p class="member-dept" id="profileDeptDisplay">—</p>
+
+      <label class="upload-btn" for="uploadImage">
+        <i class="fa-solid fa-camera"></i> Change Photo
+      </label>
+      <input type="file" id="uploadImage" accept="image/*" style="display:none;">
+      <p class="upload-hint">JPG, PNG — max 2MB</p>
+    </div>
+
+    <!-- Right: Info + Security -->
+    <div class="profile-right">
+
+      <div class="info-grid">
+  <div class="info-item">
+    <span class="info-label">Student ID :</span>
+    <span class="info-value" id="studentID">—</span>
+  </div>
+  <div class="info-item">
+    <span class="info-label">Full Name :</span>
+    <span class="info-value" id="name">—</span>
+  </div>
+  <div class="info-item">
+    <span class="info-label">Batch :</span>
+    <span class="info-value" id="batch">—</span>
+  </div>
+  <div class="info-item">
+    <span class="info-label">Department :</span>
+    <span class="info-value" id="department">—</span>
+  </div>
+  <div class="info-item">
+    <span class="info-label">Email :</span>
+    <span class="info-value" id="email">—</span>
+  </div>
+  <div class="info-item">
+    <span class="info-label">Phone :</span>
+    <span class="info-value" id="phone">—</span>
+  </div>
+</div>
+      <!-- Security Card -->
+      <div class="security-card">
+        <h3><i class="fa-solid fa-shield-halved"></i> Security</h3>
+        <button class="toggle-password-btn" id="openPassword">
+          <i class="fa-solid fa-key"></i> Change Password
+        </button>
+
+        <div class="password-form" id="passwordForm">
+          <div class="input-eye">
+            <input type="password" id="oldPass" placeholder="Current Password">
+            <i class="fa-solid fa-eye toggle-eye"></i>
+          </div>
+          <div class="input-eye">
+            <input type="password" id="newPass" placeholder="New Password">
+            <i class="fa-solid fa-eye toggle-eye"></i>
+          </div>
+          <div class="input-eye">
+            <input type="password" id="confirmPass" placeholder="Confirm New Password">
+            <i class="fa-solid fa-eye toggle-eye"></i>
+          </div>
+          <button class="update-btn" id="changePassword">
+            <i class="fa-solid fa-check"></i> Update Password
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<!-- Logout Toast -->
+<div class="logout-toast" id="logoutToast">
+  <i class="fa-solid fa-right-from-bracket"></i> Logged out successfully!
 </div>
 
-<!-- Profile Information -->
-
-<div class="profile-info">
-
-<p><strong>Student ID:</strong> <span id="studentID"></span></p>
-<p><strong>Name:</strong> <span id="name"></span></p>
-<p><strong>Batch:</strong> <span id="batch"></span></p>
-<p><strong>Department:</strong> <span id="department"></span></p>
-<p><strong>Email:</strong> <span id="email"></span></p>
-<p><strong>Phone:</strong> <span id="phone"></span></p>
-
-</div>
-
-<!-- Password Change -->
-
-<div class="password-box">
-
-<h3>Security</h3>
-
-<button id="openPassword">Change Password</button>
-
-<div class="password-form" id="passwordForm">
-
-<input type="password" id="oldPass" placeholder="Old Password">
-
-<input type="password" id="newPass" placeholder="New Password">
-
-<input type="password" id="confirmPass" placeholder="Confirm New Password">
-
-<button id="changePassword">Update Password</button>
-
-</div>
-
-</div>
-
+<script src="../backend/config.js"></script>
 <script src="../java script/bcsProfile.js"></script>
 
 </body>

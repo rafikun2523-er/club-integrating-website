@@ -1,133 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Unified Club Portal</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
-    <!-- CSS -->
-    <link rel="stylesheet" href="../css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home — Unified Club Portal BAUET</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/index.css">
 </head>
-
 <body>
+<nav class="navbar">
+  <a class="nav-logo" href="index.html">
+    <div class="logo-circle">LOGO</div>
+    <span class="nav-brand">Unified Club Portal</span>
+  </a>
+  <div class="nav-links">
+    <a class="nav-link active" href="index.html">Home</a>
+    <a class="nav-link" href="../html code/club.html">Clubs</a>
+    <a class="nav-link" href="../html code/events.html">Events</a>
+    <a class="nav-link" href="../html code/about.html">About</a>
+    <a class="nav-link" href="../html code/admin.html">Admin</a>
+  </div>
+</nav>
 
-<!-- ===== NAVBAR ===== -->
-<div class="navbar">
-    <div class="logo">
-        <img src="../pic/anotherlogo.png">
-        <span>Unified Club Portal</span>
+<div class="hero">
+  <div class="hero-text">
+    <div class="hero-badge">🎓 BAUET University</div>
+    <h1 class="hero-title">Welcome to<br><span>Unified Club Portal</span></h1>
+    <p class="hero-desc">Discover university clubs, join exciting activities,<br>and stay connected with campus life at BAUET.</p>
+    <div class="hero-btns">
+      <a class="btn-p" href="clubs.html">Explore Clubs →</a>
+      <a class="btn-s" href="about.html">Learn More</a>
     </div>
-
-    <nav>
-        <a href="#" class="active-link">Home</a>
-        <a href="../html code/club.html">Clubs</a>
-        <a href="../html code/about.html">About</a>
-        <a href="../html code/admin-login.html">Admin</a>
-    </nav>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-icon">🏫</div>
+    <div class="hero-visual-title">BAUET University</div>
+    <div class="hero-visual-sub">Bangladesh Army University of<br>Engineering & Technology</div>
+  </div>
 </div>
 
+<div class="stats-bar">
+  <div class="stat"><div class="stat-num">5+</div><div class="stat-label">Active Clubs</div></div>
+  <div class="stat"><div class="stat-num">500+</div><div class="stat-label">Members</div></div>
+  <div class="stat"><div class="stat-num">20+</div><div class="stat-label">Events / Year</div></div>
+  <div class="stat"><div class="stat-num">10+</div><div class="stat-label">Years Active</div></div>
+</div>
 
-<!-- ===== HERO SECTION ===== -->
-<section class="hero">
+<div class="section bg-light">
+  <div class="section-title">What We Offer</div>
+  <div class="section-sub">Everything you need for campus club life — in one place.</div>
+  <div class="features-grid">
+    <div class="feat-card"><div class="feat-icon">👥</div><div class="feat-title">Join Clubs</div><div class="feat-desc">Explore all university clubs and become a member with one click.</div></div>
+    <div class="feat-card"><div class="feat-icon">📅</div><div class="feat-title">Event Updates</div><div class="feat-desc">Stay updated with workshops, seminars, and cultural events.</div></div>
+    <div class="feat-card"><div class="feat-icon">🔔</div><div class="feat-title">Notifications</div><div class="feat-desc">Real-time alerts for club announcements and deadlines.</div></div>
+    <div class="feat-card"><div class="feat-icon">🏆</div><div class="feat-title">Achievements</div><div class="feat-desc">Track activities and showcase your campus accomplishments.</div></div>
+    <div class="feat-card"><div class="feat-icon">📢</div><div class="feat-title">Announcements</div><div class="feat-desc">Admins post news and updates directly to all members.</div></div>
+    <div class="feat-card"><div class="feat-icon">🛡️</div><div class="feat-title">Admin Panel</div><div class="feat-desc">Tools for club presidents to manage members efficiently.</div></div>
+  </div>
+</div>
 
-    <div class="hero-text">
-        <h1>Welcome to Unified Club Portal</h1>
-        <p>
-            Discover university clubs, join activities, and stay connected with campus life.
-        </p>
+<div class="section bg-white">
+  <div class="section-title">Upcoming Events</div>
+  <div class="section-sub">Don't miss what's happening on campus.</div>
+  <div class="events-list">
+    <div class="event-item"><div class="event-date"><div class="event-day">15</div><div class="event-month">APR</div></div><div class="event-info"><div class="event-name">BAUET Hackathon 2026</div><div class="event-club">Computer Society · Main Auditorium</div></div><span class="badge badge-open">🟢 Open</span></div>
+    <div class="event-item"><div class="event-date"><div class="event-day">22</div><div class="event-month">APR</div></div><div class="event-info"><div class="event-name">Inter-College Debate Championship</div><div class="event-club">Debate Club · Seminar Hall</div></div><span class="badge badge-soon">🔵 Soon</span></div>
+    <div class="event-item"><div class="event-date"><div class="event-day">30</div><div class="event-month">APR</div></div><div class="event-info"><div class="event-name">Boisakhi Cultural Night</div><div class="event-club">Cultural Club · BAUET Ground</div></div><span class="badge badge-soon">🔵 Soon</span></div>
+  </div>
+</div>
 
-        <a href="../html code/club.html" class="hero-btn">
-            Explore Clubs <i class="fas fa-arrow-right"></i>
-        </a>
-    </div>
-
-    <div class="hero-image">
-        <img src="../pic/bauet.jpeg" alt="BAUET">
-    </div>
-
-</section>
-
-
-<!-- ===== FEATURES SECTION ===== -->
-<section class="features">
-
-    <div class="feature-card">
-        <i class="fas fa-users"></i>
-        <h3>Join Clubs</h3>
-        <p>Explore different clubs and become a member easily.</p>
-    </div>
-
-    <div class="feature-card">
-        <i class="fas fa-calendar-alt"></i>
-        <h3>Event Updates</h3>
-        <p>Get notified about upcoming university events.</p>
-    </div>
-
-    <div class="feature-card">
-        <i class="fas fa-bell"></i>
-        <h3>Instant Notifications</h3>
-        <p>Stay informed with real-time announcements.</p>
-    </div>
-
-</section>
-<!-- ===== FOOTER ===== -->
 <footer class="footer">
-
-    <div class="footer-container">
-
-        <!-- Logo Section -->
-        <div class="footer-logo">
-            <img src="../pic/anotherlogo.png" alt="Logo">
-            <h2>Unified Club Portal</h2>
-
-            <div class="social-icons">
-                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                <a href="#"><i class="fab fa-youtube"></i></a>
-                <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                <a href="#"><i class="fab fa-whatsapp"></i></a>
-            </div>
-        </div>
-
-        <!-- Quick Links -->
-        <div class="footer-box">
-            <h3>Quick Links</h3>
-            <a href="#">Home</a>
-            <a href="../html code/club.html">Clubs</a>
-            <a href="#">Events</a>
-            <a href="../html code/about.html">About</a>
-        </div>
-
-        <!-- Clubs -->
-        <div class="footer-box">
-            <h3>Clubs</h3>
-            <a href="#">Computer Society</a>
-            <a href="#">Debate Society</a>
-            <a href="#">Cultural Club</a>
-            <a href="#">Photography Club</a>
-        </div>
-
-        <!-- Contact -->
-        <div class="footer-box">
-            <h3>Contact</h3>
-            <p>BAUET, Qadirabad, Natore</p>
-            <p>info@bauet.ac.bd</p>
-            <p>+880 XXXX-XXXXXX</p>
-        </div>
-
-    </div>
-
-    <p class="footer-bottom">
-        © 2026 Unified Club Portal | All Rights Reserved
-    </p>
-
+  <div class="footer-grid">
+    <div><div class="footer-brand">🎓 Unified Club Portal</div><div class="footer-about">BAUET's central digital hub for all club activities, events, and student engagement.</div></div>
+    <div><div class="footer-col-title">Quick Links</div><div class="footer-links"><a class="footer-link" href="index.html">Home</a><a class="footer-link" href="clubs.html">Clubs</a><a class="footer-link" href="events.html">Events</a><a class="footer-link" href="about.html">About</a></div></div>
+    <div><div class="footer-col-title">Clubs</div><div class="footer-links"><a class="footer-link" href="clubs.html">Computer Society</a><a class="footer-link" href="clubs.html">Debate Club</a><a class="footer-link" href="clubs.html">Cultural Club</a><a class="footer-link" href="clubs.html">Photography</a></div></div>
+    <div><div class="footer-col-title">Contact</div><div class="footer-links"><span class="footer-link">📍 BAUET, Natore</span><span class="footer-link">✉️ info@bauet.ac.bd</span><span class="footer-link">📞 +880 XXXX-XXXXXX</span></div></div>
+  </div>
+  <div class="footer-bottom">© 2026 Unified Club Portal, BAUET · All Rights Reserved</div>
 </footer>
-
-
-
-<script src="../java script/script.js"></script>
-
 </body>
 </html>

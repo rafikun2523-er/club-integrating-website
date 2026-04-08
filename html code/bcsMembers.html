@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BAUET Computer Society — Members</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/bcsMembers.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="icon" href="data:,">
+</head>
+<body>
+
+<!-- Navbar -->
+<header class="navbar">
+  <div class="logo">
+    <img src="../pic/csepic.jpeg" alt="BAUET Logo">
+    <span>BAUET Computer Society</span>
+  </div>
+  <button class="hamburger" id="hamburgerBtn">
+    <span></span><span></span><span></span>
+  </button>
+  <nav>
+    <a href="../html code/index.html" class="dropbt">Home</a>
+    <a href="../html code/club.html" class="dropbt">Clubs</a>
+    <a href="../html code/about.html" class="dropbt">About</a>
+    <a href="../html code/bcsMembers.html" class="dropbt active-link">Members</a>
+    <a href="../html code/bcsAchievements.html" class="dropbt">Our Achievements</a>
+    <a href="../html code/bcsEventsPast.html" class="dropbt">Our Events</a>
+    <div class="mobile-login-btn" id="mobileLoginBtn">Log in</div>
+  </nav>
+  <button class="btn" id="joinBtn">Log in</button>
+</header>
+
+<!-- Back Button -->
+<button class="back-btn-fixed" onclick="goBack()">
+  <i class="fa-solid fa-arrow-left"></i>
+</button>
+<script>
+function goBack() {
+  if (document.referrer) { window.history.back(); }
+  else { window.location.href = "../html code/index.html"; }
+}
+</script>
+
+<!-- Hero -->
+<section class="members-hero">
+  <div class="members-hero-inner">
+    <div class="members-badge">BAUET COMPUTER SOCIETY</div>
+    <h1>Our Members</h1>
+    <p>Meet the talented students who are part of BAUET Computer Society.</p>
+  </div>
+</section>
+
+<!-- Members Section -->
+<section class="members-section">
+
+  <!-- Stats -->
+  <div class="members-stats" id="membersStats">
+    <div class="stat-box gradient">
+      <div class="stat-num" id="totalMembers">—</div>
+      <div class="stat-label">Total Members</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num" id="totalDepts">—</div>
+      <div class="stat-label">Departments</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num" id="totalBatches">—</div>
+      <div class="stat-label">Batches</div>
+    </div>
+  </div>
+<!-- Search -->
+<div class="members-search">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="text" id="memberSearch" placeholder="Search by name...">
+</div>
+
+  <!-- Department Tabs -->
+  <div class="dept-tabs" id="deptTabs">
+    <button class="dept-tab active" data-dept="all">All</button>
+  </div>
+
+  <!-- Members Table -->
+  <div class="members-table-wrapper">
+    <div class="members-table-header">
+  <span>Sl No</span>
+      <span>Name</span>
+      <span>Dept</span>
+      <span>Batch</span>
+    </div>
+    <div id="membersTableBody">
+      <div class="members-loading">
+        <i class="fa-solid fa-spinner fa-spin"></i> Loading members...Please wait
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- Footer -->
+<footer class="contact-footer">
+  <div class="footer-container">
+    <div class="footer-logo">
+      <img src="../pic/anotherlogo.png" alt="BAUET Logo">
+      <h2>BAUET Computer Society</h2>
+      <div class="social-icons">
+        <i class="fab fa-facebook-f"></i>
+        <i class="fab fa-x-twitter"></i>
+        <i class="fab fa-youtube"></i>
+        <i class="fab fa-linkedin-in"></i>
+      </div>
+    </div>
+    <div class="footer-links">
+      <h3>Quick Links</h3>
+      <a href="#">Our Members</a>
+      <a href="#">Our Events</a>
+      <a href="#">Our Achievements</a>
+    </div>
+    <div class="footer-address">
+      <h3>Address</h3>
+      <p>BAUET Campus</p>
+      <p>Qadirabad Cantonment, Dayarampur</p>
+      <p>Natore, Bangladesh</p>
+    </div>
+    <div class="footer-contact">
+      <h3>Contact</h3>
+      <p>Phone: +880 1XXXXXXXXX</p>
+      <p>Email: <a href="mailto:computer.society.bauet@gmail.com">computer.society.bauet@gmail.com</a></p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    Copyright ©2026, BAUET Computer Club. All Rights Reserved.
+  </div>
+</footer>
+
+<!-- Login Modal -->
+<div class="modal" id="loginModal">
+  <div class="modal-content university-style">
+    <div class="uni-header">
+      <img src="../pic/anotherlogo.png" alt="BAUET Logo">
+      <div class="uni-title">
+        <h2>BAUET</h2>
+        <p>Bangladesh Army University of Engineering & Technology</p>
+      </div>
+    </div>
+    <span class="close">&times;</span>
+    <div class="login-body">
+      <h3>Sign in with your student ID and password</h3>
+      <input type="text" id="loginID" placeholder="Student ID">
+      <div class="input-eye">
+        <input type="password" id="loginPassword" placeholder="Password">
+        <i class="fa-solid fa-eye toggle-eye"></i>
+      </div>
+      <button class="login-btn" id="loginSubmit">Login</button>
+      <p>Not a member? <span id="openRegister" style="color:#2f80ed;cursor:pointer;">Register here</span></p>
+    </div>
+  </div>
+</div>
+
+<!-- Register Modal -->
+<div class="modal" id="registerModal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2>Register to join BAUET Computer Society</h2>
+    <input type="text" id="regID" placeholder="Student ID">
+    <input type="text" id="regName" placeholder="Full Name">
+    <input type="number" id="regBatch" required>
+    <select id="regDept">
+      <option value="" disabled selected>Select Department</option>
+      <option value="CSE">CSE</option>
+      <option value="EEE">EEE</option>
+      <option value="CE">CE</option>
+      <option value="ME">ME</option>
+      <option value="ICE">ICE</option>
+      <option value="BBA">BBA</option>
+      <option value="LLB">LLB</option>
+      <option value="ELL">ELL</option>
+    </select>
+    <input type="email" id="regEmail" placeholder="Email">
+    <input type="text" id="regPhone" placeholder="Phone Number">
+    <div class="input-eye">
+      <input type="password" id="regPassword" placeholder="Password">
+      <i class="fa-solid fa-eye toggle-eye"></i>
+    </div>
+    <div class="input-eye">
+      <input type="password" id="regConfirm" placeholder="Confirm Password">
+      <i class="fa-solid fa-eye toggle-eye"></i>
+    </div>
+    <button class="login-btn" id="registerSubmit">Register Now</button>
+  </div>
+</div>
+
+
+<script src="../backend/config.js"></script>
+<script src="../java script/bcsMembers.js"></script>
+</body>
+</html>
