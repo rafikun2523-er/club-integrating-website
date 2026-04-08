@@ -22,7 +22,6 @@ body{
     100%{background-position:0% 50%;}
 }
 
-/* Center Login Box */
 .login-wrapper{
     display:flex;
     justify-content:center;
@@ -59,7 +58,7 @@ body{
 
 .input-group input{
     width:100%;
-    padding:12px 10px;
+    padding:12px 35px 12px 10px;
     border:none;
     border-bottom:2px solid rgba(255,255,255,0.6);
     background:transparent;
@@ -69,13 +68,11 @@ body{
     transition:0.3s;
 }
 
-/* focus effect */
 .input-group input:focus{
     border-bottom:2px solid #00ffff;
     box-shadow:0 5px 15px rgba(0,255,255,0.4);
 }
 
-/* remove browser autofill white background */
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
@@ -85,19 +82,35 @@ input:-webkit-autofill:active{
     transition:background-color 5000s ease-in-out 0s;
 }
 
-/* label */
 .input-group label{
     position:absolute;
     top:10px;
     left:5px;
     transition:0.3s;
     color:#ddd;
+    pointer-events:none;
 }
 
 .input-group input:focus + label,
 .input-group input:valid + label{
     top:-12px;
     font-size:12px;
+    color:#00ffff;
+}
+
+/* Eye Toggle Icon */
+.toggle-eye{
+    position:absolute;
+    right:8px;
+    top:50%;
+    transform:translateY(-50%);
+    cursor:pointer;
+    color:rgba(255,255,255,0.7);
+    font-size:16px;
+    transition:0.3s;
+}
+
+.toggle-eye:hover{
     color:#00ffff;
 }
 
@@ -158,19 +171,11 @@ button:hover{
     color:white;
 }
 
-/* popup animation */
 @keyframes popupAnim{
-    0%{
-        transform:scale(0.7);
-        opacity:0;
-    }
-    100%{
-        transform:scale(1);
-        opacity:1;
-    }
+    0%{transform:scale(0.7);opacity:0;}
+    100%{transform:scale(1);opacity:1;}
 }
 
-/* shake animation */
 @keyframes shake{
     0%{transform:translateX(0);}
     25%{transform:translateX(-5px);}

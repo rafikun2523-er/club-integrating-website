@@ -3,21 +3,26 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BAUET Computer Club</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>BAUET Computer Society</title>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/cse.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="icon" href="data:,">
 </head>
 
+
 <body>
+
+  
 
 <!-- Welcome Message popup -->
   <div id="welcomePopup" class="welcome-popup">
   <i class="fa-solid fa-desktop"></i>
   <p>Welcome to<br><span>BAUET Computer Society</span></p>
-  <audio id="welcomeSound" src="../pic/notify.mp3" preload="auto"></audio> 
-</div>
+  </div>
+
 
 <!-- navbar -->
 <header class="navbar">
@@ -26,90 +31,98 @@
   <span>BAUET Computer Society</span>
 </div>
 
-  <nav>
-    
-  </nav>
+<button class="dark-toggle" id="darkModeToggle">
+  <i class="fa-solid fa-moon"></i>
+</button>
+
+<!-- Hamburger Button (mobile only) -->
+<button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu">
+  <span></span>
+  <span></span>
+  <span></span>
+</button>
+<nav>  
 <a href="../html code/index.html" class="dropbt">Home</a>
 <a href="../html code/club.html" class="dropbt">Clubs</a>
 <a href="../html code/about.html" class="dropbt">About</a>
-<nav>
+ 
+<a href="../html code/bcsMembers.html" class="dropbt">Members</a>
 
-    <!-- Dropdown option for our members -->
-    <div class="dropdown">
-  <a href="#" class="dropbtn">Our Members</a>
-  <div class="dropdown-content">
-    <a href="#">President</a>
-    <a href="#">Vice President</a>
-    <a href="#">General Secretary</a>
-    <a href="#">Joint General Secretary</a>
-    <a href="#">Organizing Secretary</a>
-    <a href="#">Publicity Secretary</a>
-    <a href="#">Office Secretary</a>
-    <a href="#">Financial Secretary</a>
-    <a href="#">IT Secretary</a>
-    <a href="#">Executive of Programming</a>
-    <a href="#">Executive of Web Development</a>
-    <a href="#">Executive of Software Development</a>
-    <a href="#">Executive of AI & Robotics</a>
-    <a href="#">Executive of Cyber Security</a>
-    <a href="#">General Members</a>
-  </div>
-</div>
-
-<!-- Dropdown option for events -->
-   <div class="dropdown">
-  <a href="#" class="dropbtn">Events</a>
-  <div class="dropdown-content">
-
-    <div class="dropdown-section">
-      <strong>Intra-varsity Events</strong>
-      <a href="#">Programming Contest</a>
-      <a href="#">Project Showcase</a>
-      <a href="#">Web Development Workshop</a>
-    </div>
-
-    <div class="dropdown-section">
-      <strong>Inter-varsity Events</strong>
-      <a href="#">National Programming Contest</a>
-      <a href="#">Inter-University Hackathon</a>
-    </div>
-
-    <div class="dropdown-section">
-      <strong>International & Workshops</strong>
-      <a href="#">International Hackathons</a>
-      <a href="#">Tech Workshops & Seminars</a>
-    </div>
-
-  </div>
-</div>
-
-    <a href="#">Our Achievements</a>
-    <a href="#">About Us</a>
+    <a href="../html code/bcsAchievements.html">Our Achievements</a>
+    <a href="../html code/bcsEventsPast.html" class="dropbt">Our Events</a>
+    <a href="../html code/bcsAbout.html" class="dropbt">About Club</a>
+    
+     <div class="mobile-login-btn" id="mobileLoginBtn">Log in</div>
+     
+    
   </nav>
   
-  <button class="btn" id="joinBtn">Join Us</button>
+    <button class="btn" id="joinBtn">Log in</button>
 
 </header>
+<!-- Back Arrow Button -->
+<button class="back-btn-fixed" onclick="goBack()">
+  <i class="fa-solid fa-arrow-left"></i>
+</button>
+<script>
+  function goBack() {
+  if (document.referrer) {
+    window.history.back(); // go one step back
+  } 
+  else {
+    window.location.href = "../html code/index.html"; // fallback if no previous page
+  }
+}
+</script>
 
 <!-- hero section -->
 <section class="hero">
-  <div class="hero-image">
-    <img src="../pic/cse2.jpeg" alt="Computer Club">
+  
+<div class="hero-image">
+  <div class="carousel">
+    <div class="carousel-track">
+      <img src="../pic/bcs1.jpeg" alt="Event 1" class="carousel-slide active">
+      <img src="../pic/bcs2.jpeg" alt="Event 2" class="carousel-slide">
+      <img src="../pic/bcs3.jpeg" alt="Event 3" class="carousel-slide">
+      <img src="../pic/bcs4.jpeg" alt="Event 4" class="carousel-slide">
+    </div>
+    <button class="carousel-btn prev" id="carouselPrev">
+      <i class="fa-solid fa-chevron-left"></i>
+    </button>
+    <button class="carousel-btn next" id="carouselNext">
+      <i class="fa-solid fa-chevron-right"></i>
+    </button>
+    <div class="carousel-dots" id="carouselDots"></div>
   </div>
+</div>
 
   <div class="hero-content">
-    <h1>We Code with Logic,<br>We Build the Future.</h1>
+    <h1>Code Today. Lead Tomorrow.</h1>
     <p>
-      BAUET Computer Club focuses on programming, software development,
+      BAUET Computer Society focuses on programming, software development,
       innovation and leadership through workshops, hackathons and tech competitions.
     </p>
+    
 
-    <div class="features">
+  <div class="features-title">
+  <h3>Our Expertise:</h3>
+  </div>
+
+  <div class="features">
       <div><i class="fa-solid fa-code"></i> Programming</div>
       <div><i class="fa-solid fa-laptop-code"></i> Software Development</div>
       <div><i class="fa-solid fa-brain"></i> Problem Solving</div>
       <div><i class="fa-solid fa-trophy"></i> Tech Competitions</div>
     </div>
+  </div>
+
+    <div class="hero-btns">
+    <button class="hero-btn-primary" id="joinBtn2">
+      <i class="fa-solid fa-user-plus"></i> Join Now
+    </button>
+    <a href="#faq" class="hero-btn-secondary">
+      <i class="fa-solid fa-circle-info"></i> Learn More
+    </a>
   </div>
 </section>
 
@@ -119,6 +132,7 @@
   <p>Building future tech leaders of BAUET through innovation, coding and collaboration.</p>
 
   <div class="mvo-cards">
+
     <!-- Mission -->
     <div class="mvo-card">
       <i class="fa-solid fa-bullseye"></i>
@@ -130,6 +144,7 @@
         <li>Prepare students for IT industry</li>
       </ul>
     </div>
+
     <!-- Vision -->
     <div class="mvo-card">
       <i class="fa-solid fa-eye"></i>
@@ -141,6 +156,7 @@
         <li>Produce future tech leaders</li>
       </ul>
     </div>
+
     <!-- Objectives -->
     <div class="mvo-card">
       <i class="fa-solid fa-rocket"></i>
@@ -152,9 +168,10 @@
         <li>Support students in tech career</li>
       </ul>
     </div>
-
   </div>
 </section>
+
+
 
 <!-- Why Join Our BAUET Computer Society section -->
 <section class="why-join" id="whyJoin">
@@ -189,82 +206,123 @@
 </section>
 
 
-<!-- Ferequently asked questions section --> 
-<div id="faqSearchIcon" class="faq-search-icon">
- 🔍
-</div>
+<!-- Frequently asked question section -->
 
-<div class="faq-sidebar" id="faqSidebar">
-  <h3>FAQ</h3>
-  <input type="text" id="faqSearchInput" placeholder="Search FAQs...">
-  <ul id="faqList">
-    <li>
-      <span class="faq-question">How to join the computer club?</span>
-      <span class="faq-answer">Register online via the Join Us section and pay the membership fee.</span>
-    </li>
-    <li>
-      <span class="faq-question">When are the next competitions?</span>
-      <span class="faq-answer">Competitions are held each semester; check the Events section for updates.</span>
-    </li>
-    <li>
-      <span class="faq-question">How to access online resources?</span>
-      <span class="faq-answer">Log in to the portal to access tutorials, code samples, and guides.</span>
-    </li>
-    <li>
-      <span class="faq-question">Can I participate as a beginner?</span>
-      <span class="faq-answer">Yes! Beginners are welcome, and mentorship is provided.</span>
-    </li>
-    <li>
-      <span class="faq-question">Do we get certificates?</span>
-      <span class="faq-answer">Active participants receive certificates for competitions and workshops.</span>
-    </li>
-    <li>
-      <span class="faq-question">Are workshops free?</span>
-      <span class="faq-answer">Some workshops are free; others may require a nominal fee. Check announcements.</span>
-    </li>
-    <li>
-      <span class="faq-question">Can I join multiple clubs?</span>
-      <span class="faq-answer">Yes, you can join other clubs while being part of our computer club.</span>
-    </li>
-    <li>
-      <span class="faq-question">How to contact the club for queries?</span>
-      <span class="faq-answer">Use the Contact section or email computerclub@bauet.ac.bd for inquiries.</span>
-    </li>
-  </ul>
-</div>
+<section class="faq-section" id="faq">
+  <h2>Frequently Asked Questions</h2>
+  <p>Everything you need to know about BAUET Computer Society</p>
 
+  <div class="faq-container">
 
-<!-- Our achievements section -->
-<section class="achievements" id="achievements">
-  <h2>Our Achievements</h2>
-  <p>Celebrating the technical excellence and innovation of our members.</p>
-
-  <div class="achievement-cards">
-    <div class="achievement-card">
-      <i class="fa-solid fa-trophy"></i>
-      <h3>Champion – National Programming Contest</h3>
-      <p>Our team secured championship in national coding competition.</p>
+    <div class="faq-item">
+      <div class="faq-question-btn">
+        <span>Who can join the club?</span>
+        <i class="fa-solid fa-plus faq-icon"></i>
+      </div>
+      <div class="faq-answer-body">
+        <p>Only students of BAUET are eligible to join this club. Beginners and tech enthusiasts from our university are most welcome.</p>
+      </div>
     </div>
 
-    <div class="achievement-card">
-      <i class="fa-solid fa-medal"></i>
-      <h3>Runner-up – Inter University Hackathon</h3>
-      <p>Outstanding performance in inter-university hackathons.</p>
+    <div class="faq-item">
+      <div class="faq-question-btn">
+        <span>How to join the computer club?</span>
+        <i class="fa-solid fa-plus faq-icon"></i>
+      </div>
+      <div class="faq-answer-body">
+        <p>Click on 'Log In', then select 'Register Here' and provide the required information. Joining is completely free of cost.</p>
+      </div>
     </div>
 
-    <div class="achievement-card">
-      <i class="fa-solid fa-award"></i>
-      <h3>Best Project Award</h3>
-      <p>Recognized for innovative software and project development.</p>
+    <div class="faq-item">
+      <div class="faq-question-btn">
+        <span>Do I need prior experience in programming?</span>
+        <i class="fa-solid fa-plus faq-icon"></i>
+      </div>
+      <div class="faq-answer-body">
+        <p>No prior skills or experience are required! This club welcomes all BAUET students whether you are a complete beginner or already proficient in technology.</p>
+      </div>
     </div>
 
-    <div class="achievement-card">
-      <i class="fa-solid fa-globe"></i>
-      <h3>International Participation</h3>
-      <p>Participated in global tech competitions and coding events.</p>
+    <div class="faq-item">
+      <div class="faq-question-btn">
+        <span>When does this club hold its competitions?</span>
+        <i class="fa-solid fa-plus faq-icon"></i>
+      </div>
+      <div class="faq-answer-body">
+        <p>Our club organizes competitions every semester. You have to be a member to get announcements for upcoming contests or events.</p>
+      </div>
     </div>
+
+    <div class="faq-item">
+      <div class="faq-question-btn">
+        <span>Can I participate in events without being a member?</span>
+        <i class="fa-solid fa-plus faq-icon"></i>
+      </div>
+      <div class="faq-answer-body">
+        <p>Yes, you can join events even without membership. However, we recommend becoming a member to enjoy full benefits and receive updates.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question-btn">
+        <span>What benefits do members get?</span>
+        <i class="fa-solid fa-plus faq-icon"></i>
+      </div>
+      <div class="faq-answer-body">
+        <p>Club members gain exclusive access to workshops, hands-on projects, competitions and networking opportunities while staying updated on all club events.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question-btn">
+        <span>Do we get certificates?</span>
+        <i class="fa-solid fa-plus faq-icon"></i>
+      </div>
+      <div class="faq-answer-body">
+        <p>Active participants receive certificates for competitions and workshops.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question-btn">
+        <span>Can I join multiple clubs?</span>
+        <i class="fa-solid fa-plus faq-icon"></i>
+      </div>
+      <div class="faq-answer-body">
+        <p>Yes, you can join other clubs while being part of our computer club.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question-btn">
+        <span>With whom can I contact for club-related queries?</span>
+        <i class="fa-solid fa-plus faq-icon"></i>
+      </div>
+      <div class="faq-answer-body">
+        <p>Use the Contact section or email computer.society.bauet@gmail.com for any inquiries.</p>
+      </div>
+    </div>
+
   </div>
+
+  <button id="faqShowMore" style="
+  margin-top: 16px;
+  padding: 10px 28px;
+  border: 2px solid #2B2E83;
+  background: transparent;
+  color: #2B2E83;
+  border-radius: 25px;
+  font-family: 'Cinzel', serif;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+">Show More ▼</button>
+
 </section>
+
+
+
 
 <!-- Footer section -->
 <footer class="contact-footer">
@@ -272,8 +330,7 @@
 
     <div class="footer-logo">
       <img src="../pic/anotherlogo.png" alt="BAUET Logo">
-      <h2>BAUET Computer Club</h2>
-
+      <h2>BAUET Computer Society</h2>
       <div class="social-icons">
         <i class="fab fa-facebook-f"></i>
         <i class="fab fa-x-twitter"></i>
@@ -284,39 +341,44 @@
 
     <div class="footer-links">
       <h3>Quick Links</h3>
-      <a href="#">About Us</a>
-      <a href="#">Our Members</a>
-      <a href="#">Events</a>
-      <a href="#">Achievements</a>
+      <a href="../html code/bcsMembers.html">Our Members</a>
+      <a href="../html code/bcsEventsPast.html" >Our Events</a>
+      <a href="#achievements">Our Achievements</a>
     </div>
 
     <div class="footer-address">
       <h3>Address</h3>
       <p>BAUET Campus</p>
-      <p>Qadirabad Cantonment,Dayarampur</p>
+      <p>Qadirabad Cantonment, Dayarampur</p>
       <p>Natore, Bangladesh</p>
     </div>
 
     <div class="footer-contact">
       <h3>Contact</h3>
       <p>Phone: +880 1XXXXXXXXX</p>
-      <p>Email: computerclub@bauet.ac.bd</p>
+      <p>Email: <a href="mailto:computer.society.bauet@gmail.com">computer.society.bauet@gmail.com</a></p>
     </div>
 
   </div>
-
   <div class="footer-bottom">
     Copyright ©2026, BAUET Computer Club. All Rights Reserved.
   </div>
 </footer>
 
-<!-- Login Modal in Join us option -->
+
+
+<button class="scroll-top-btn" id="scrollTopBtn">
+  <i class="fa-solid fa-arrow-up"></i>
+</button>
+
+
+
+<!-- Login Modal Option -->
 <div class="modal" id="loginModal">
   <div class="modal-content university-style">
 
     <div class="uni-header">
       <img src="../pic/anotherlogo.png" alt="BAUET Logo">
-
       <div class="uni-title">
         <h2>BAUET</h2>
         <p>Bangladesh Army University of Engineering & Technology</p>
@@ -325,47 +387,80 @@
 
     <span class="close">&times;</span>
 
-    <h3 style="margin-top:15px;">
-      Sign in with your student ID and password
-    </h3>
+    <div class="login-body">
+      <h3>Sign in with your student ID and password</h3>
 
-    <input type="text" id="loginID" placeholder="Student ID">
-    <input type="password" id="loginPassword" placeholder="Password">
+      <input type="text" id="loginID" placeholder="Student ID">
 
-    <button class="login-btn" id="loginSubmit">Login</button>
+      <div class="input-eye">
+        <input type="password" id="loginPassword" placeholder="Password">
+        <i class="fa-solid fa-eye toggle-eye"></i>
+      </div>
 
-    <p style="margin-top:10px;">
-      Not a member?
-      <span id="openRegister" style="color:#2f80ed;cursor:pointer;">
-        Register here
-      </span>
-    </p>
+      <button class="login-btn" id="loginSubmit">Login</button>
+
+      <p>Not a member?
+        <span id="openRegister" style="color:#2f80ed;cursor:pointer;">
+          Register here
+        </span>
+      </p>
+    </div>
 
   </div>
 </div>
 
-<!-- Registration Modal in join us section-->
+
+
+<!-- Registration Modal -->
 <div class="modal" id="registerModal">
   <div class="modal-content">
     <span class="close">&times;</span>
-    <h2>Computer Club Registration</h2>
-
+    <h2>Register to join BAUET Computer Society</h2>
     <input type="text" id="regID" placeholder="Student ID">
     <input type="text" id="regName" placeholder="Full Name">
-    <input type="text" id="regBatch" placeholder="Batch">
+    <input type="number" id="regBatch" required>
     <input type="text" id="regDept" placeholder="Department">
     <input type="email" id="regEmail" placeholder="Email">
     <input type="text" id="regPhone" placeholder="Phone Number">
-    <input type="password" id="regPassword" placeholder="Password">
-    <input type="password" id="regConfirm" placeholder="Confirm Password">
-
-    <button class="login-btn" id="registerSubmit">
-      Register & Pay
-    </button>
+    <div class="input-eye">
+      <input type="password" id="regPassword" placeholder="Password">
+      <i class="fa-solid fa-eye toggle-eye"></i>
+    </div>
+    <div class="input-eye">
+      <input type="password" id="regConfirm" placeholder="Confirm Password">
+      <i class="fa-solid fa-eye toggle-eye"></i>
+    </div>
+    <button class="login-btn" id="registerSubmit">Register Now</button>
   </div>
 </div>
 
+<!-- ✅ OTP Modal — registerModal এর বাইরে -->
+<div class="modal" id="otpModal">
+  <div class="modal-content university-style">
+    <div class="uni-header">
+      <img src="../pic/anotherlogo.png" alt="BAUET Logo">
+      <div class="uni-title">
+        <h2>BAUET</h2>
+        <p>Bangladesh Army University of Engineering & Technology</p>
+      </div>
+    </div>
+    <span class="close" id="otpClose">&times;</span>
+    <div class="login-body">
+      <h3>Enter the OTP sent to your email</h3>
+      <input type="text" id="otpInput" placeholder="6-digit OTP" maxlength="6">
+      <button class="login-btn" id="otpSubmit">Verify OTP</button>
+      <p>Didn't receive? 
+        <span id="resendOTP" style="color:#2f80ed;cursor:pointer;">Resend OTP</span>
+      </p>
+    </div>
+  </div>
+</div>
+
+
+
+<script src="../backend/config.js"></script>
 <script src="../java script/cse.js"></script>
+
 
 </body>
 </html>

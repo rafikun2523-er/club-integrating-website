@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BAUET Computer Society — Past Events</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/bcsEventsPast.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body>
+
+<header class="navbar">
+  <div class="logo">
+    <img src="../pic/csepic.jpeg" alt="BAUET Logo">
+    <span>BAUET Computer Society</span>
+  </div>
+  <nav>
+    <a href="../html code/cse.html">Home</a>
+    <a href="../html code/bcsEventsPast.html" class="active-link">Our Events</a>
+  </nav>
+  <button class="hamburger" id="hamburgerBtn">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<div class="mobile-nav" id="mobileNav">
+  <a href="../html code/cse.html">Home</a>
+  <a href="../html code/bcsMembers.html">Members</a>
+  <a href="../html code/bcsEventsPast.html" class="active-link">Our Past Events</a>
+</div>
+
+<button class="back-btn-fixed" onclick="goBack()">
+  <i class="fa-solid fa-arrow-left"></i>
+</button>
+<script>
+function goBack() {
+  if (document.referrer) { window.history.back(); }
+  else { window.location.href = "../html code/cse.html"; }
+}
+</script>
+
+<section class="events-hero">
+  <div class="events-hero-inner">
+    <div class="events-badge">BAUET COMPUTER SOCIETY</div>
+    <h1><i class="fa-solid fa-clock-rotate-left"></i> Past Events</h1>
+    <p>A glimpse of what we have accomplished together.</p>
+  </div>
+</section>
+
+<section class="events-section">
+  <div class="events-container" id="eventsContainer">
+    <div class="events-loading">
+      <i class="fa-solid fa-spinner fa-spin"></i> Loading events...
+    </div>
+  </div>
+</section>
+
+<footer class="contact-footer">
+  <div class="footer-container">
+    <div class="footer-logo">
+      <img src="../pic/anotherlogo.png" alt="BAUET Logo">
+      <h2>BAUET Computer Society</h2>
+      <div class="social-icons">
+        <i class="fab fa-facebook-f"></i>
+        <i class="fab fa-x-twitter"></i>
+        <i class="fab fa-youtube"></i>
+        <i class="fab fa-linkedin-in"></i>
+      </div>
+    </div>
+    <div class="footer-links">
+      <h3>Quick Links</h3>
+      <a href="../html code/bcsMembers.html">Our Members</a>
+      <a href="../html code/bcsEventsPast.html">Our Events</a>
+    </div>
+    <div class="footer-address">
+      <h3>Address</h3>
+      <p>BAUET Campus</p>
+      <p>Qadirabad Cantonment, Dayarampur</p>
+      <p>Natore, Bangladesh</p>
+    </div>
+    <div class="footer-contact">
+      <h3>Contact</h3>
+      <p>Phone: +880 1XXXXXXXXX</p>
+      <p>Email: <a href="mailto:computer.society.bauet@gmail.com">computer.society.bauet@gmail.com</a></p>
+    </div>
+  </div>
+  <div class="footer-bottom">Copyright ©2026, BAUET Computer Club. All Rights Reserved.</div>
+</footer>
+
+<script src="../backend/config.js"></script>
+<script src="../java script/bcsEventsPast.js"></script>
+
+</body>
+</html>
