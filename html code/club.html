@@ -1,68 +1,1076 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Clubs — Unified Club Portal BAUET</title>
   <link rel="stylesheet" href="../css/style.css">
-  <link rel="stylesheet" href="../css/style2.css">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --navy: #1a1d4e;
+      --navy2: #2B2E83;
+      --accent: #5b6ef5;
+      --bg: #f4f5fb;
+      --white: #ffffff;
+      --text: #1a1a2e;
+      --muted: #6b7280;
+      --radius: 20px;
+      --shadow: 0 8px 32px rgba(43, 46, 131, 0.10);
+      --shadow-h: 0 20px 48px rgba(43, 46, 131, 0.18);
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* NAVBAR */
+    .navbar {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy2) 100%);
+      padding: 0 40px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .logo-circle {
+      width: 40px;
+      height: 40px;
+      background: rgba(255, 255, 255, 0.15);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    .nav-brand {
+      color: #fff;
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 4px;
+      align-items: center;
+    }
+
+    .nav-link {
+      color: rgba(255, 255, 255, 0.75);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      padding: 7px 16px;
+      border-radius: 8px;
+      transition: all 0.2s;
+    }
+
+    .nav-link:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .nav-link.active {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.18);
+      font-weight: 600;
+    }
+
+    /* HERO HEADER */
+    .page-header {
+      background: linear-gradient(135deg, var(--navy) 0%, #4a5ac7 100%);
+      padding: 56px 40px 50px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-header::before {
+      content: '';
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.06) 0%, transparent 70%);
+      top: -200px;
+      right: -80px;
+      border-radius: 50%;
+    }
+
+    .page-header::after {
+      content: '';
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.04) 0%, transparent 70%);
+      bottom: -100px;
+      left: 60px;
+      border-radius: 50%;
+    }
+
+    .breadcrumb {
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.5);
+      margin-bottom: 12px;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+    }
+
+    .page-header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(32px, 5vw, 54px);
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 12px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .page-header p {
+      color: rgba(255, 255, 255, 0.68);
+      font-size: 16px;
+      max-width: 460px;
+      margin: 0 auto 28px;
+      line-height: 1.6;
+      position: relative;
+      z-index: 1;
+    }
+
+    .search-wrap {
+      display: flex;
+      justify-content: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .search-bar {
+      width: 400px;
+      max-width: 90vw;
+      padding: 13px 20px 13px 48px;
+      border-radius: 50px;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.12);
+      color: #fff;
+      font-size: 14px;
+      font-family: 'DM Sans', sans-serif;
+      outline: none;
+      transition: all 0.3s;
+      backdrop-filter: blur(8px);
+    }
+
+    .search-bar::placeholder {
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    .search-bar:focus {
+      background: rgba(255, 255, 255, 0.2);
+      border-color: rgba(255, 255, 255, 0.5);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: calc(50% - 185px);
+      top: 50%;
+      transform: translateY(-50%);
+      color: rgba(255, 255, 255, 0.55);
+      font-size: 14px;
+      pointer-events: none;
+    }
+
+    /* STATS BAR */
+    .stats-bar {
+      display: flex;
+      justify-content: center;
+      gap: 48px;
+      padding: 20px 40px;
+      background: #fff;
+      border-bottom: 1px solid #e8eaf6;
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--navy2);
+    }
+
+    .stat-lbl {
+      font-size: 11px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-top: 2px;
+    }
+
+    /* FILTERS */
+    .filter-bar {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      padding: 24px 40px 8px;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      padding: 8px 20px;
+      border-radius: 50px;
+      border: 2px solid #e0e2f0;
+      background: transparent;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 500;
+      font-family: 'DM Sans', sans-serif;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .filter-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .filter-btn.active {
+      background: var(--navy2);
+      border-color: var(--navy2);
+      color: #fff;
+      font-weight: 600;
+    }
+
+    /* GRID */
+    .clubs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 28px;
+      padding: 28px 40px 60px;
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    /* CARD */
+    .club-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      transition: transform 0.3s cubic-bezier(.34, 1.56, .64, 1), box-shadow 0.3s;
+    }
+
+    .club-card:hover {
+      transform: translateY(-8px) scale(1.01);
+      box-shadow: var(--shadow-h);
+    }
+
+    .card-banner {
+      height: 120px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .card-dots {
+      position: absolute;
+      inset: 0;
+      opacity: 0.08;
+      background-image: radial-gradient(circle, #fff 1px, transparent 1px);
+      background-size: 22px 22px;
+    }
+
+    .card-icon-wrap {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.22);
+      border: 3px solid rgba(255, 255, 255, 0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      position: relative;
+      z-index: 1;
+      transition: transform 0.3s;
+    }
+
+    .club-card:hover .card-icon-wrap {
+      transform: scale(1.12) rotate(-6deg);
+    }
+
+    .card-badge {
+      position: absolute;
+      top: 12px;
+      right: 14px;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(6px);
+      color: #fff;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      padding: 4px 10px;
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      z-index: 1;
+      text-transform: uppercase;
+    }
+
+    .card-body {
+      padding: 20px 22px 22px;
+    }
+
+    .card-tag {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 20px;
+      margin-bottom: 8px;
+    }
+
+    .card-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 7px;
+      line-height: 1.2;
+    }
+
+    .card-desc {
+      font-size: 13.5px;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 16px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .card-stats {
+      display: flex;
+      margin-bottom: 18px;
+      background: #f7f8fe;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .cs {
+      flex: 1;
+      padding: 10px 0;
+      text-align: center;
+    }
+
+    .cs+.cs {
+      border-left: 1px solid #e8eaf6;
+    }
+
+    .cs-num {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--navy2);
+      font-family: 'Playfair Display', serif;
+    }
+
+    .cs-lbl {
+      font-size: 10px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-top: 2px;
+    }
+
+    .card-btns {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .btn-explore {
+      padding: 10px 14px;
+      border-radius: 10px;
+      border: 2px solid #e0e2f0;
+      background: transparent;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--navy2);
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .btn-explore:hover {
+      background: #f0f2ff;
+      border-color: var(--navy2);
+    }
+
+    .btn-join-card {
+      padding: 10px 14px;
+      border-radius: 10px;
+      border: none;
+      font-size: 13px;
+      font-weight: 600;
+      color: #fff;
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .btn-join-card:hover {
+      opacity: 0.87;
+      transform: translateY(-1px);
+    }
+
+    /* PROPOSE CARD */
+    .propose-card {
+      background: #fff;
+      border-radius: var(--radius);
+      border: 2.5px dashed #d0d4f0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 40px 24px;
+      cursor: pointer;
+      transition: all 0.25s;
+      min-height: 220px;
+    }
+
+    .propose-card:hover {
+      border-color: var(--accent);
+      background: #f0f2ff;
+      transform: translateY(-4px);
+    }
+
+    .propose-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: #eef0ff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      color: var(--accent);
+      transition: all 0.25s;
+    }
+
+    .propose-card:hover .propose-icon {
+      background: var(--accent);
+      color: #fff;
+      transform: scale(1.1);
+    }
+
+    .propose-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--navy2);
+    }
+
+    .propose-sub {
+      font-size: 12.5px;
+      color: var(--muted);
+      text-align: center;
+      line-height: 1.5;
+    }
+
+    /* MODAL */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 15, 40, 0.65);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      backdrop-filter: blur(5px);
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .club-modal-box {
+      background: var(--white);
+      border-radius: 24px;
+      width: 100%;
+      max-width: 500px;
+      max-height: 92vh;
+      overflow-y: auto;
+      position: relative;
+      box-shadow: 0 30px 80px rgba(15, 15, 40, 0.3);
+      animation: modalIn 0.35s cubic-bezier(.34, 1.56, .64, 1);
+    }
+
+    @keyframes modalIn {
+      from {
+        transform: translateY(40px) scale(0.95);
+        opacity: 0;
+      }
+
+      to {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+    }
+
+    .modal-band {
+      height: 140px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 24px 24px 0 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .modal-band::before {
+      content: '';
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 50%;
+      top: -80px;
+      right: -30px;
+    }
+
+    .modal-band-icon {
+      font-size: 58px;
+      position: relative;
+      z-index: 1;
+      filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.2));
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 14px;
+      right: 16px;
+      background: rgba(255, 255, 255, 0.2);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      width: 34px;
+      height: 34px;
+      color: #fff;
+      font-size: 15px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+      transition: all 0.2s;
+    }
+
+    .modal-close:hover {
+      background: rgba(255, 255, 255, 0.38);
+    }
+
+    .modal-body {
+      padding: 24px 28px 30px;
+    }
+
+    .modal-tag-pill {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-bottom: 10px;
+    }
+
+    .modal-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 10px;
+      line-height: 1.2;
+    }
+
+    .modal-desc-text {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 22px;
+    }
+
+    .modal-stats-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      background: #f7f8fe;
+      border-radius: 14px;
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+
+    .msr {
+      padding: 16px 0;
+      text-align: center;
+    }
+
+    .msr+.msr {
+      border-left: 1px solid #e8eaf6;
+    }
+
+    .msr-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--navy2);
+    }
+
+    .msr-lbl {
+      font-size: 11px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-top: 3px;
+    }
+
+    .modal-section-lbl {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    .modal-roles {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 22px;
+    }
+
+    .role-chip {
+      background: #f0f2ff;
+      color: var(--navy2);
+      font-size: 12px;
+      font-weight: 500;
+      padding: 5px 14px;
+      border-radius: 20px;
+      border: 1px solid #d8dcf8;
+    }
+
+    .btn-modal-join {
+      display: block;
+      width: 100%;
+      padding: 15px;
+      border: none;
+      border-radius: 12px;
+      color: #fff;
+      font-size: 15px;
+      font-weight: 700;
+      font-family: 'DM Sans', sans-serif;
+      cursor: pointer;
+      transition: all 0.25s;
+      letter-spacing: 0.3px;
+    }
+
+    .btn-modal-join:hover {
+      opacity: 0.87;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(43, 46, 131, 0.25);
+    }
+
+    /* FOOTER */
+    .footer {
+      background: var(--navy);
+      padding: 40px 40px 20px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 32px;
+      max-width: 1280px;
+      margin: 0 auto 28px;
+    }
+
+    .footer-brand {
+      font-family: 'Playfair Display', serif;
+      font-size: 18px;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+
+    .footer-about {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.48);
+      line-height: 1.6;
+    }
+
+    .footer-col-title {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: rgba(255, 255, 255, 0.38);
+      margin-bottom: 12px;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .footer-link {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.62);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-link:hover {
+      color: #fff;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding-top: 20px;
+      text-align: center;
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.32);
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 768px) {
+      .navbar {
+        padding: 0 16px;
+      }
+
+      .clubs-grid {
+        padding: 16px 16px 40px;
+        gap: 16px;
+      }
+
+      .stats-bar {
+        gap: 20px;
+        padding: 14px;
+      }
+
+      .page-header {
+        padding: 36px 20px 32px;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .filter-bar {
+        padding: 16px 16px 6px;
+      }
+
+      .search-icon {
+        left: 12px;
+      }
+    }
+  </style>
 </head>
+
 <body>
-<nav class="navbar">
-  <a class="nav-logo" href="index.html">
-    <div class="logo-circle">LOGO</div>
-    <span class="nav-brand">Unified Club Portal</span>
-  </a>
-  <div class="nav-links">
-    <a class="nav-link" href="../html code/index.html">Home</a>
-    <a class="nav-link active" href="club.html">Clubs</a>
-    <a class="nav-link" href="../html code/events.html">Events</a>
-    <a class="nav-link" href="../html code/about.html">About</a>
-    <a class="nav-link" href="../html code/admin.html">Admin</a>
+
+  <nav class="navbar">
+    <a class="nav-logo" href="index.html">
+      <div class="logo-circle">LOGO</div>
+      <span class="nav-brand">Unified Club Portal</span>
+    </a>
+    <div class="nav-links">
+      <a class="nav-link" href="../html code/index.html">Home</a>
+      <a class="nav-link active" href="club.html">Clubs</a>
+      <a class="nav-link" href="../html code/events.html">Events</a>
+      <a class="nav-link" href="../html code/about.html">About</a>
+      <a class="nav-link" href="../html code/admin.html">Admin</a>
+    </div>
+  </nav>
+
+  <div class="page-header">
+    <div class="breadcrumb">Home &nbsp;/&nbsp; Clubs</div>
+    <h1>Explore All Clubs</h1>
+    <p>Discover communities, build skills, and make memories at BAUET University.</p>
+    <div class="search-wrap">
+      <i class="fa-solid fa-magnifying-glass search-icon"></i>
+      <input class="search-bar" id="searchInput" type="text" placeholder="Search clubs by name or category…">
+    </div>
   </div>
-</nav>
 
-<div class="page-header">
-  <div class="breadcrumb">Home / Clubs</div>
-  <h1>All Clubs</h1>
-  <p>Browse and join any club at BAUET University.</p>
-</div>
+  <div class="stats-bar">
+    <div class="stat-item">
+      <div class="stat-num">5</div>
+      <div class="stat-lbl">Active Clubs</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">415+</div>
+      <div class="stat-lbl">Total Members</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">51+</div>
+      <div class="stat-lbl">Events / Year</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">2015</div>
+      <div class="stat-lbl">Since</div>
+    </div>
+  </div>
 
-<div class="section bg-light">
+  <div class="filter-bar" id="filterBar">
+    <button class="filter-btn active" data-filter="all">All Clubs</button>
+    <button class="filter-btn" data-filter="Technology">Technology</button>
+    <button class="filter-btn" data-filter="Culture & Arts">Culture & Arts</button>
+    <button class="filter-btn" data-filter="Debate & Speech">Debate & Speech</button>
+    <button class="filter-btn" data-filter="Language & Literature">Language & Literature</button>
+    <button class="filter-btn" data-filter="Environment">Environment</button>
+  </div>
+
   <div class="clubs-grid" id="clubs-grid"></div>
-</div>
 
-<!-- Club Detail Modal -->
-<div class="modal-overlay" id="club-modal">
-  <div class="club-modal-box">
-    <button class="close-btn" id="close-modal">✕</button>
-    <div class="modal-banner" id="modal-banner">
-      <div class="modal-icon" id="modal-icon">💻</div>
-    </div>
-    <div class="modal-body">
-      <span class="modal-tag" id="modal-tag">Technology</span>
-      <h2 class="modal-name" id="modal-name">Computer Society</h2>
-      <p class="modal-desc" id="modal-desc"></p>
-      <div class="modal-stats">
-        <div class="ms"><div class="ms-num" id="modal-members"></div><div class="ms-label">Members</div></div>
-        <div class="ms"><div class="ms-num" id="modal-events"></div><div class="ms-label">Events/Year</div></div>
-        <div class="ms"><div class="ms-num" id="modal-since"></div><div class="ms-label">Founded</div></div>
+  <!-- MODAL -->
+  <div class="modal-overlay" id="club-modal">
+    <div class="club-modal-box">
+      <button class="modal-close" id="close-modal"><i class="fa-solid fa-xmark"></i></button>
+      <div class="modal-band" id="modal-banner">
+        <div class="modal-band-icon" id="modal-icon">💻</div>
       </div>
-      <div class="modal-team" id="modal-team"></div>
-      <button class="btn-p" style="width:100%;margin-top:16px;text-align:center;">Join This Club</button>
+      <div class="modal-body">
+        <span class="modal-tag-pill" id="modal-tag"></span>
+        <h2 class="modal-title" id="modal-name"></h2>
+        <p class="modal-desc-text" id="modal-desc"></p>
+        <div class="modal-stats-row">
+          <div class="msr">
+            <div class="msr-num" id="modal-members"></div>
+            <div class="msr-lbl">Members</div>
+          </div>
+          <div class="msr">
+            <div class="msr-num" id="modal-events"></div>
+            <div class="msr-lbl">Events/yr</div>
+          </div>
+          <div class="msr">
+            <div class="msr-num" id="modal-since"></div>
+            <div class="msr-lbl">Founded</div>
+          </div>
+        </div>
+        <div class="modal-section-lbl">Leadership Team</div>
+        <div class="modal-roles" id="modal-team"></div>
+        <button class="btn-modal-join" id="modal-join-btn">Join This Club →</button>
+      </div>
     </div>
   </div>
-</div>
 
-<footer class="footer">
-  <div class="footer-grid">
-    <div><div class="footer-brand">🎓 Unified Club Portal</div><div class="footer-about">BAUET's central digital hub for all club activities.</div></div>
-    <div><div class="footer-col-title">Quick Links</div><div class="footer-links"><a class="footer-link" href="index.html">Home</a><a class="footer-link" href="clubs.html">Clubs</a><a class="footer-link" href="events.html">Events</a><a class="footer-link" href="about.html">About</a></div></div>
-    <div><div class="footer-col-title">Contact</div><div class="footer-links"><span class="footer-link">📍 BAUET, Natore</span><span class="footer-link">✉️ info@bauet.ac.bd</span></div></div>
-    <div><div class="footer-col-title">Follow Us</div><div class="footer-links"><span class="footer-link">Facebook</span><span class="footer-link">LinkedIn</span></div></div>
-  </div>
-  <div class="footer-bottom">© 2026 Unified Club Portal, BAUET · All Rights Reserved</div>
-</footer>
-<script src="../java script/clubs.js"></script>
+  <footer class="footer">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">🎓 Unified Club Portal</div>
+        <div class="footer-about">BAUET's central digital hub for all club activities, events and memberships.</div>
+      </div>
+      <div>
+        <div class="footer-col-title">Quick Links</div>
+        <div class="footer-links">
+          <a class="footer-link" href="index.html">Home</a>
+          <a class="footer-link" href="club.html">Clubs</a>
+          <a class="footer-link" href="events.html">Events</a>
+          <a class="footer-link" href="about.html">About</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Contact</div>
+        <div class="footer-links">
+          <span class="footer-link">📍 BAUET, Natore</span>
+          <span class="footer-link">✉️ info@bauet.ac.bd</span>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Follow Us</div>
+        <div class="footer-links">
+          <span class="footer-link">Facebook</span>
+          <span class="footer-link">LinkedIn</span>
+          <span class="footer-link">YouTube</span>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2026 Unified Club Portal, BAUET · All Rights Reserved</div>
+  </footer>
+
+  <script>
+    const clubs = [
+      {
+        id: "cse", name: "Computer Society", tag: "Technology", icon: "💻", color: "#2B2E83",
+        desc: "BAUET Computer Society focuses on programming, software development, innovation and leadership through workshops, hackathons and tech competitions.",
+        members: 120, events: 15, since: 2015, page: "../html code/cse.html",
+        team: ["President", "Vice President", "General Secretary", "IT Secretary"]
+      },
+      {
+        id: "cultural", name: "Photography & Media Club", tag: "Culture & Arts", icon: "🎭", color: "#a93226",
+        desc: "BAUET Cultural Club brings together music, dance, drama, recitation, and art to celebrate creativity, heritage, and the vibrant spirit of our students.",
+        members: 95, events: 10, since: 2016, page: "../html code/cultural.html",
+        team: ["President", "Vice President", "General Secretary", "Cultural Secretary"]
+      },
+      {
+        id: "debate", name: "Debating Society", tag: "Debate & Speech", icon: "🎤", color: "#1a5276",
+        desc: "BAUET Debate Club focuses on public speaking, critical thinking, and leadership through debates, workshops and national competitions.",
+        members: 80, events: 12, since: 2017, page: "../html code/debate.html",
+        team: ["President", "Vice President", "General Secretary", "Publicity Secretary"]
+      },
+      {
+        id: "llcb", name: "Language & Literature Club", tag: "Language & Literature", icon: "📖", color: "#6c3483",
+        desc: "Enhancing creativity and communication through literature, language, and cultural expression at BAUET.",
+        members: 60, events: 8, since: 2018, page: "../html code/llcb.html",
+        team: ["President", "Vice President", "General Secretary", "IT Secretary"]
+      },
+      {
+        id: "nature", name: "Nature & Environment Club", tag: "Environment", icon: "🌿", color: "#1e6b3c",
+        desc: "Promoting environmental awareness, sustainability, and nature conservation through campaigns, tree plantations and eco-events at BAUET.",
+        members: 60, events: 6, since: 2019, page: "../html code/nature.html",
+        team: ["President", "Vice President", "General Secretary", "Organizing Secretary"]
+      }
+    ];
+
+    let activeFilter = "all";
+
+    function renderClubs(list) {
+      const grid = document.getElementById("clubs-grid");
+      let html = list.map(c => `
+    <div class="club-card">
+      <div class="card-banner" style="background:linear-gradient(135deg,${c.color} 0%,${c.color}bb 100%)">
+        <div class="card-dots"></div>
+        <div class="card-icon-wrap">${c.icon}</div>
+        <span class="card-badge">${c.tag}</span>
+      </div>
+      <div class="card-body">
+        <span class="card-tag" style="color:${c.color};background:${c.color}18">${c.tag}</span>
+        <h3 class="card-name">${c.name}</h3>
+        <p class="card-desc">${c.desc}</p>
+        <div class="card-stats">
+          <div class="cs"><div class="cs-num">${c.members}</div><div class="cs-lbl">Members</div></div>
+          <div class="cs"><div class="cs-num">${c.events}</div><div class="cs-lbl">Events/yr</div></div>
+          <div class="cs"><div class="cs-num">${c.since}</div><div class="cs-lbl">Est.</div></div>
+        </div>
+        <div class="card-btns">
+          <button class="btn-explore" onclick="openModal('${c.id}')">
+            <i class="fa-solid fa-circle-info"></i> Explore
+          </button>
+          <button class="btn-join-card" style="background:${c.color}" onclick="window.location.href='${c.page}'">
+            <i class="fa-solid fa-user-plus"></i> Join Club
+          </button>
+        </div>
+      </div>
+    </div>
+  `).join("");
+
+      html += `
+    <div class="propose-card" onclick="alert('Feature coming soon! Contact admin.')">
+      <div class="propose-icon"><i class="fa-solid fa-plus"></i></div>
+      <div class="propose-title">Propose a New Club</div>
+      <div class="propose-sub">Have an idea? Submit your proposal to the admin team.</div>
+    </div>`;
+      grid.innerHTML = html;
+    }
+
+    function openModal(id) {
+      const c = clubs.find(x => x.id === id);
+      if (!c) return;
+      document.getElementById("modal-banner").style.background = `linear-gradient(135deg,${c.color} 0%,${c.color}99 100%)`;
+      document.getElementById("modal-icon").textContent = c.icon;
+      const tag = document.getElementById("modal-tag");
+      tag.textContent = c.tag; tag.style.cssText = `color:${c.color};background:${c.color}18`;
+      document.getElementById("modal-name").textContent = c.name;
+      document.getElementById("modal-desc").textContent = c.desc;
+      document.getElementById("modal-members").textContent = c.members;
+      document.getElementById("modal-events").textContent = c.events;
+      document.getElementById("modal-since").textContent = c.since;
+      document.getElementById("modal-team").innerHTML = c.team.map(r => `<span class="role-chip">${r}</span>`).join("");
+      const btn = document.getElementById("modal-join-btn");
+      btn.style.background = c.color;
+      btn.onclick = () => window.location.href = c.page;
+      document.getElementById("club-modal").classList.add("active");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeModal() {
+      document.getElementById("club-modal").classList.remove("active");
+      document.body.style.overflow = "";
+    }
+
+    document.getElementById("filterBar").addEventListener("click", e => {
+      const btn = e.target.closest(".filter-btn");
+      if (!btn) return;
+      document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      activeFilter = btn.dataset.filter;
+      applyFilters();
+    });
+
+    document.getElementById("searchInput").addEventListener("input", applyFilters);
+
+    function applyFilters() {
+      const q = document.getElementById("searchInput").value.toLowerCase();
+      const filtered = clubs.filter(c => {
+        const mf = activeFilter === "all" || c.tag === activeFilter;
+        const ms = c.name.toLowerCase().includes(q) || c.tag.toLowerCase().includes(q) || c.desc.toLowerCase().includes(q);
+        return mf && ms;
+      });
+      renderClubs(filtered);
+    }
+
+    document.getElementById("close-modal").addEventListener("click", closeModal);
+    document.getElementById("club-modal").addEventListener("click", e => {
+      if (e.target === document.getElementById("club-modal")) closeModal();
+    });
+    document.addEventListener("keydown", e => { if (e.key === "Escape") closeModal(); });
+
+    renderClubs(clubs);
+  </script>
 </body>
+
 </html>

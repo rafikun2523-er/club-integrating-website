@@ -87,7 +87,7 @@ if (member.photo && !member.photo.startsWith("http")) {
       });
 
     } catch (err) {
-      // API নেই বা empty — empty state দেখাও
+      
       showEmptyState(container, "fa-calendar-xmark", "No upcoming events yet. Stay tuned!");
     }
   }

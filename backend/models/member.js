@@ -37,10 +37,10 @@ const MemberSchema = new mongoose.Schema({
       message: props => `${props.value} is not a valid Bangladeshi phone number!`
     }
   },
-  // models/member.js এ এই দুইটা field যোগ করো
+  
 otp:       { type: String, default: "" },
 otpExpiry: { type: Date,   default: null },
-isVerified: { type: Boolean, default: false }, // আগে true ছিল → false করো
+isVerified: { type: Boolean, default: false }, 
   role: { type: String, enum: ["member", "admin"], default: "member" },
   password: { type: String, required: true },
   isVerified: { type: Boolean, default: true },

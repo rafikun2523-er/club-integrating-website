@@ -1,39 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin Login</title>
-<link rel="stylesheet" href="../css/login.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Login — BAUET Club Portal</title>
+  <link rel="stylesheet" href="../css/login.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
 
 <div class="login-wrapper">
-    <div class="login-box">
-        <h1>Club Admin Login</h1>
+  <div class="login-box">
+    <h1>Club Admin Login</h1>
+    <p class="login-subtitle">BAUET Unified Club Portal</p>
 
-        <div class="input-group">
-            <input type="text" id="adminId" required>
-            <label>Admin ID</label>
-        </div>
-
-        <div class="input-group">
-            <input type="password" id="password" required>
-            <label>Password</label>
-        </div>
-
-        <button onclick="login()">Login</button>
+    <div class="input-group">
+      <input type="text" id="adminId" placeholder=" " required>
+      <label>Admin ID</label>
     </div>
+
+    <div class="input-group">
+      <input type="password" id="password" placeholder=" " required>
+      <label>Password</label>
+      <i class="fa fa-eye toggle-eye"></i>
+    </div>
+
+    <button onclick="login()">Login</button>
+
+    <a class="login-back" href="../html code/index.html">
+      <i class="fa fa-arrow-left"></i> Back to Home
+    </a>
+  </div>
 </div>
 
-<!-- Popup Modal -->
 <div id="popup" class="popup">
-    <div class="popup-content">
-        <span class="close" onclick="closePopup()">&times;</span>
-        <p id="popup-message"></p>
-    </div>
+  <div class="popup-content">
+    <span id="popup-message"></span>
+    <span class="close" onclick="closePopup()">&times;</span>
+  </div>
 </div>
 
-<script src="../backend/admin_login.js"></script>
+<script src="../java script/login.js"></script>
 </body>
 </html>

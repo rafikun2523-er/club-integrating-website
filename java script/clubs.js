@@ -1,75 +1,153 @@
-// clubs.js — Clubs Page
 
 const clubs = [
-    {
-        name: "Computer Society", icon: "💻", banner: "linear-gradient(135deg,#1a1d6e,#3a4fcf)", tag: "Technology", desc: "Programming contests, hackathons, and tech workshops for future engineers.", members: 120, events: 8, since: 2015,
-        team: [{ init: "AR", name: "Anan Rahman", role: "President", bg: "#1a1d6e" }, { init: "SR", name: "Sakib Rahman", role: "Vice President", bg: "#3a4fcf" }, { init: "TH", name: "Tania Haque", role: "Secretary", bg: "#2B2E83" }, { init: "MK", name: "Mahim Khan", role: "Treasurer", bg: "#1a1d6e" }]
-    },
-    {
-        name: "Debate Club", icon: "🎤", banner: "linear-gradient(135deg,#7b2d8b,#c0569e)", tag: "Public Speaking", desc: "Sharpen communication and critical thinking through competitive debates.", members: 80, events: 6, since: 2016,
-        team: [{ init: "FI", name: "Farhana Islam", role: "President", bg: "#7b2d8b" }, { init: "RK", name: "Rafiq Khan", role: "Vice President", bg: "#c0569e" }, { init: "SN", name: "Sumi Noor", role: "Secretary", bg: "#7b2d8b" }, { init: "AH", name: "Arif Hossain", role: "Treasurer", bg: "#c0569e" }]
-    },
-    {
-        name: "Cultural Club", icon: "🎭", banner: "linear-gradient(135deg,#b5410d,#e97b1a)", tag: "Arts & Culture", desc: "Celebrate traditions through drama, music, dance, and art festivals.", members: 95, events: 10, since: 2014,
-        team: [{ init: "NJ", name: "Nusrat Jahan", role: "President", bg: "#b5410d" }, { init: "KA", name: "Karim Ahmed", role: "Vice President", bg: "#e97b1a" }, { init: "RP", name: "Rima Paul", role: "Secretary", bg: "#b5410d" }, { init: "SM", name: "Sabbir Mia", role: "Treasurer", bg: "#e97b1a" }]
-    },
-    {
-        name: "Photography Club", icon: "📷", banner: "linear-gradient(135deg,#0f6e56,#1d9e75)", tag: "Creative Arts", desc: "Capture campus moments and develop photography and editing skills.", members: 60, events: 5, since: 2018,
-        team: [{ init: "ZR", name: "Zahid Rahman", role: "President", bg: "#0f6e56" }, { init: "MH", name: "Munni Hasan", role: "Vice President", bg: "#1d9e75" }, { init: "AB", name: "Anis Barua", role: "Secretary", bg: "#0f6e56" }, { init: "TK", name: "Tisha Khatun", role: "Treasurer", bg: "#1d9e75" }]
-    },
-    {
-        name: "Sports Club", icon: "⚽", banner: "linear-gradient(135deg,#7a1f1f,#c94a4a)", tag: "Sports & Fitness", desc: "Inter-university tournaments, fitness events, and team building activities.", members: 110, events: 12, since: 2013,
-        team: [{ init: "JH", name: "Jahir Hossain", role: "President", bg: "#7a1f1f" }, { init: "RB", name: "Rina Begum", role: "Vice President", bg: "#c94a4a" }, { init: "FK", name: "Fazlul Karim", role: "Secretary", bg: "#7a1f1f" }, { init: "PA", name: "Puja Akter", role: "Treasurer", bg: "#c94a4a" }]
-    }
+  {
+    id: "cse",
+    name: "Computer Society",
+    tag: "Technology",
+    icon: "💻",
+    color: "#2B2E83",
+    desc: "BAUET Computer Society focuses on programming, software development, innovation and leadership through workshops, hackathons and tech competitions.",
+    members: 120,
+    events: 15,
+    since: 2015,
+    page: "../html code/cse.html",      // ← your actual file path
+    team: ["President", "Vice President", "General Secretary"]
+  },
+  {
+    id: "cultural",
+    name: "Photography & Media Club",
+    tag: "Culture & Arts",
+    icon: "🎭",
+    color: "#c0392b",
+    desc: "BAUET Cultural Club brings together music, dance, drama, recitation, and art to celebrate creativity, heritage, and the vibrant spirit of our students.",
+    members: 80,
+    events: 10,
+    since: 2016,
+    page: "../html code/cultural.html",  // ← your actual file path
+    team: ["President", "Vice President", "General Secretary"]
+  },
+  {
+    id: "debate",
+    name: "Debating Society",
+    tag: "Debate & Speech",
+    icon: "🎤",
+    color: "#1a5276",
+    desc: "BAUET Debate Club focuses on public speaking, critical thinking, and leadership through debates, workshops and competitions.",
+    members: 60,
+    events: 12,
+    since: 2017,
+    page: "../html code/debate.html",    // ← your actual file path
+    team: ["President", "Vice President", "General Secretary"]
+  },
+  {
+    id: "llcb",
+    name: "Language & Literature Club",
+    tag: "Language & Literature",
+    icon: "📖",
+    color: "#6c3483",
+    desc: "Enhancing creativity and communication through literature, language, and cultural expression at BAUET.",
+    members: 50,
+    events: 8,
+    since: 2018,
+    page: "../html code/llcb.html",      // ← your actual file path
+    team: ["President", "Vice President", "General Secretary"]
+  },
+  {
+    id: "nature",
+    name: "Nature & Environment Club",
+    tag: "Environment",
+    icon: "🌿",
+    color: "#1e8449",
+    desc: "Promoting environmental awareness, sustainability, and nature conservation among BAUET students through campaigns, tree plantations and eco-events.",
+    members: 45,
+    events: 6,
+    since: 2019,
+    page: "../html code/nature.html",    // ← your actual file path
+    team: ["President", "Vice President", "General Secretary"]
+  }
 ];
 
-function buildGrid() {
-    const g = document.getElementById('clubs-grid');
-    g.innerHTML = clubs.map((c, i) => `
-    <div class="club-card" onclick="openModal(${i})">
-      <div class="club-banner" style="background:${c.banner}">${c.icon}</div>
-      <div class="club-body">
-        <div class="club-name">${c.name}</div>
-        <div class="club-desc">${c.desc}</div>
-        <div class="club-meta">
-          <span class="club-members">👤 ${c.members} Members</span>
-          <button class="join-btn" onclick="event.stopPropagation()">Join Now</button>
+// ── Render Cards ──────────────────────────────────────────
+function renderClubs() {
+  const grid = document.getElementById("clubs-grid");
+  if (!grid) return;
+
+  grid.innerHTML = clubs.map(club => `
+    <div class="club-card" data-id="${club.id}">
+      <div class="club-card-banner" style="background:${club.color}20; border-bottom: 3px solid ${club.color}">
+        <div class="club-card-icon" style="background:${club.color}">${club.icon}</div>
+      </div>
+      <div class="club-card-body">
+        <span class="club-tag" style="color:${club.color}; background:${club.color}15">${club.tag}</span>
+        <h3 class="club-card-name">${club.name}</h3>
+        <p class="club-card-desc">${club.desc.substring(0, 100)}...</p>
+        <div class="club-card-stats">
+          <span><strong>${club.members}</strong> Members</span>
+          <span><strong>${club.events}</strong> Events/yr</span>
+          <span>Est. <strong>${club.since}</strong></span>
+        </div>
+        <div class="club-card-btns">
+          <button class="btn-explore" data-id="${club.id}">🔍 Explore Club</button>
+          <button class="btn-join" data-page="${club.page}" style="background:${club.color}">Join Club →</button>
         </div>
       </div>
     </div>
-  `).join('') + `
-    <div class="propose-card">
-      <div class="propose-icon">➕</div>
-      <div class="propose-title">Propose a New Club</div>
-      <div class="propose-sub">Submit your idea to admin</div>
-    </div>
-  `;
+  `).join("");
+
+  // Explore → open modal
+  document.querySelectorAll(".btn-explore").forEach(btn => {
+    btn.addEventListener("click", () => openModal(btn.dataset.id));
+  });
+
+  // Join → navigate to club page
+  document.querySelectorAll(".btn-join").forEach(btn => {
+    btn.addEventListener("click", () => {
+      window.location.href = btn.dataset.page;
+    });
+  });
 }
 
-function openModal(i) {
-    const c = clubs[i];
-    document.getElementById('modal-banner').style.background = c.banner;
-    document.getElementById('modal-icon').textContent = c.icon;
-    document.getElementById('modal-tag').textContent = c.tag;
-    document.getElementById('modal-name').textContent = c.name;
-    document.getElementById('modal-desc').textContent = c.desc;
-    document.getElementById('modal-members').textContent = c.members;
-    document.getElementById('modal-events').textContent = c.events;
-    document.getElementById('modal-since').textContent = c.since;
-    document.getElementById('modal-team').innerHTML = c.team.map(m => `
-    <div class="team-member">
-      <div class="team-avt" style="background:${m.bg}">${m.init}</div>
-      <div class="team-info"><div class="name">${m.name}</div><div class="role">${m.role}</div></div>
-    </div>
-  `).join('');
-    document.getElementById('club-modal').classList.add('open');
+// ── Modal ─────────────────────────────────────────────────
+function openModal(id) {
+  const club = clubs.find(c => c.id === id);
+  if (!club) return;
+
+  document.getElementById("modal-icon").textContent = club.icon;
+  document.getElementById("modal-banner").style.background = `linear-gradient(135deg, ${club.color}, ${club.color}99)`;
+  document.getElementById("modal-tag").textContent = club.tag;
+  document.getElementById("modal-tag").style.cssText = `color:${club.color}; background:${club.color}20`;
+  document.getElementById("modal-name").textContent = club.name;
+  document.getElementById("modal-desc").textContent = club.desc;
+  document.getElementById("modal-members").textContent = club.members;
+  document.getElementById("modal-events").textContent = club.events;
+  document.getElementById("modal-since").textContent = club.since;
+
+  // Team badges
+  document.getElementById("modal-team").innerHTML =
+    club.team.map(r => `<span class="team-badge">${r}</span>`).join("");
+
+  // "Join This Club" button inside modal → navigate
+  const joinBtn = document.querySelector(".club-modal-box .btn-p");
+  if (joinBtn) {
+    joinBtn.onclick = () => { window.location.href = club.page; };
+  }
+
+  document.getElementById("club-modal").classList.add("active");
+  document.body.style.overflow = "hidden";
 }
 
-document.getElementById('close-modal').addEventListener('click', () => {
-    document.getElementById('club-modal').classList.remove('open');
-});
-document.getElementById('club-modal').addEventListener('click', function (e) {
-    if (e.target === this) this.classList.remove('open');
-});
+function closeModal() {
+  document.getElementById("club-modal").classList.remove("active");
+  document.body.style.overflow = "";
+}
 
-buildGrid();
+// ── Init ──────────────────────────────────────────────────
+document.addEventListener("DOMContentLoaded", () => {
+  renderClubs();
+
+  document.getElementById("close-modal")?.addEventListener("click", closeModal);
+
+  document.getElementById("club-modal")?.addEventListener("click", e => {
+    if (e.target === document.getElementById("club-modal")) closeModal();
+  });
+});
