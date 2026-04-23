@@ -1,53 +1,42 @@
-const express = require("express");
-const cors = require("cors");
-const dotenv = require("dotenv");
-const path = require("path");
-const mongoose = require("mongoose");
-const rateLimit = require("express-rate-limit");
-const session = require("express-session");
-const bcrypt = require("bcrypt");
-const connectDB = require("./config/db");
+const express    = require("express");
+const cors       = require("cors");
+const dotenv     = require("dotenv");
+const path       = require("path");
+const mongoose   = require("mongoose");
+const rateLimit  = require("express-rate-limit");
+const bcrypt     = require("bcrypt");
+const jwt        = require("jsonwebtoken");
+const connectDB  = require("./config/db");
 
 dotenv.config();
 const app = express();
 connectDB();
 
+// ── CORS — file:// এবং localhost দুটোই allow ──
 app.use(cors({
   origin: (origin, callback) => callback(null, true),
   credentials: true
 }));
 app.use(express.json());
 
-// ── Session ───────────────────────────────────
-app.use(session({
-  secret: process.env.SESSION_SECRET || "bauet_admin_secret_2026",
-  resave: false,
-  saveUninitialized: false,
-  cookie: {
-    httpOnly: true,
-    secure: false,
-    maxAge: 1000 * 60 * 60 * 2  // 2 ঘণ্টা
-  }
-}));
-
-// ── Rate Limiters ─────────────────────────────
+// ── Rate limiters ─────────────────────────────
 const loginLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000,
-  max: 5,
+  windowMs: 15 * 60 * 1000, max: 10,
   message: { message: "Too many login attempts! Try again after 15 minutes." }
 });
 const registerLimiter = rateLimit({
-  windowMs: 60 * 60 * 1000,
-  max: 3,
+  windowMs: 60 * 60 * 1000, max: 5,
   message: { message: "Too many registrations! Try again after 1 hour." }
 });
-
-app.use("/api/members/login", loginLimiter);
+app.use("/api/members/login",    loginLimiter);
 app.use("/api/members/register", registerLimiter);
-app.use("/admin-login", loginLimiter);
+app.use("/admin-login",          loginLimiter);
 
-// ── Static files ──────────────────────────────
+// ── Static ────────────────────────────────────
 app.use("/photoUploads", express.static(path.join(__dirname, "photoUploads")));
+
+// ── Admin JWT Secret ──────────────────────────
+const ADMIN_JWT_SECRET = process.env.JWT_SECRET || "bauet_admin_jwt_2026";
 
 // ── Admin Model ───────────────────────────────
 const AdminSchema = new mongoose.Schema({
@@ -57,11 +46,39 @@ const AdminSchema = new mongoose.Schema({
 });
 const Admin = mongoose.model("admins", AdminSchema);
 
-// ── POST /admin-login ─────────────────────────
+// ── Notice Model ──────────────────────────────
+const NoticeSchema = new mongoose.Schema({
+  title:     { type: String, required: true, trim: true },
+  text:      { type: String, required: true },
+  category:  { type: String, enum: ["general","event","urgent","achievement"], default: "general" },
+  postedBy:  { type: String, default: "Admin" },
+  createdAt: { type: Date, default: Date.now }
+});
+const Notice = mongoose.model("notices", NoticeSchema);
+
+// ── Admin JWT middleware ───────────────────────
+function requireAdmin(req, res, next) {
+  const authHeader = req.headers["authorization"];
+  const token = authHeader && authHeader.split(" ")[1];
+  if (!token) return res.status(401).json({ success: false, message: "Not authenticated." });
+
+  try {
+    const decoded = jwt.verify(token, ADMIN_JWT_SECRET);
+    req.admin = decoded;
+    next();
+  } catch (err) {
+    return res.status(401).json({ success: false, message: "Invalid or expired token." });
+  }
+}
+
+// =============================================
+//  ADMIN AUTH
+// =============================================
+
+// POST /admin-login
 app.post("/admin-login", async (req, res) => {
   try {
     const { adminId, password } = req.body;
-
     if (!adminId || !password)
       return res.status(400).json({ success: false, message: "ID এবং Password দিন।" });
 
@@ -73,41 +90,202 @@ app.post("/admin-login", async (req, res) => {
     if (!isMatch)
       return res.status(401).json({ success: false, message: "Password সঠিক নয়।" });
 
-    req.session.admin = {
-      id:      admin._id,
-      adminId: admin.adminId,
-      name:    admin.name
-    };
+    // JWT token তৈরি — 8 ঘণ্টা valid
+    const token = jwt.sign(
+      { adminId: admin.adminId, name: admin.name, id: admin._id },
+      ADMIN_JWT_SECRET,
+      { expiresIn: "8h" }
+    );
 
-    return res.json({ success: true, name: admin.name, message: `স্বাগতম, ${admin.name}!` });
-
+    return res.json({ success: true, token, name: admin.name, message: `স্বাগতম, ${admin.name}!` });
   } catch (err) {
     console.error("Admin login error:", err);
     return res.status(500).json({ success: false, message: "Server error।" });
   }
 });
 
-// ── GET /admin-check ──────────────────────────
-app.get("/admin-check", (req, res) => {
-  if (req.session && req.session.admin)
-    return res.json({ success: true, admin: req.session.admin });
-  return res.status(401).json({ success: false });
+// GET /admin-check  (token header দিয়ে)
+app.get("/admin-check", requireAdmin, (req, res) => {
+  res.json({ success: true, admin: req.admin });
 });
 
-// ── GET /admin-logout ─────────────────────────
+// GET /admin-logout  (client side এ token delete হবে)
 app.get("/admin-logout", (req, res) => {
-  req.session.destroy(() => {
-    res.clearCookie("connect.sid");
-    res.json({ success: true });
-  });
+  res.json({ success: true });
 });
 
-// ── Other Routes ──────────────────────────────
+// =============================================
+//  ADMIN STATS
+// =============================================
+app.get("/api/admin/stats", requireAdmin, async (req, res) => {
+  try {
+    const Member = require("./models/member");
+    const Event  = require("./models/events");
+
+    const [totalStudents, totalEvents, totalNotices, recentStudents, recentEvents] =
+      await Promise.all([
+        Member.countDocuments({ isVerified: true }),
+        Event.countDocuments(),
+        Notice.countDocuments(),
+        Member.find({ isVerified: true }).select("name department batch photo").sort({ _id: -1 }).limit(5),
+        Event.find().sort({ date: -1 }).limit(5)
+      ]);
+
+    res.json({ totalStudents, totalClubs: 5, totalEvents, totalNotices, recentStudents, recentEvents });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+// =============================================
+//  ADMIN — EVENTS
+// =============================================
+const Event = require("./models/events");
+
+app.get("/api/admin/events", requireAdmin, async (req, res) => {
+  try { res.json(await Event.find().sort({ date: -1 })); }
+  catch (err) { res.status(500).json({ message: err.message }); }
+});
+
+app.post("/api/admin/events", requireAdmin, async (req, res) => {
+  try {
+    const { title, description, date, location, status } = req.body;
+    if (!title || !date) return res.status(400).json({ message: "Title and date required." });
+    res.status(201).json(await Event.create({ title, description, date, location, status: status || "upcoming" }));
+  } catch (err) { res.status(500).json({ message: err.message }); }
+});
+
+app.put("/api/admin/events/:id", requireAdmin, async (req, res) => {
+  try {
+    const event = await Event.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    if (!event) return res.status(404).json({ message: "Event not found." });
+    res.json(event);
+  } catch (err) { res.status(500).json({ message: err.message }); }
+});
+
+app.delete("/api/admin/events/:id", requireAdmin, async (req, res) => {
+  try { await Event.findByIdAndDelete(req.params.id); res.json({ message: "Event deleted." }); }
+  catch (err) { res.status(500).json({ message: err.message }); }
+});
+
+app.post("/api/admin/events/:id/complete", requireAdmin, async (req, res) => {
+  try {
+    const Registration  = require("./models/registration");
+    const Participation = require("./models/participation");
+    const event = await Event.findByIdAndUpdate(req.params.id, { status: "completed" }, { new: true });
+    if (!event) return res.status(404).json({ message: "Event not found." });
+    const regs = await Registration.find({ eventId: req.params.id });
+    for (const reg of regs) {
+      const exists = await Participation.findOne({ eventId: reg.eventId, studentID: reg.studentID });
+      if (!exists) await Participation.create({ eventId: reg.eventId, studentID: reg.studentID });
+    }
+    res.json({ message: "Event completed!", event });
+  } catch (err) { res.status(500).json({ message: err.message }); }
+});
+
+// =============================================
+//  ADMIN — NOTICES
+// =============================================
+app.get("/api/notices", async (req, res) => {
+  try { res.json(await Notice.find().sort({ createdAt: -1 }).limit(20)); }
+  catch (err) { res.status(500).json({ message: err.message }); }
+});
+
+app.post("/api/admin/notices", requireAdmin, async (req, res) => {
+  try {
+    const { title, text, category } = req.body;
+    if (!title || !text) return res.status(400).json({ message: "Title and text required." });
+    res.status(201).json(await Notice.create({ title, text, category: category || "general", postedBy: req.admin.name }));
+  } catch (err) { res.status(500).json({ message: err.message }); }
+});
+
+app.delete("/api/admin/notices/:id", requireAdmin, async (req, res) => {
+  try { await Notice.findByIdAndDelete(req.params.id); res.json({ message: "Notice deleted." }); }
+  catch (err) { res.status(500).json({ message: err.message }); }
+});
+
+// =============================================
+//  ADMIN — STUDENTS
+// =============================================
+const Member = require("./models/member");
+
+app.get("/api/admin/students", requireAdmin, async (req, res) => {
+  try {
+    res.json(await Member.find({ isVerified: true })
+      .select("studentID name batch department email phone photo").sort({ _id: -1 }));
+  } catch (err) { res.status(500).json({ message: err.message }); }
+});
+
+app.delete("/api/admin/students/:studentID", requireAdmin, async (req, res) => {
+  try { await Member.findOneAndDelete({ studentID: req.params.studentID }); res.json({ message: "Student removed." }); }
+  catch (err) { res.status(500).json({ message: err.message }); }
+});
+
+// =============================================
+//  PUBLIC ROUTES (home page)
+// =============================================
+app.get("/api/public/stats", async (req, res) => {
+  try {
+    const [totalStudents, totalEvents] = await Promise.all([
+      Member.countDocuments({ isVerified: true }),
+      Event.countDocuments()
+    ]);
+    res.json({ totalStudents, totalClubs: 5, totalEvents });
+  } catch (err) { res.status(500).json({ message: err.message }); }
+});
+
+app.get("/api/public/events", async (req, res) => {
+  try { res.json(await Event.find({ status: "upcoming" }).sort({ date: 1 }).limit(4)); }
+  catch (err) { res.status(500).json({ message: err.message }); }
+});
+
+
+// GET all events (upcoming + completed) — for events page
+app.get("/api/public/events/all", async (req, res) => {
+  try {
+    const events = await Event.find().sort({ date: -1 });
+    res.json(events);
+  } catch (err) { res.status(500).json({ message: err.message }); }
+});
+
+// GET completed events only — for home page past events
+app.get("/api/public/events/past", async (req, res) => {
+  try {
+    const events = await Event.find({ status: "completed" }).sort({ date: -1 }).limit(4);
+    res.json(events);
+  } catch (err) { res.status(500).json({ message: err.message }); }
+});
+
+// Alias /api/announcements → /api/notices (student panel uses this)
+app.get("/api/announcements", async (req, res) => {
+  try {
+    const notices = await Notice.find().sort({ createdAt: -1 }).limit(10);
+    res.json(notices.map(n => ({
+      _id: n._id, title: n.title, message: n.text,
+      category: n.category, createdAt: n.createdAt, postedBy: n.postedBy
+    })));
+  } catch (err) { res.status(500).json({ message: err.message }); }
+});
+
+// =============================================
+//  EXISTING MEMBER ROUTES
+// =============================================
 app.use("/api/members",      require("./routes/memberRoutes"));
 app.use("/api/events",       require("./routes/eventRoutes"));
 app.use("/api/certificates", require("./routes/certificateRoutes"));
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, "0.0.0.0", () => {
-  console.log(`🚀 Server running on port ${PORT}`);
+// =============================================
+//  SEED — একবার চালান তারপর comment করুন
+// =============================================
+app.post("/admin-seed", async (req, res) => {
+  try {
+    const exists = await Admin.findOne({ adminId: "admin1" });
+    if (exists) return res.json({ message: "Admin already exists." });
+    const hashed = await bcrypt.hash("admin1234", 12);
+    await Admin.create({ adminId: "admin1", name: "Ratul", password: hashed });
+    res.json({ success: true, message: "Admin created! ID: admin1 | Pass: admin1234" });
+  } catch (err) { res.status(500).json({ message: err.message }); }
 });
+
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, "0.0.0.0", () => console.log(`🚀 Server running on port ${PORT}`));
