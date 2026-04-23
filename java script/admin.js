@@ -1,130 +1,383 @@
-// admin.js — Admin Page
+// =============================================
+//  java script/admin.js
+//  admin-guard.js এর পরে load হয়
+//  adminFetch() function admin-guard.js থেকে আসে
+// =============================================
 
-let members = [
-    { name: "Tahsina Tasnim", id: "2101001", dept: "CSE", joined: "Jan 2026", status: "Active" },
-    { name: "Sakib Rahman", id: "2101002", dept: "EEE", joined: "Jan 2026", status: "Active" },
-    { name: "Raisa Akter", id: "2101003", dept: "CSE", joined: "Feb 2026", status: "Active" },
-    { name: "Mehedi Hasan", id: "2101004", dept: "CE", joined: "Feb 2026", status: "Active" },
-    { name: "Sadia Islam", id: "2101005", dept: "CSE", joined: "Mar 2026", status: "Inactive" },
-    { name: "Tanvir Ahmed", id: "2101006", dept: "ME", joined: "Mar 2026", status: "Active" },
-];
-let approvals = [
-    { name: "Farhan Ahmed", id: "2201001", dept: "CSE", date: "7 Apr 2026" },
-    { name: "Nusrat Jahan", id: "2201002", dept: "EEE", date: "6 Apr 2026" },
-    { name: "Mehedi Islam", id: "2201003", dept: "CE", date: "5 Apr 2026" },
-    { name: "Puja Rani", id: "2201004", dept: "CSE", date: "4 Apr 2026" },
-    { name: "Sabbir Hossain", id: "2201005", dept: "ME", date: "3 Apr 2026" },
-];
-let eventsData = [
-    { name: "Programming Contest", date: "2026-06-20", venue: "Main Lab", status: "Upcoming" },
-    { name: "Mind Storm 2026", date: "2026-07-10", venue: "Auditorium", status: "Registration Open" },
-];
+const BASE_URL_ADMIN = window.location.hostname === "localhost" ||
+                       window.location.hostname === "127.0.0.1"
+  ? "http://localhost:5000"
+  : `http://${window.location.hostname}:5000`;
 
-// Panel switching
-function switchPanel(p) {
-    document.querySelectorAll('.a-panel').forEach(el => el.classList.remove('active'));
-    document.querySelectorAll('.sb-item').forEach(el => el.classList.remove('active'));
-    document.getElementById('panel-' + p).classList.add('active');
-    const sb = document.getElementById('sb-' + p);
-    if (sb) sb.classList.add('active');
-    if (p === 'members') renderMembers(members);
-    if (p === 'approvals') renderApprovals();
-    if (p === 'events') renderEvents();
+let allStudents = [];
+let allEvents   = [];
+
+// ── Toast ─────────────────────────────────────
+function showToast(msg, type = "success") {
+  const t = document.getElementById("toast");
+  if (!t) return;
+  t.textContent = msg;
+  t.className   = `toast show ${type}`;
+  setTimeout(() => { t.className = "toast"; }, 3000);
 }
 
-// Members
-function renderMembers(list) {
-    document.getElementById('members-tbody').innerHTML = list.map((m, i) => `
+// ── Tab switching ─────────────────────────────
+function switchTab(name) {
+  document.querySelectorAll(".tab-pane").forEach(p => p.classList.remove("active"));
+  document.querySelectorAll(".sidebar-link").forEach(l => l.classList.remove("active"));
+  document.getElementById(`tab-${name}`)?.classList.add("active");
+  document.querySelector(`[data-tab="${name}"]`)?.classList.add("active");
+  if (name === "events")   loadEvents();
+  if (name === "notices")  loadNotices();
+  if (name === "students") loadStudents();
+}
+
+// ── Modal ─────────────────────────────────────
+function openModal(id)  { document.getElementById(id)?.classList.add("open"); }
+function closeModal(id) { document.getElementById(id)?.classList.remove("open"); }
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  // modal overlay click to close
+  document.querySelectorAll(".modal-overlay").forEach(el => {
+    el.addEventListener("click", e => {
+      if (e.target === el) el.classList.remove("open");
+    });
+  });
+
+  // admin name (set by admin-guard.js already, but backup here)
+  const name = localStorage.getItem("adminName") || "Admin";
+  ["adminWelcomeName","welcomeNameBig"].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = name;
+  });
+  const av = document.getElementById("adminAvatar");
+  if (av) av.textContent = name[0].toUpperCase();
+
+  loadDashboard();
+});
+
+// ── authFetch wrapper (uses adminFetch from guard) ──
+function af(url, options = {}) {
+  // adminFetch is defined in admin-guard.js
+  if (typeof adminFetch === "function") {
+    return adminFetch(url, options);
+  }
+  // fallback
+  const token = localStorage.getItem("adminToken");
+  return fetch(url, {
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": token ? `Bearer ${token}` : "",
+      ...(options.headers || {})
+    }
+  });
+}
+
+// =============================================
+//  DASHBOARD
+// =============================================
+async function loadDashboard() {
+  try {
+    const res  = await af(`${BASE_URL_ADMIN}/api/admin/stats`);
+    if (!res.ok) { showToast("Session expired. Please login again.", "error"); return; }
+    const data = await res.json();
+
+    const set = (id, val) => { const el=document.getElementById(id); if(el) el.textContent=val??'—'; };
+    set("stat-students", data.totalStudents);
+    set("stat-clubs",    data.totalClubs ?? 5);
+    set("stat-events",   data.totalEvents);
+    set("stat-notices",  data.totalNotices);
+
+    // Recent students
+    const rsList = document.getElementById("recentStudents");
+    if (rsList) {
+      rsList.innerHTML = (data.recentStudents?.length)
+        ? data.recentStudents.map(s => `
+            <div class="dash-row">
+              <div class="dash-row-avatar">${s.name[0]}</div>
+              <div class="dash-row-info">
+                <div class="dash-row-name">${s.name}</div>
+                <div class="dash-row-sub">${s.department} · Batch ${s.batch}</div>
+              </div>
+            </div>`).join("")
+        : '<div class="dash-row"><span style="color:var(--muted);font-size:13px;padding:8px">No students yet</span></div>';
+    }
+
+    // Recent events
+    const reList = document.getElementById("recentEvents");
+    if (reList) {
+      reList.innerHTML = (data.recentEvents?.length)
+        ? data.recentEvents.map(e => `
+            <div class="dash-row">
+              <div class="dash-row-info">
+                <div class="dash-row-name">${e.title}</div>
+                <div class="dash-row-sub">${new Date(e.date).toLocaleDateString("en-BD",{day:"numeric",month:"short",year:"numeric"})}</div>
+              </div>
+              <span class="dash-row-badge badge-${e.status}">${e.status}</span>
+            </div>`).join("")
+        : '<div class="dash-row"><span style="color:var(--muted);font-size:13px;padding:8px">No events yet</span></div>';
+    }
+
+  } catch (err) {
+    console.error("Dashboard error:", err);
+    showToast("Could not load dashboard data.", "error");
+  }
+}
+
+// =============================================
+//  EVENTS
+// =============================================
+async function loadEvents() {
+  const tbody = document.getElementById("eventsBody");
+  if (!tbody) return;
+  tbody.innerHTML = '<tr><td colspan="5" class="loading-row"><i class="fa fa-spinner fa-spin"></i> Loading...</td></tr>';
+
+  try {
+    const res = await af(`${BASE_URL_ADMIN}/api/admin/events`);
+    allEvents = await res.json();
+
+    if (!allEvents.length) {
+      tbody.innerHTML = '<tr><td colspan="5" class="loading-row">No events yet. Add your first event!</td></tr>';
+      return;
+    }
+
+    tbody.innerHTML = allEvents.map(e => `
+      <tr>
+        <td><strong>${e.title}</strong></td>
+        <td>${new Date(e.date).toLocaleDateString("en-BD",{day:"numeric",month:"short",year:"numeric"})}</td>
+        <td>${e.location || "—"}</td>
+        <td><span class="status-badge badge-${e.status}">${e.status}</span></td>
+        <td>
+          <button class="btn-icon edit"    onclick="editEvent('${e._id}')"     title="Edit"><i class="fa fa-edit"></i></button>
+          ${e.status==="upcoming"
+            ? `<button class="btn-icon complete" onclick="completeEvent('${e._id}')" title="Mark complete"><i class="fa fa-check"></i></button>`
+            : ""}
+          <button class="btn-icon delete"  onclick="deleteEvent('${e._id}')"   title="Delete"><i class="fa fa-trash"></i></button>
+        </td>
+      </tr>`).join("");
+
+  } catch (err) {
+    tbody.innerHTML = '<tr><td colspan="5" class="loading-row">Error loading events.</td></tr>';
+    console.error(err);
+  }
+}
+
+function openEventModal() {
+  ["eventId","eventTitle","eventDesc","eventDate","eventLocation"].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.value = "";
+  });
+  const s = document.getElementById("eventStatus");
+  if (s) s.value = "upcoming";
+  const t = document.getElementById("eventModalTitle");
+  if (t) t.textContent = "Add Event";
+  openModal("eventModal");
+}
+
+function editEvent(id) {
+  const ev = allEvents.find(e => e._id === id);
+  if (!ev) return;
+  document.getElementById("eventId").value        = ev._id;
+  document.getElementById("eventTitle").value     = ev.title;
+  document.getElementById("eventDesc").value      = ev.description || "";
+  document.getElementById("eventDate").value      = ev.date ? ev.date.split("T")[0] : "";
+  document.getElementById("eventLocation").value  = ev.location || "";
+  document.getElementById("eventStatus").value    = ev.status;
+  const t = document.getElementById("eventModalTitle");
+  if (t) t.textContent = "Edit Event";
+  openModal("eventModal");
+}
+
+async function saveEvent() {
+  const id       = document.getElementById("eventId")?.value;
+  const title    = document.getElementById("eventTitle")?.value.trim();
+  const desc     = document.getElementById("eventDesc")?.value.trim();
+  const date     = document.getElementById("eventDate")?.value;
+  const location = document.getElementById("eventLocation")?.value.trim();
+  const status   = document.getElementById("eventStatus")?.value;
+
+  if (!title || !date) { showToast("Title and date are required!", "error"); return; }
+
+  const url    = id ? `${BASE_URL_ADMIN}/api/admin/events/${id}` : `${BASE_URL_ADMIN}/api/admin/events`;
+  const method = id ? "PUT" : "POST";
+
+  try {
+    const res  = await af(url, { method, body: JSON.stringify({ title, description:desc, date, location, status }) });
+    const data = await res.json();
+    if (!res.ok) { showToast(data.message || "Error!", "error"); return; }
+    closeModal("eventModal");
+    showToast(id ? "✅ Event updated!" : "✅ Event created!", "success");
+    loadEvents();
+    loadDashboard();
+  } catch (err) {
+    showToast("Server error!", "error");
+    console.error(err);
+  }
+}
+
+async function deleteEvent(id) {
+  if (!confirm("Delete this event?")) return;
+  try {
+    await af(`${BASE_URL_ADMIN}/api/admin/events/${id}`, { method: "DELETE" });
+    showToast("Event deleted.", "success");
+    loadEvents();
+    loadDashboard();
+  } catch (err) { showToast("Error!", "error"); }
+}
+
+async function completeEvent(id) {
+  if (!confirm("Mark this event as completed? Participants will be finalized.")) return;
+  try {
+    const res  = await af(`${BASE_URL_ADMIN}/api/admin/events/${id}/complete`, { method: "POST" });
+    const data = await res.json();
+    showToast(data.message || "✅ Event completed!", "success");
+    loadEvents();
+    loadDashboard();
+  } catch (err) { showToast("Error!", "error"); }
+}
+
+// =============================================
+//  NOTICES
+// =============================================
+async function loadNotices() {
+  const grid = document.getElementById("noticesList");
+  if (!grid) return;
+  grid.innerHTML = '<div style="color:var(--muted);padding:24px;font-size:13px"><i class="fa fa-spinner fa-spin"></i> Loading...</div>';
+
+  try {
+    const res     = await fetch(`${BASE_URL_ADMIN}/api/notices`);
+    const notices = await res.json();
+
+    if (!notices.length) {
+      grid.innerHTML = '<div style="color:var(--muted);padding:24px;font-size:13px">No notices yet. Post the first one!</div>';
+      return;
+    }
+
+    grid.innerHTML = notices.map(n => `
+      <div class="notice-card ${n.category}">
+        <div class="notice-card-top">
+          <div class="notice-title">${n.title}</div>
+          <button class="btn-icon delete" onclick="deleteNotice('${n._id}')"><i class="fa fa-times"></i></button>
+        </div>
+        <p class="notice-text">${n.text}</p>
+        <div class="notice-meta">
+          <span class="notice-tag ${n.category}">${n.category}</span>
+          <span>${new Date(n.createdAt).toLocaleDateString("en-BD",{day:"numeric",month:"short",year:"numeric"})}</span>
+        </div>
+      </div>`).join("");
+
+  } catch (err) {
+    grid.innerHTML = '<div style="color:var(--muted);padding:24px;font-size:13px">Error loading notices.</div>';
+    console.error(err);
+  }
+}
+
+function openNoticeModal() {
+  ["noticeTitle","noticeText"].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.value = "";
+  });
+  const c = document.getElementById("noticeCategory");
+  if (c) c.value = "general";
+  openModal("noticeModal");
+}
+
+async function saveNotice() {
+  const title    = document.getElementById("noticeTitle")?.value.trim();
+  const text     = document.getElementById("noticeText")?.value.trim();
+  const category = document.getElementById("noticeCategory")?.value;
+
+  if (!title || !text) { showToast("Title and message are required!", "error"); return; }
+
+  try {
+    const res  = await af(`${BASE_URL_ADMIN}/api/admin/notices`, {
+      method: "POST",
+      body: JSON.stringify({ title, text, category })
+    });
+    const data = await res.json();
+    if (!res.ok) { showToast(data.message || "Error!", "error"); return; }
+    closeModal("noticeModal");
+    showToast("✅ Notice published!", "success");
+    loadNotices();
+    loadDashboard();
+  } catch (err) { showToast("Server error!", "error"); }
+}
+
+async function deleteNotice(id) {
+  if (!confirm("Delete this notice?")) return;
+  try {
+    await af(`${BASE_URL_ADMIN}/api/admin/notices/${id}`, { method: "DELETE" });
+    showToast("Notice deleted.", "success");
+    loadNotices();
+    loadDashboard();
+  } catch (err) { showToast("Error!", "error"); }
+}
+
+// =============================================
+//  STUDENTS
+// =============================================
+async function loadStudents() {
+  const tbody = document.getElementById("studentsBody");
+  if (!tbody) return;
+  tbody.innerHTML = '<tr><td colspan="7" class="loading-row"><i class="fa fa-spinner fa-spin"></i> Loading...</td></tr>';
+
+  try {
+    const res   = await af(`${BASE_URL_ADMIN}/api/admin/students`);
+    allStudents = await res.json();
+    renderStudents(allStudents);
+  } catch (err) {
+    tbody.innerHTML = '<tr><td colspan="7" class="loading-row">Error loading students.</td></tr>';
+    console.error(err);
+  }
+}
+
+function renderStudents(list) {
+  const tbody = document.getElementById("studentsBody");
+  if (!tbody) return;
+
+  if (!list.length) {
+    tbody.innerHTML = '<tr><td colspan="7" class="loading-row">No registered students yet.</td></tr>';
+    return;
+  }
+
+  tbody.innerHTML = list.map(s => `
     <tr>
-      <td><div style="display:flex;align-items:center;gap:7px;"><div class="avt" style="background:${i % 2 === 0 ? '#2B2E83' : '#3a4fcf'}">${m.name.split(' ').map(n => n[0]).join('').slice(0, 2)}</div>${m.name}</div></td>
-      <td style="color:#999;">${m.id}</td>
-      <td><span class="db">${m.dept}</span></td>
-      <td style="color:#999;">${m.joined}</td>
-      <td><span style="font-size:10px;padding:3px 9px;border-radius:10px;background:${m.status === 'Active' ? '#e8fff3' : '#fff0f0'};color:${m.status === 'Active' ? '#1a7a4a' : '#c0392b'};">${m.status}</span></td>
-      <td><button class="abtn red" onclick="removeMember(${i})">Remove</button></td>
-    </tr>
-  `).join('');
-}
-function filterMembers(v) { renderMembers(members.filter(m => m.name.toLowerCase().includes(v.toLowerCase()) || m.id.includes(v))); }
-function filterDept(d) { renderMembers(d ? members.filter(m => m.dept === d) : members); }
-function removeMember(i) { members.splice(i, 1); renderMembers(members); toast('Member removed.'); }
-
-// Approvals
-function renderApprovals() {
-    const el = document.getElementById('approvals-list');
-    if (!approvals.length) { el.innerHTML = '<div style="text-align:center;color:#aaa;padding:24px;font-size:13px;">No pending requests.</div>'; return; }
-    el.innerHTML = approvals.map((a, i) => `
-    <div class="approval-row">
-      <div class="avt" style="width:36px;height:36px;font-size:11px;">${a.name.split(' ').map(n => n[0]).join('').slice(0, 2)}</div>
-      <div class="apv-info"><div class="apv-name">${a.name}</div><div class="apv-meta">${a.id} · ${a.dept} · ${a.date}</div></div>
-      <div style="display:flex;gap:6px;">
-        <button class="abtn green" onclick="approveOne(${i})">Approve</button>
-        <button class="abtn red"   onclick="rejectOne(${i})">Reject</button>
-      </div>
-    </div>
-  `).join('');
-}
-function approveOne(i) { const a = approvals[i]; members.unshift({ name: a.name, id: a.id, dept: a.dept, joined: 'Apr 2026', status: 'Active' }); approvals.splice(i, 1); renderApprovals(); updateBadge(); toast(a.name + ' approved!'); }
-function rejectOne(i) { const n = approvals[i].name; approvals.splice(i, 1); renderApprovals(); updateBadge(); toast(n + ' rejected.'); }
-function approveAll() { while (approvals.length) { const a = approvals.shift(); members.unshift({ name: a.name, id: a.id, dept: a.dept, joined: 'Apr 2026', status: 'Active' }); } renderApprovals(); updateBadge(); toast('All approved!'); }
-function rejectAll() { approvals = []; renderApprovals(); updateBadge(); toast('All rejected.'); }
-function updateBadge() { document.getElementById('approval-badge').textContent = approvals.length; }
-
-// Events
-function renderEvents() {
-    document.getElementById('events-tbody').innerHTML = eventsData.map((e, i) => `
-    <tr>
-      <td style="font-weight:500;color:#1a1d6e;">${e.name}</td>
-      <td style="color:#999;">${e.date}</td>
-      <td style="color:#666;">${e.venue}</td>
-      <td><span style="font-size:10px;padding:3px 9px;border-radius:10px;background:${e.status === 'Registration Open' ? '#e8fff3' : '#e8f4ff'};color:${e.status === 'Registration Open' ? '#1a7a4a' : '#1a4a8a'};">${e.status}</span></td>
-      <td><div style="display:flex;gap:6px;"><button class="abtn light">Edit</button><button class="abtn red" onclick="removeEvent(${i})">Delete</button></div></td>
-    </tr>
-  `).join('');
-}
-function removeEvent(i) { eventsData.splice(i, 1); renderEvents(); toast('Event deleted.'); }
-function addEvent() {
-    const n = document.getElementById('ev-name').value, d = document.getElementById('ev-date').value, v = document.getElementById('ev-venue').value, s = document.getElementById('ev-status').value;
-    if (!n || !d) { toast('Please fill all fields.'); return; }
-    eventsData.push({ name: n, date: d, venue: v || 'TBD', status: s }); renderEvents(); closeMod('event-modal'); toast('Event added!');
-    document.getElementById('ev-name').value = ''; document.getElementById('ev-date').value = ''; document.getElementById('ev-venue').value = '';
+      <td>
+        ${s.photo
+          ? `<img src="${BASE_URL_ADMIN}${s.photo}" class="student-photo" alt="${s.name}" onerror="this.style.display='none'">`
+          : `<div class="student-initials">${s.name[0]}</div>`}
+      </td>
+      <td><strong>${s.name}</strong></td>
+      <td style="font-family:monospace;font-size:12px">${s.studentID}</td>
+      <td>${s.department}</td>
+      <td>${s.batch}</td>
+      <td style="font-size:12px;color:var(--muted)">${s.email}</td>
+      <td>
+        <button class="btn-icon delete" onclick="deleteStudent('${s.studentID}','${s.name.replace(/'/g,"\\'")}')">
+          <i class="fa fa-user-minus"></i>
+        </button>
+      </td>
+    </tr>`).join("");
 }
 
-// Add member
-function addMember() {
-    const n = document.getElementById('mem-name').value, id = document.getElementById('mem-id').value, d = document.getElementById('mem-dept').value;
-    if (!n || !id) { toast('Please fill all fields.'); return; }
-    members.unshift({ name: n, id: id, dept: d, joined: 'Apr 2026', status: 'Active' }); renderMembers(members); closeMod('member-modal'); toast('Member added!');
-    document.getElementById('mem-name').value = ''; document.getElementById('mem-id').value = '';
+function filterStudents() {
+  const q = (document.getElementById("studentSearch")?.value || "").toLowerCase();
+  renderStudents(allStudents.filter(s =>
+    s.name.toLowerCase().includes(q) ||
+    s.studentID.toLowerCase().includes(q) ||
+    (s.department||"").toLowerCase().includes(q)
+  ));
 }
 
-// Add achievement
-function addAchievement() {
-    const t = document.getElementById('ach-title').value, y = document.getElementById('ach-year').value, cat = document.getElementById('ach-cat').value;
-    if (!t) { toast('Enter achievement title.'); return; }
-    document.getElementById('ach-dash').innerHTML = `<div class="ach-row"><span>🏅 ${t}${y ? ' — ' + y : ''}</span><button class="abtn red">Delete</button></div>` + document.getElementById('ach-dash').innerHTML;
-    const row = document.createElement('tr'); row.innerHTML = `<td>🏅 ${t}</td><td>${y || '—'}</td><td><span class="db">${cat}</span></td><td><button class="abtn red">Delete</button></td>`;
-    document.getElementById('ach-tbody').prepend(row); closeMod('ach-modal'); toast('Achievement added!');
-    document.getElementById('ach-title').value = ''; document.getElementById('ach-year').value = '';
-}
-
-// Announcements
-function publishAnnounce() { const v = document.getElementById('announce-input').value; if (!v) { toast('Write something first!'); return; } toast('Published!'); document.getElementById('announce-input').value = ''; }
-function publishAnnounce2() {
-    const v = document.getElementById('announce-input2').value; if (!v) { toast('Write something first!'); return; }
-    const today = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
-    const item = document.createElement('div'); item.className = 'ann-item';
-    item.innerHTML = `<div class="ann-title">New Announcement</div><div class="ann-body">${v}</div><div class="ann-foot"><span>${today}</span><button class="abtn red">Delete</button></div>`;
-    document.getElementById('announce-list').prepend(item); toast('Published!'); document.getElementById('announce-input2').value = '';
-}
-
-// Modal helpers
-function openMod(id) { document.getElementById(id).classList.add('open'); }
-function closeMod(id) { document.getElementById(id).classList.remove('open'); }
-document.querySelectorAll('.modal-overlay').forEach(m => m.addEventListener('click', function (e) { if (e.target === this) this.classList.remove('open'); }));
-
-// Toast
-function toast(msg) {
-    const t = document.getElementById('toast-msg'); t.textContent = msg; t.classList.add('show');
-    setTimeout(() => t.classList.remove('show'), 2500);
+async function deleteStudent(studentID, name) {
+  if (!confirm(`Remove ${name} from the system?`)) return;
+  try {
+    const res  = await af(`${BASE_URL_ADMIN}/api/admin/students/${studentID}`, { method: "DELETE" });
+    const data = await res.json();
+    showToast(data.message || "Student removed.", "success");
+    loadStudents();
+    loadDashboard();
+  } catch (err) { showToast("Error!", "error"); }
 }
