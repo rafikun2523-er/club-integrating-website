@@ -6,8 +6,11 @@
   <title>Events — Unified Club Portal BAUET</title>
   <link rel="stylesheet" href="../css/style.css">
   <link rel="stylesheet" href="../css/events.css">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 </head>
 <body>
+
 <nav class="navbar">
   <a class="nav-logo" href="index.html">
     <div class="logo-circle">LOGO</div>
@@ -18,7 +21,7 @@
     <a class="nav-link" href="../html code/club.html">Clubs</a>
     <a class="nav-link active" href="events.html">Events</a>
     <a class="nav-link" href="../html code/about.html">About</a>
-    <a class="nav-link" href="../html code/admin.html">Admin</a>
+    <a class="nav-link" href="../html code/admin-login.html">Admin</a>
   </div>
 </nav>
 
@@ -31,29 +34,46 @@
 <div class="section bg-light">
   <div class="events-filter">
     <input type="text" id="search-input" placeholder="🔍 Search events..." oninput="filterEvents()">
-    <select id="club-filter" onchange="filterEvents()">
-      <option value="">All Clubs</option>
-      <option value="Computer Society">Computer Society</option>
-      <option value="Debate Club">Debate Club</option>
-      <option value="Cultural Club">Cultural Club</option>
-      <option value="Photography Club">Photography Club</option>
-      <option value="Sports Club">Sports Club</option>
-    </select>
     <select id="status-filter" onchange="filterEvents()">
-      <option value="">All Status</option>
-      <option value="open">Registration Open</option>
-      <option value="soon">Upcoming</option>
+      <option value="">All Events</option>
+      <option value="upcoming">Upcoming</option>
+      <option value="completed">Completed</option>
     </select>
   </div>
   <div class="events-list" id="events-container"></div>
 </div>
-
 <footer class="footer">
   <div class="footer-grid">
-    <div><div class="footer-brand">🎓 Unified Club Portal</div><div class="footer-about">BAUET's central digital hub for all club activities.</div></div>
-    <div><div class="footer-col-title">Quick Links</div><div class="footer-links"><a class="footer-link" href="index.html">Home</a><a class="footer-link" href="clubs.html">Clubs</a><a class="footer-link" href="events.html">Events</a><a class="footer-link" href="about.html">About</a></div></div>
-    <div><div class="footer-col-title">Contact</div><div class="footer-links"><span class="footer-link">📍 BAUET, Natore</span><span class="footer-link">✉️ info@bauet.ac.bd</span></div></div>
-    <div><div class="footer-col-title">Follow Us</div><div class="footer-links"><span class="footer-link">Facebook</span><span class="footer-link">LinkedIn</span></div></div>
+    <div>
+      <div class="footer-brand">🎓 Unified Club Portal</div>
+      <div class="footer-about">BAUET's central digital hub for all club activities, events, and student engagement.</div>
+    </div>
+    <div>
+      <div class="footer-col-title">Quick Links</div>
+      <div class="footer-links">
+        <a class="footer-link" href="index.html">Home</a>
+        <a class="footer-link" href="../html code/club.html">Clubs</a>
+        <a class="footer-link" href="../html code/events.html">Events</a>
+        <a class="footer-link" href="../html code/about.html">About</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Clubs</div>
+      <div class="footer-links">
+        <a class="footer-link" href="../html code/cse.html">Computer Society</a>
+        <a class="footer-link" href="../html code/debate.html">Debate Club</a>
+        <a class="footer-link" href="../html code/cultural.html">Cultural Club</a>
+        <a class="footer-link" href="../html code/llcb.html">Literature Club</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Contact</div>
+      <div class="footer-links">
+        <span class="footer-link">📍 BAUET, Natore</span>
+        <span class="footer-link">✉️ info@bauet.ac.bd</span>
+        <span class="footer-link">📞 +880 XXXX-XXXXXX</span>
+      </div>
+    </div>
   </div>
   <div class="footer-bottom">© 2026 Unified Club Portal, BAUET · All Rights Reserved</div>
 </footer>
