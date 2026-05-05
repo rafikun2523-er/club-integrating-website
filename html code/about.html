@@ -8,9 +8,9 @@
   <link rel="stylesheet" href="../css/about.css">
 </head>
 <body>
-<nav class="navbar">
+<nav class="navbar" id="navbar">
   <a class="nav-logo" href="index.html">
-    <div class="logo-circle">LOGO</div>
+    <div class="logo-circle"><img src="../pic/anotherlogo.png" alt="logo" style="width:28px;height:28px;border-radius:50%;object-fit:cover"></div>
     <span class="nav-brand">Unified Club Portal</span>
   </a>
   <div class="nav-links">
@@ -20,7 +20,17 @@
     <a class="nav-link active" href="../html code/about.html">About</a>
     <a class="nav-link" href="../html code/admin-login.html">Admin</a>
   </div>
+  <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="../html code/index.html">Home</a>
+  <a href="../html code/club.html">Clubs</a>
+  <a href="../html code/events.html">Events</a>
+  <a class="active" href="../html code/about.html">About</a>
+  <a href="../html code/admin-login.html">Admin</a>
+</div>
 
 <div class="about-hero">
   <h1>About Unified Club Portal</h1>
@@ -48,13 +58,46 @@
   </div>
 </div>
 
+
 <div class="section bg-white">
   <div class="section-title">Meet the Team</div>
   <div class="section-sub">The people behind the portal.</div>
   <div class="team-grid">
-    <div class="team-card"><div class="team-avatar" style="background:linear-gradient(135deg,#1a1d6e,#3a4fcf);">AR</div><div class="team-name">Rafikun Nesa Hena</div><div class="team-role">Project Lead</div><div class="team-dept">CSE Department</div></div>
-    <div class="team-card"><div class="team-avatar" style="background:linear-gradient(135deg,#0f6e56,#1d9e75);">SH</div><div class="team-name">Nishat Salsabil Silvi</div><div class="team-role">UI/UX Designer</div><div class="team-dept">CSE Department</div></div>
-    <div class="team-card"><div class="team-avatar" style="background:linear-gradient(135deg,#7b2d8b,#c0569e);">RK</div><div class="team-name">Tahsina Tasnim Disha</div><div class="team-role">Backend Developer</div><div class="team-dept">CSE Department</div></div>
+
+    <div class="team-card">
+      <div class="team-avatar" style="background:linear-gradient(135deg,#1a1d6e,#3a4fcf);">
+        
+      </div>
+      <div class="team-name">Rafikun Nesa Hena</div>
+      <div class="team-role">Project Leader</div>
+      <div class="team-dept">CSE Department</div>
+    </div>
+
+    <div class="team-card">
+      <div class="team-avatar" style="background:linear-gradient(135deg,#0f6e56,#1d9e75);">
+      </div>
+      <div class="team-name">Nishat Salsabil Silvi</div>
+      <div class="team-role">Frontend Developer</div>
+      <div class="team-dept">CSE Department</div>
+    </div>
+
+    <div class="team-card">
+      <div class="team-avatar" style="background:linear-gradient(135deg,#7b2d8b,#c0569e);">
+      </div>
+      <div class="team-name">Tahsina Tasnim Disha</div>
+      <div class="team-role">Backend and Database Developer</div>
+      <div class="team-dept">CSE Department</div>
+    </div>
+
+    
+    <div class="team-card">
+      <div class="team-avatar" style="background:linear-gradient(135deg,#b5410d,#e97b1a);">
+      </div>
+      <div class="team-name">Nazia Rahman Arobe</div>
+      <div class="team-role">Frontend Developer</div>
+      <div class="team-dept">CSE Department</div>
+    </div>
+
   </div>
 </div>
 
@@ -67,6 +110,20 @@
   </div>
   <div class="footer-bottom">© 2026 Unified Club Portal, BAUET · All Rights Reserved</div>
 </footer>
+
+
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  hamburger.addEventListener('click', () => {
+    mobileMenu.classList.toggle('open');
+    hamburger.classList.toggle('active');
+  });
+  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    mobileMenu.classList.remove('open');
+    hamburger.classList.remove('active');
+  }));
+</script>
 <script src="../java script/about.js"></script>
 </body>
 </html>
