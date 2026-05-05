@@ -1,6 +1,4 @@
-/* =============================================
-   css/club.css — Clubs Page Styles
-   ============================================= */
+
 
 *,
 *::before,
@@ -791,4 +789,17 @@ body {
   .footer-grid { grid-template-columns: 1fr 1fr; }
   .filter-bar { padding: 16px 16px 6px; }
   .search-icon { left: 12px; }
+}
+
+/* ── Extra Mobile Fixes ── */
+@media (max-width: 560px) {
+  .navbar {
+    padding: 0 16px;
+  }
+  .nav-brand {
+    font-size: 12px;
+  }
+  .section {
+    padding: 40px 16px;
+  }
 }
