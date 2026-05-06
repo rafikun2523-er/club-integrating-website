@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   const BASE_URL = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
-  ? "http://localhost:5000"
-  : `http://${window.location.hostname}:5000`;
+    ? "http://localhost:5000"
+    : `http://${window.location.hostname}:5000`;
   const token = localStorage.getItem("token");
 
   // ── Auth Check ──
@@ -21,16 +21,16 @@ document.addEventListener("DOMContentLoaded", () => {
     ? member.name.split(" ").map(w => w[0]).join("").toUpperCase().slice(0, 2)
     : "?";
 
-  document.getElementById("memberName").textContent = member.name    || "Member";
-  document.getElementById("metaID").textContent     = member.studentID  || "—";
-  document.getElementById("metaDept").textContent   = member.department || "—";
-  document.getElementById("metaBatch").textContent  = member.batch      || "—";
+  document.getElementById("memberName").textContent = member.name || "Member";
+  document.getElementById("metaID").textContent = member.studentID || "—";
+  document.getElementById("metaDept").textContent = member.department || "—";
+  document.getElementById("metaBatch").textContent = member.batch || "—";
 
   // ── Photo fix ──
-if (member.photo && !member.photo.startsWith("http")) {
-  member.photo = BASE_URL + member.photo;
-  localStorage.setItem("memberData", JSON.stringify(member));
-}
+  if (member.photo && !member.photo.startsWith("http")) {
+    member.photo = BASE_URL + member.photo;
+    localStorage.setItem("memberData", JSON.stringify(member));
+  }
 
   // ── Avatar ──
   function setAvatar(el) {
@@ -56,9 +56,9 @@ if (member.photo && !member.photo.startsWith("http")) {
 
     try {
       const res = await fetch(`${BASE_URL}/api/events/upcoming`, {
-  headers: { "Authorization": "Bearer " + token }
-});
-      
+        headers: { "Authorization": "Bearer " + token }
+      });
+
       if (!res.ok) throw new Error("No events");
 
       const events = await res.json();
@@ -140,11 +140,11 @@ if (member.photo && !member.photo.startsWith("http")) {
   loadAnnouncements();
 
   // ── Side Menu ──
-  const menuIcon    = document.getElementById("menuIcon");
-  const sideMenu    = document.getElementById("sideMenu");
+  const menuIcon = document.getElementById("menuIcon");
+  const sideMenu = document.getElementById("sideMenu");
   const sideOverlay = document.getElementById("sideOverlay");
 
-  function openMenu()  { sideMenu.classList.add("open");    sideOverlay.classList.add("show"); }
+  function openMenu() { sideMenu.classList.add("open"); sideOverlay.classList.add("show"); }
   function closeMenu() { sideMenu.classList.remove("open"); sideOverlay.classList.remove("show"); }
 
   menuIcon?.addEventListener("click", () => {
@@ -154,7 +154,7 @@ if (member.photo && !member.photo.startsWith("http")) {
   sideOverlay?.addEventListener("click", closeMenu);
 
   // ── Logout ──
-  const sideLogout  = document.getElementById("sideLogout");
+  const sideLogout = document.getElementById("sideLogout");
   const logoutToast = document.getElementById("logoutToast");
 
   sideLogout?.addEventListener("click", (e) => {
@@ -168,7 +168,7 @@ if (member.photo && !member.photo.startsWith("http")) {
   });
 
   // ── Notification Bell ──
-  const bell     = document.getElementById("notificationBell");
+  const bell = document.getElementById("notificationBell");
   const dropdown = document.getElementById("notificationDropdown");
 
   bell?.addEventListener("click", (e) => {

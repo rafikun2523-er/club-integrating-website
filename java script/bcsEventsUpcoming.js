@@ -40,6 +40,12 @@ document.addEventListener("DOMContentLoaded", () => {
         const date = new Date(event.date);
         const card = document.createElement("div");
         card.className = "event-card";
+        const encTitle    = encodeURIComponent(event.title);
+        const encDate     = encodeURIComponent(event.date || "");
+        const encLocation = encodeURIComponent(event.location || "BAUET Campus");
+        const encFee      = encodeURIComponent(event.fee || 150);
+        const regUrl = `../html code/event-register.html?id=${event._id}&title=${encTitle}&date=${encDate}&location=${encLocation}&fee=${encFee}`;
+
         card.innerHTML = `
           <div class="event-date-box">
             <span class="day">${date.getDate()}</span>
@@ -52,6 +58,9 @@ document.addEventListener("DOMContentLoaded", () => {
               <span><i class="fa-solid fa-calendar"></i> ${date.toLocaleDateString("en-BD", { year: "numeric", month: "long", day: "numeric" })}</span>
               ${event.location ? `<span><i class="fa-solid fa-location-dot"></i> ${event.location}</span>` : ""}
             </div>
+            <a href="${regUrl}" class="reg-btn">
+              <i class="fa-solid fa-ticket"></i> Register Now
+            </a>
           </div>
         `;
         container.appendChild(card);

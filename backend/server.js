@@ -2,7 +2,8 @@ const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
 const path = require("path");
-const rateLimit = require("express-rate-limit"); // ✅ উপরে
+const mongoose = require("mongoose");
+const rateLimit = require("express-rate-limit");
 const connectDB = require("./config/db");
 
 dotenv.config();
@@ -14,7 +15,7 @@ app.use(cors({
 }));
 app.use(express.json());
 
-// ✅ Rate Limiters — routes এর আগে
+// Rate Limiters
 const loginLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 5,
@@ -30,10 +31,27 @@ const registerLimiter = rateLimit({
 app.use("/api/members/login", loginLimiter);
 app.use("/api/members/register", registerLimiter);
 
-// ✅ Static files
+// Static files
 app.use("/photoUploads", express.static(path.join(__dirname, "photoUploads")));
 
-// ✅ Routes
+// Admin Login Route
+const AdminSchema = new mongoose.Schema({
+  adminId: String,
+  password: String
+});
+const Admin = mongoose.model("admins", AdminSchema);
+
+app.post("/admin-login", async (req, res) => {
+  const { adminId, password } = req.body;
+  const admin = await Admin.findOne({ adminId, password });
+  if (admin) {
+    res.json({ success: true });
+  } else {
+    res.json({ success: false });
+  }
+});
+
+// Routes
 app.use("/api/members", require("./routes/memberRoutes"));
 app.use("/api/events", require("./routes/eventRoutes"));
 app.use("/api/certificates", require("./routes/certificateRoutes"));

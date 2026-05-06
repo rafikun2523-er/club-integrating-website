@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // ── Members Data ──
   let allMembers = [];
-  let activeTab  = "all";
+  let activeTab = "all";
 
   async function loadMembers() {
     const tableBody = document.getElementById("membersTableBody");
@@ -34,11 +34,15 @@ document.addEventListener("DOMContentLoaded", () => {
       allMembers = await res.json();
 
       // Stats
-      const depts   = [...new Set(allMembers.map(m => m.department))];
+      const depts = [...new Set(allMembers.map(m => m.department))];
       const batches = [...new Set(allMembers.map(m => m.batch))];
+      // Sort by createdAt descending — newest first
+      const newMembers = [...allMembers].sort((a, b) =>
+        new Date(b.createdAt) - new Date(a.createdAt)
+      ).slice(0, 10); // সর্বশেষ 10 জন
 
       document.getElementById("totalMembers").textContent = allMembers.length;
-      document.getElementById("totalDepts").textContent   = depts.length;
+      document.getElementById("totalDepts").textContent = depts.length;
       document.getElementById("totalBatches").textContent = batches.length;
 
       // Dept tabs
@@ -51,13 +55,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
       depts.sort().forEach(dept => {
         const count = allMembers.filter(m => m.department === dept).length;
-        const btn   = document.createElement("button");
-        btn.className    = "dept-tab";
+        const btn = document.createElement("button");
+        btn.className = "dept-tab";
         btn.dataset.dept = dept;
-        btn.innerHTML    = `${dept} <span class="dept-count">${count}</span>`;
+        btn.innerHTML = `${dept} <span class="dept-count">${count}</span>`;
         tabsContainer.appendChild(btn);
       });
+      const newBtn = document.createElement("button");
+      newBtn.className = "dept-tab";
+      newBtn.dataset.dept = "new";
+      newBtn.innerHTML = `🆕 New <span class="dept-count">10</span>`;
+      tabsContainer.appendChild(newBtn);
 
+      if (activeTab === "new") {
+        const newMembers = await loadNewMembers();
+        // render করো
+      }
       // Tab click
       tabsContainer.querySelectorAll(".dept-tab").forEach(tab => {
         tab.addEventListener("click", () => {
@@ -75,20 +88,20 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-function renderMembers() {
-  const tableBody   = document.getElementById("membersTableBody");
-  const searchQuery = document.getElementById("memberSearch")?.value.toLowerCase() || "";
+  function renderMembers() {
+    const tableBody = document.getElementById("membersTableBody");
+    const searchQuery = document.getElementById("memberSearch")?.value.toLowerCase() || "";
 
-  let filtered = activeTab === "all"
-    ? allMembers
-    : allMembers.filter(m => m.department === activeTab);
+    let filtered = activeTab === "all"
+      ? allMembers
+      : allMembers.filter(m => m.department === activeTab);
 
-  // Search filter
-  if (searchQuery) {
-    filtered = filtered.filter(m =>
-      m.name.toLowerCase().includes(searchQuery)
-    );
-  }
+    // Search filter
+    if (searchQuery) {
+      filtered = filtered.filter(m =>
+        m.name.toLowerCase().includes(searchQuery)
+      );
+    }
 
     if (filtered.length === 0) {
       tableBody.innerHTML = `<div class="members-empty">No members found in this department.</div>`;
@@ -121,17 +134,27 @@ function renderMembers() {
       `;
     }).join("");
   }
-document.getElementById("memberSearch")?.addEventListener("input", () => {
-  renderMembers();
-});
+  document.getElementById("memberSearch")?.addEventListener("input", () => {
+    renderMembers();
+  });
   loadMembers();
 
+  async function loadNewMembers() {
+    try {
+      const res = await fetch(`${BASE_URL}/api/members/new`);
+      const data = await res.json();
+      return data;
+    } catch {
+      return [];
+    }
+  }
+
   // ── Modals ──
-  const loginModal    = document.getElementById("loginModal");
+  const loginModal = document.getElementById("loginModal");
   const registerModal = document.getElementById("registerModal");
-  const joinBtn       = document.getElementById("joinBtn");
-  const closeBtns     = document.querySelectorAll(".close");
-  const openRegister  = document.getElementById("openRegister");
+  const joinBtn = document.getElementById("joinBtn");
+  const closeBtns = document.querySelectorAll(".close");
+  const openRegister = document.getElementById("openRegister");
 
   joinBtn?.addEventListener("click", () => loginModal.classList.add("active"));
 
@@ -158,12 +181,12 @@ document.getElementById("memberSearch")?.addEventListener("input", () => {
 
   // ── Login ──
   document.getElementById("loginSubmit")?.addEventListener("click", async () => {
-    const id       = document.getElementById("loginID").value.trim();
+    const id = document.getElementById("loginID").value.trim();
     const password = document.getElementById("loginPassword").value.trim();
     if (!id || !password) { showToast("Please enter both ID and password!", true); return; }
 
     try {
-      const res  = await fetch(`${BASE_URL}/api/members/login`, {
+      const res = await fetch(`${BASE_URL}/api/members/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ studentID: id, password })
@@ -182,25 +205,25 @@ document.getElementById("memberSearch")?.addEventListener("input", () => {
 
   // ── Register ──
   const batchInput = document.getElementById("regBatch");
-  const baseYear   = 2015;
-  const now        = new Date();
-  const semester   = (now.getMonth() + 1) <= 6 ? 1 : 2;
-  const maxBatch   = (now.getFullYear() - baseYear) * 2 + semester;
+  const baseYear = 2015;
+  const now = new Date();
+  const semester = (now.getMonth() + 1) <= 6 ? 1 : 2;
+  const maxBatch = (now.getFullYear() - baseYear) * 2 + semester;
   if (batchInput) {
-    batchInput.min         = 1;
-    batchInput.max         = maxBatch;
+    batchInput.min = 1;
+    batchInput.max = maxBatch;
     batchInput.placeholder = `Batch (1-${maxBatch})`;
   }
 
   document.getElementById("registerSubmit")?.addEventListener("click", async () => {
-    const id       = document.getElementById("regID").value.trim();
-    const name     = document.getElementById("regName").value.trim();
-    const batch    = Number(document.getElementById("regBatch").value.trim());
-    const dept     = document.getElementById("regDept").value.trim();
-    const email    = document.getElementById("regEmail").value.trim();
-    const phone    = document.getElementById("regPhone").value.trim();
+    const id = document.getElementById("regID").value.trim();
+    const name = document.getElementById("regName").value.trim();
+    const batch = Number(document.getElementById("regBatch").value.trim());
+    const dept = document.getElementById("regDept").value.trim();
+    const email = document.getElementById("regEmail").value.trim();
+    const phone = document.getElementById("regPhone").value.trim();
     const password = document.getElementById("regPassword").value;
-    const confirm  = document.getElementById("regConfirm").value;
+    const confirm = document.getElementById("regConfirm").value;
 
     if (!id || !name || !batch || !dept || !email || !phone || !password || !confirm) {
       showToast("Please fill all required fields!", true); return;
@@ -209,7 +232,7 @@ document.getElementById("memberSearch")?.addEventListener("input", () => {
     if (password.length < 6) { showToast("Password must be at least 6 characters!", true); return; }
 
     try {
-      const res  = await fetch(`${BASE_URL}/api/members/register`, {
+      const res = await fetch(`${BASE_URL}/api/members/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ studentID: id, name, batch, department: dept, email, phone, password })
@@ -244,7 +267,7 @@ document.getElementById("memberSearch")?.addEventListener("input", () => {
 
   // ── Mobile Navbar ──
   const hamburgerBtn = document.getElementById("hamburgerBtn");
-  const mobileNav    = document.querySelector(".navbar nav");
+  const mobileNav = document.querySelector(".navbar nav");
 
   hamburgerBtn?.addEventListener("click", () => {
     hamburgerBtn.classList.toggle("active");

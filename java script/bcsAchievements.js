@@ -5,20 +5,20 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   const achievements = [];
-  const grid          = document.getElementById("achievementGrid");
-  const emptyState    = document.getElementById("emptyState");
-  const statsBar      = document.getElementById("statsBar");
+  const grid = document.getElementById("achievementGrid");
+  const emptyState = document.getElementById("emptyState");
+  const statsBar = document.getElementById("statsBar");
   const filterSection = document.getElementById("filterSection");
-  const hamburgerBtn  = document.getElementById("hamburgerBtn");
-  const mobileNav     = document.querySelector(".navbar nav");
-  const joinBtn       = document.getElementById("joinBtn");
-  const loginModal    = document.getElementById("loginModal");
+  const hamburgerBtn = document.getElementById("hamburgerBtn");
+  const mobileNav = document.querySelector(".navbar nav");
+  const joinBtn = document.getElementById("joinBtn");
+  const loginModal = document.getElementById("loginModal");
 
   // ── Achievements ──
   if (achievements.length === 0) {
-    statsBar.style.display     = "none";
+    statsBar.style.display = "none";
     filterSection.style.display = "none";
-    emptyState.style.display    = "block";
+    emptyState.style.display = "block";
   } else {
     renderAchievements();
     initStats();
@@ -94,11 +94,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // ── Login Submit ──
   document.getElementById("loginSubmit")?.addEventListener("click", async () => {
-    const id       = document.getElementById("loginID").value.trim();
+    const id = document.getElementById("loginID").value.trim();
     const password = document.getElementById("loginPassword").value.trim();
     if (!id || !password) { alert("Please enter both ID and password!"); return; }
     try {
-      const res  = await fetch(`${BASE_URL}/api/members/login`, {
+      const res = await fetch(`${BASE_URL}/api/members/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ studentID: id, password })

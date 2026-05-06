@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Modal
   const loginModal = document.getElementById("loginModal");
-  const joinBtn    = document.getElementById("joinBtn");
+  const joinBtn = document.getElementById("joinBtn");
 
   joinBtn?.addEventListener("click", () => loginModal.classList.add("active"));
 
@@ -33,12 +33,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Login
   document.getElementById("loginSubmit")?.addEventListener("click", async () => {
-    const id       = document.getElementById("loginID").value.trim();
+    const id = document.getElementById("loginID").value.trim();
     const password = document.getElementById("loginPassword").value.trim();
     if (!id || !password) { showToast("Please enter both ID and password!", true); return; }
 
     try {
-      const res  = await fetch(`${BASE_URL}/api/members/login`, {
+      const res = await fetch(`${BASE_URL}/api/members/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ studentID: id, password })
@@ -71,7 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Mobile Navbar
   const hamburgerBtn = document.getElementById("hamburgerBtn");
-  const mobileNav    = document.querySelector(".navbar nav");
+  const mobileNav = document.querySelector(".navbar nav");
 
   hamburgerBtn?.addEventListener("click", () => {
     hamburgerBtn.classList.toggle("active");

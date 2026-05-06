@@ -4,7 +4,7 @@ const Participation = require("../models/participation");
 const authenticateToken = require("../middleware/auth");
 const isAdmin = require("../middleware/isAdmin");
 
-// ✅ Admin — certificate issue করবে
+
 router.post("/issue/:participationId", authenticateToken, isAdmin, async (req, res) => {
   try {
     const participation = await Participation.findByIdAndUpdate(
@@ -19,7 +19,7 @@ router.post("/issue/:participationId", authenticateToken, isAdmin, async (req, r
   }
 });
 
-// ✅ Member — নিজের certificates দেখবে
+
 router.get("/my-certificates", authenticateToken, async (req, res) => {
   try {
     const certificates = await Participation.find({

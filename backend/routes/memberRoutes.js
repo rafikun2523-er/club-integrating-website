@@ -29,9 +29,9 @@ router.post(
 // Get all members — public
 router.get("/all", async (req, res) => {
   try {
-    const members = await Member.find({ isVerified: true })
-  .select("name batch department photo")
-  .sort({ batch: -1 });
+    const members = await Member.find()
+      .select("studentID name batch department photo createdAt")
+      .sort({ batch: -1 });
     res.json(members);
   } catch (err) {
     console.error("Error fetching members:", err);
@@ -95,6 +95,18 @@ router.post("/resend-otp", async (req, res) => {
 
   } catch (error) {
     res.status(500).json({ message: error.message });
+  }
+});
+// New Members — সর্বশেষ 10 জন
+router.get("/new", async (req, res) => {
+  try {
+    const members = await Member.find()
+      .select("studentID name batch department photo")
+      .sort({ _id: -1 })
+      .limit(10);
+    res.json(members);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
   }
 });
 module.exports = router;

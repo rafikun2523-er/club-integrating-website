@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Upcoming card — login check
   const upcomingCard = document.getElementById("upcomingCard");
-  const loginModal   = document.getElementById("loginModal");
+  const loginModal = document.getElementById("loginModal");
 
   upcomingCard?.addEventListener("click", () => {
     const token = localStorage.getItem("token");
@@ -41,12 +41,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Login
   document.getElementById("loginSubmit")?.addEventListener("click", async () => {
-    const id       = document.getElementById("loginID").value.trim();
+    const id = document.getElementById("loginID").value.trim();
     const password = document.getElementById("loginPassword").value.trim();
     if (!id || !password) { showToast("Please enter both ID and password!", true); return; }
 
     try {
-      const res  = await fetch(`${BASE_URL}/api/members/login`, {
+      const res = await fetch(`${BASE_URL}/api/members/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ studentID: id, password })
@@ -81,7 +81,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Mobile Navbar
   const hamburgerBtn = document.getElementById("hamburgerBtn");
-  const mobileNav    = document.getElementById("mobileNav");
+  const mobileNav = document.getElementById("mobileNav");
 
   hamburgerBtn?.addEventListener("click", () => {
     hamburgerBtn.classList.toggle("active");

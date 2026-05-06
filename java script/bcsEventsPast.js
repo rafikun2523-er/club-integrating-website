@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Mobile Navbar
   const hamburgerBtn = document.getElementById("hamburgerBtn");
-  const mobileNav    = document.getElementById("mobileNav");
+  const mobileNav = document.getElementById("mobileNav");
 
   hamburgerBtn?.addEventListener("click", () => {
     hamburgerBtn.classList.toggle("active");

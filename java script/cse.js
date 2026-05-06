@@ -38,14 +38,14 @@ document.addEventListener("DOMContentLoaded", () => {
     batchInput.placeholder = `Batch (1-${maxBatch})`;
   }
 
-  const joinBtn        = document.getElementById("joinBtn");
-  const loginModal     = document.getElementById("loginModal");
-  const registerModal  = document.getElementById("registerModal");
-  const otpModal       = document.getElementById("otpModal");
-  const closeBtns      = document.querySelectorAll(".close");
-  const openRegister   = document.getElementById("openRegister");
+  const joinBtn = document.getElementById("joinBtn");
+  const loginModal = document.getElementById("loginModal");
+  const registerModal = document.getElementById("registerModal");
+  const otpModal = document.getElementById("otpModal");
+  const closeBtns = document.querySelectorAll(".close");
+  const openRegister = document.getElementById("openRegister");
   const registerSubmit = document.getElementById("registerSubmit");
-  const loginSubmit    = document.getElementById("loginSubmit");
+  const loginSubmit = document.getElementById("loginSubmit");
 
   joinBtn?.addEventListener("click", () => loginModal.classList.add("active"));
   document.getElementById("joinBtn2")?.addEventListener("click", () => registerModal.classList.add("active"));
@@ -79,14 +79,14 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   registerSubmit?.addEventListener("click", async () => {
-    const id       = document.getElementById("regID").value.trim();
-    const name     = document.getElementById("regName").value.trim();
-    const batch    = Number(document.getElementById("regBatch").value.trim());
-    const dept     = document.getElementById("regDept").value.trim();
-    const email    = document.getElementById("regEmail").value.trim();
-    const phone    = document.getElementById("regPhone").value.trim();
+    const id = document.getElementById("regID").value.trim();
+    const name = document.getElementById("regName").value.trim();
+    const batch = Number(document.getElementById("regBatch").value.trim());
+    const dept = document.getElementById("regDept").value.trim();
+    const email = document.getElementById("regEmail").value.trim();
+    const phone = document.getElementById("regPhone").value.trim();
     const password = document.getElementById("regPassword").value;
-    const confirm  = document.getElementById("regConfirm").value;
+    const confirm = document.getElementById("regConfirm").value;
 
     if (!id || !name || !batch || !dept || !email || !phone || !password || !confirm) {
       showToast("Please fill all required fields!", true); return;
@@ -116,7 +116,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   loginSubmit?.addEventListener("click", async () => {
-    const id       = document.getElementById("loginID").value.trim();
+    const id = document.getElementById("loginID").value.trim();
     const password = document.getElementById("loginPassword").value.trim();
     if (!id || !password) { showToast("Please enter both ID and password!", true); return; }
     try {
@@ -171,7 +171,7 @@ document.addEventListener("DOMContentLoaded", () => {
   setTimeout(scrollReveal, 300);
 
   const mvoSection = document.querySelector(".mvo-section");
-  const mvoCards   = document.querySelectorAll(".mvo-card");
+  const mvoCards = document.querySelectorAll(".mvo-card");
   function revealMVO() {
     const triggerBottom = window.innerHeight * 0.85;
     if (mvoSection) {
@@ -189,7 +189,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.querySelectorAll(".faq-question-btn").forEach(btn => {
     btn.addEventListener("click", () => {
-      const item   = btn.parentElement;
+      const item = btn.parentElement;
       const isOpen = item.classList.contains("open");
       document.querySelectorAll(".faq-item").forEach(i => i.classList.remove("open"));
       if (!isOpen) item.classList.add("open");
@@ -220,7 +220,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const achievements = [];
   function loadAchievements() {
     const container = document.getElementById("achievementCards");
-    const noMsg     = document.getElementById("noAchievementsMsg");
+    const noMsg = document.getElementById("noAchievementsMsg");
     if (!container) return;
     container.innerHTML = "";
     if (achievements.length === 0) { noMsg.style.display = "block"; return; }
@@ -236,7 +236,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // ✅ Hamburger
   const hamburgerBtn = document.getElementById("hamburgerBtn");
-  const mobileNav    = document.querySelector(".navbar nav");
+  const mobileNav = document.querySelector(".navbar nav");
 
   hamburgerBtn?.addEventListener("click", () => {
     hamburgerBtn.classList.toggle("active");
@@ -244,7 +244,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   const dropdown = document.querySelector(".navbar .dropdown");
-  const dropbtn  = dropdown?.querySelector("a.dropbtn");
+  const dropbtn = dropdown?.querySelector("a.dropbtn");
   dropbtn?.addEventListener("click", (e) => {
     if (window.innerWidth <= 768) { e.preventDefault(); dropdown.classList.toggle("open"); }
   });
@@ -351,7 +351,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // ✅ OTP Submit
   document.getElementById("otpSubmit")?.addEventListener("click", async () => {
-    const otp       = document.getElementById("otpInput").value.trim();
+    const otp = document.getElementById("otpInput").value.trim();
     const studentID = localStorage.getItem("pendingStudentID");
 
     if (!otp || otp.length !== 6) {
@@ -360,7 +360,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     try {
-      const res  = await fetch(`${BASE_URL}/api/members/verify-otp`, {
+      const res = await fetch(`${BASE_URL}/api/members/verify-otp`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ studentID, otp })
@@ -387,7 +387,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!studentID) return;
 
     try {
-      const res  = await fetch(`${BASE_URL}/api/members/resend-otp`, {
+      const res = await fetch(`${BASE_URL}/api/members/resend-otp`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ studentID })
@@ -404,19 +404,19 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // ── FAQ Show More ──
-const faqItems = document.querySelectorAll(".faq-item");
-const showMoreBtn = document.getElementById("faqShowMore");
+  const faqItems = document.querySelectorAll(".faq-item");
+  const showMoreBtn = document.getElementById("faqShowMore");
 
-// প্রথম 3টা দেখাও
-faqItems.forEach((item, i) => {
-  if (i >= 3) item.style.display = "none";
-});
-
-showMoreBtn?.addEventListener("click", () => {
-  const isHidden = showMoreBtn.textContent.includes("Show");
+  
   faqItems.forEach((item, i) => {
-    if (i >= 3) item.style.display = isHidden ? "block" : "none";
+    if (i >= 3) item.style.display = "none";
   });
-  showMoreBtn.textContent = isHidden ? "Show Less ▲" : "Show More ▼";
-});
+
+  showMoreBtn?.addEventListener("click", () => {
+    const isHidden = showMoreBtn.textContent.includes("More");
+    faqItems.forEach((item, i) => {
+      if (i >= 3) item.style.display = isHidden ? "block" : "none";
+    });
+    showMoreBtn.textContent = isHidden ? "Show Less ▲" : "Show More ▼";
+  });
 });

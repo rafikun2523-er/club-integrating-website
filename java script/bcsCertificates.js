@@ -63,7 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       data.forEach(cert => {
         const event = cert.eventId;
-        const date  = new Date(event.date);
+        const date = new Date(event.date);
         const issuedDate = new Date(cert.confirmedAt);
 
         const card = document.createElement("div");
@@ -87,11 +87,11 @@ document.addEventListener("DOMContentLoaded", () => {
             </p>
             <p style="font-size:13px;color:#777;font-family:'Crimson Text',serif;">
               <i class="fa-solid fa-calendar" style="color:#3a4fcf"></i> 
-              Event: ${date.toLocaleDateString("en-BD", { year:"numeric", month:"long", day:"numeric" })}
+              Event: ${date.toLocaleDateString("en-BD", { year: "numeric", month: "long", day: "numeric" })}
             </p>
             <p class="ann-date">
               <i class="fa-solid fa-check-circle" style="color:#00bfff"></i> 
-              Issued: ${issuedDate.toLocaleDateString("en-BD", { year:"numeric", month:"long", day:"numeric" })}
+              Issued: ${issuedDate.toLocaleDateString("en-BD", { year: "numeric", month: "long", day: "numeric" })}
             </p>
           </div>
         `;
@@ -111,11 +111,11 @@ document.addEventListener("DOMContentLoaded", () => {
   loadCertificates();
 
   // ── Side Menu ──
-  const menuIcon    = document.getElementById("menuIcon");
-  const sideMenu    = document.getElementById("sideMenu");
+  const menuIcon = document.getElementById("menuIcon");
+  const sideMenu = document.getElementById("sideMenu");
   const sideOverlay = document.getElementById("sideOverlay");
 
-  function openMenu()  { sideMenu.classList.add("open");    sideOverlay.classList.add("show"); }
+  function openMenu() { sideMenu.classList.add("open"); sideOverlay.classList.add("show"); }
   function closeMenu() { sideMenu.classList.remove("open"); sideOverlay.classList.remove("show"); }
 
   menuIcon?.addEventListener("click", () => {
@@ -125,7 +125,7 @@ document.addEventListener("DOMContentLoaded", () => {
   sideOverlay?.addEventListener("click", closeMenu);
 
   // ── Logout ──
-  const sideLogout  = document.getElementById("sideLogout");
+  const sideLogout = document.getElementById("sideLogout");
   const logoutToast = document.getElementById("logoutToast");
 
   sideLogout?.addEventListener("click", (e) => {

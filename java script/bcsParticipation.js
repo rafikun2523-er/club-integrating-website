@@ -96,11 +96,11 @@ document.addEventListener("DOMContentLoaded", () => {
   loadParticipation();
 
   // ── Side Menu ──
-  const menuIcon    = document.getElementById("menuIcon");
-  const sideMenu    = document.getElementById("sideMenu");
+  const menuIcon = document.getElementById("menuIcon");
+  const sideMenu = document.getElementById("sideMenu");
   const sideOverlay = document.getElementById("sideOverlay");
 
-  function openMenu()  { sideMenu.classList.add("open");    sideOverlay.classList.add("show"); }
+  function openMenu() { sideMenu.classList.add("open"); sideOverlay.classList.add("show"); }
   function closeMenu() { sideMenu.classList.remove("open"); sideOverlay.classList.remove("show"); }
 
   menuIcon?.addEventListener("click", () => {
@@ -110,7 +110,7 @@ document.addEventListener("DOMContentLoaded", () => {
   sideOverlay?.addEventListener("click", closeMenu);
 
   // ── Logout ──
-  const sideLogout  = document.getElementById("sideLogout");
+  const sideLogout = document.getElementById("sideLogout");
   const logoutToast = document.getElementById("logoutToast");
 
   sideLogout?.addEventListener("click", (e) => {

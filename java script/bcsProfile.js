@@ -1,8 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
 
   const BASE_URL = window.location.hostname === "127.0.0.1" || window.location.hostname === "localhost"
-  ? "http://localhost:5000"
-  : `http://${window.location.hostname}:5000`;
+    ? "http://localhost:5000"
+    : `http://${window.location.hostname}:5000`;
 
   // ── Auth Check ──
   let member = null;
@@ -30,16 +30,16 @@ document.addEventListener("DOMContentLoaded", () => {
     ? member.name.split(" ").map(w => w[0]).join("").toUpperCase().slice(0, 2)
     : "?";
 
-  document.getElementById("avatarCircle").textContent   = initials;
-  document.getElementById("profileNameDisplay").textContent = member.name       || "—";
+  document.getElementById("avatarCircle").textContent = initials;
+  document.getElementById("profileNameDisplay").textContent = member.name || "—";
   document.getElementById("profileDeptDisplay").textContent = member.department || "—";
-  document.getElementById("studentID").textContent  = member.studentID  || "—";
-  document.getElementById("name").textContent       = member.name       || "—";
-  document.getElementById("batch").textContent      = member.batch      || "—";
+  document.getElementById("studentID").textContent = member.studentID || "—";
+  document.getElementById("name").textContent = member.name || "—";
+  document.getElementById("batch").textContent = member.batch || "—";
   document.getElementById("department").textContent = member.department || "—";
-  document.getElementById("email").textContent      = member.email      || "—";
-  document.getElementById("phone").textContent      = member.phone      || "—";
-  
+  document.getElementById("email").textContent = member.email || "—";
+  document.getElementById("phone").textContent = member.phone || "—";
+
 
   // Side menu
   const sideAvatarEl = document.getElementById("sideAvatar");
@@ -52,21 +52,21 @@ document.addEventListener("DOMContentLoaded", () => {
   const profileImage = document.getElementById("profileImage");
 
   function updatePhoto() {
-  if (member.photo && member.photo !== "" && member.photo !== "null") {
-    const photoUrl = member.photo.startsWith("http")
-      ? member.photo
-     : BASE_URL + member.photo;
-     
-    profileImage.src = photoUrl;
-    profileImage.style.display = "block";
-    avatarCircle.style.display = "none";
-  } else {
-    profileImage.style.display = "none";
-    avatarCircle.style.display = "flex";
-    avatarCircle.textContent = initials;
+    if (member.photo && member.photo !== "" && member.photo !== "null") {
+      const photoUrl = member.photo.startsWith("http")
+        ? member.photo
+        : BASE_URL + member.photo;
+
+      profileImage.src = photoUrl;
+      profileImage.style.display = "block";
+      avatarCircle.style.display = "none";
+    } else {
+      profileImage.style.display = "none";
+      avatarCircle.style.display = "flex";
+      avatarCircle.textContent = initials;
+    }
   }
-}
-updatePhoto();
+  updatePhoto();
 
   // ── Upload Photo ──
   const uploadInput = document.getElementById("uploadImage");
@@ -111,8 +111,8 @@ updatePhoto();
   });
 
   // ── Password Toggle ──
-  const openPassword  = document.getElementById("openPassword");
-  const passwordForm  = document.getElementById("passwordForm");
+  const openPassword = document.getElementById("openPassword");
+  const passwordForm = document.getElementById("passwordForm");
 
   openPassword?.addEventListener("click", () => {
     passwordForm.classList.toggle("open");
@@ -136,8 +136,8 @@ updatePhoto();
   const changePasswordBtn = document.getElementById("changePassword");
 
   changePasswordBtn?.addEventListener("click", async () => {
-    const oldPass     = document.getElementById("oldPass").value.trim();
-    const newPass     = document.getElementById("newPass").value.trim();
+    const oldPass = document.getElementById("oldPass").value.trim();
+    const newPass = document.getElementById("newPass").value.trim();
     const confirmPass = document.getElementById("confirmPass").value.trim();
 
     if (!oldPass || !newPass || !confirmPass) {
@@ -171,15 +171,15 @@ updatePhoto();
       const data = await res.json();
 
       if (res.ok) {
-  showToast("✓ Password updated successfully!");
-  document.getElementById("oldPass").value     = "";
-  document.getElementById("newPass").value     = "";
-  document.getElementById("confirmPass").value = "";
-  passwordForm.classList.remove("open");
-} else {
-  // alert() বাদ দিয়ে toast দেখাও
-  showToast(data?.message || "Password update failed!", true);
-}
+        showToast("✓ Password updated successfully!");
+        document.getElementById("oldPass").value = "";
+        document.getElementById("newPass").value = "";
+        document.getElementById("confirmPass").value = "";
+        passwordForm.classList.remove("open");
+      } else {
+        // alert() বাদ দিয়ে toast দেখাও
+        showToast(data?.message || "Password update failed!", true);
+      }
     } catch (err) {
       console.error(err);
       showToast("Could not connect to server!", true);
@@ -187,11 +187,11 @@ updatePhoto();
   });
 
   // ── Side Menu ──
-  const menuIcon    = document.getElementById("menuIcon");
-  const sideMenu    = document.getElementById("sideMenu");
+  const menuIcon = document.getElementById("menuIcon");
+  const sideMenu = document.getElementById("sideMenu");
   const sideOverlay = document.getElementById("sideOverlay");
 
-  function openMenu()  { sideMenu.classList.add("open");    sideOverlay.classList.add("show"); }
+  function openMenu() { sideMenu.classList.add("open"); sideOverlay.classList.add("show"); }
   function closeMenu() { sideMenu.classList.remove("open"); sideOverlay.classList.remove("show"); }
 
   menuIcon?.addEventListener("click", () => {
@@ -201,7 +201,7 @@ updatePhoto();
   sideOverlay?.addEventListener("click", closeMenu);
 
   // ── Logout ──
-  const sideLogout  = document.getElementById("sideLogout");
+  const sideLogout = document.getElementById("sideLogout");
   const logoutToast = document.getElementById("logoutToast");
 
   sideLogout?.addEventListener("click", (e) => {
@@ -215,7 +215,7 @@ updatePhoto();
   });
 
   // ── Notification Bell ──
-  const bell     = document.getElementById("notificationBell");
+  const bell = document.getElementById("notificationBell");
   const dropdown = document.getElementById("notificationDropdown");
 
   bell?.addEventListener("click", (e) => {
