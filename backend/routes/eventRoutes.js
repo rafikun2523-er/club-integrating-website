@@ -6,7 +6,7 @@ const Participation = require("../models/participation");
 const authenticateToken = require("../middleware/auth");
 const isAdmin = require("../middleware/isAdmin");
 
-// ✅ Public — completed events সবাই দেখতে পাবে
+
 router.get("/past", async (req, res) => {
   try {
     const events = await Event.find({ status: "completed" }).sort({ date: -1 });
@@ -16,7 +16,7 @@ router.get("/past", async (req, res) => {
   }
 });
 
-// ✅ Protected — upcoming events শুধু logged in member দেখবে
+
 router.get("/upcoming", authenticateToken, async (req, res) => {
   try {
     const events = await Event.find({ status: "upcoming" }).sort({ date: 1 });
@@ -26,7 +26,7 @@ router.get("/upcoming", authenticateToken, async (req, res) => {
   }
 });
 
-// ✅ Protected — member event এ register করবে
+
 router.post("/register/:eventId", authenticateToken, async (req, res) => {
   try {
     const existing = await Registration.findOne({
@@ -46,7 +46,7 @@ router.post("/register/:eventId", authenticateToken, async (req, res) => {
   }
 });
 
-// ✅ Admin only — event create করবে
+
 router.post("/create", authenticateToken, isAdmin, async (req, res) => {
   try {
     const { title, description, date, location } = req.body;
@@ -57,7 +57,7 @@ router.post("/create", authenticateToken, isAdmin, async (req, res) => {
   }
 });
 
-// ✅ Admin only — event complete করবে + participants confirm করবে
+
 router.post("/complete/:eventId", authenticateToken, isAdmin, async (req, res) => {
   try {
     const event = await Event.findByIdAndUpdate(
@@ -67,7 +67,7 @@ router.post("/complete/:eventId", authenticateToken, isAdmin, async (req, res) =
     );
     if (!event) return res.status(404).json({ message: "Event not found!" });
 
-    // Registered সবাইকে participant বানাও
+    
     const registrations = await Registration.find({ eventId: req.params.eventId });
     for (const reg of registrations) {
       await Participation.create({
@@ -82,7 +82,7 @@ router.post("/complete/:eventId", authenticateToken, isAdmin, async (req, res) =
   }
 });
 
-// ✅ Member — নিজের participation দেখবে
+
 router.get("/my-participation", authenticateToken, async (req, res) => {
   try {
     const participations = await Participation.find({ 
@@ -94,7 +94,7 @@ router.get("/my-participation", authenticateToken, async (req, res) => {
   }
 });
 
-// ✅ Admin — registered members list দেখবে
+
 router.get("/registrations/:eventId", authenticateToken, isAdmin, async (req, res) => {
   try {
     const registrations = await Registration.find({ eventId: req.params.eventId });

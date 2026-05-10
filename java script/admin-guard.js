@@ -1,7 +1,3 @@
-// =============================================
-//  java script/admin-guard.js
-// =============================================
-
 const BASE_URL = window.location.hostname === "localhost" ||
                  window.location.hostname === "127.0.0.1"
   ? "http://localhost:5000"
@@ -11,7 +7,7 @@ function getAdminToken() {
   return localStorage.getItem("adminToken");
 }
 
-// সব admin API call এর জন্য
+
 function adminFetch(url, options = {}) {
   const token = getAdminToken();
   return fetch(url, {
@@ -24,7 +20,7 @@ function adminFetch(url, options = {}) {
   });
 }
 
-// ── Page load guard ───────────────────────────
+
 (async () => {
   const token = getAdminToken();
 
@@ -38,14 +34,14 @@ function adminFetch(url, options = {}) {
     const data = await res.json();
 
     if (!data.success) {
-      // token invalid বা expired
+      
       localStorage.removeItem("adminToken");
       localStorage.removeItem("adminName");
       window.location.replace("admin-login.html");
       return;
     }
 
-    // নাম set করা
+  
     const name = data.admin.name || localStorage.getItem("adminName") || "Admin";
     localStorage.setItem("adminName", name);
 
@@ -66,7 +62,7 @@ function adminFetch(url, options = {}) {
   }
 })();
 
-// ── Logout ────────────────────────────────────
+
 async function adminLogout() {
   try { await adminFetch(`${BASE_URL}/admin-logout`); } catch (_) {}
   localStorage.removeItem("adminToken");

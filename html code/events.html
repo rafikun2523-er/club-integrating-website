@@ -13,7 +13,7 @@
 
 <nav class="navbar">
   <a class="nav-logo" href="index.html">
-    <div class="logo-circle">LOGO</div>
+    <div class="logo-circle"><img src="../pic/anotherlogo.png" alt="logo" style="width:28px;height:28px;border-radius:50%;object-fit:cover"></div>
     <span class="nav-brand">Unified Club Portal</span>
   </a>
   <div class="nav-links">
@@ -78,5 +78,18 @@
   <div class="footer-bottom">© 2026 Unified Club Portal, BAUET · All Rights Reserved</div>
 </footer>
 <script src="../java script/events.js"></script>
+
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  hamburger.addEventListener('click', () => {
+    mobileMenu.classList.toggle('open');
+    hamburger.classList.toggle('active');
+  });
+  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    mobileMenu.classList.remove('open');
+    hamburger.classList.remove('active');
+  }));
+</script>
 </body>
 </html>

@@ -12,14 +12,14 @@ dotenv.config();
 const app = express();
 connectDB();
 
-// ── CORS — file:// এবং localhost দুটোই allow ──
+
 app.use(cors({
   origin: (origin, callback) => callback(null, true),
   credentials: true
 }));
 app.use(express.json());
 
-// ── Rate limiters ─────────────────────────────
+
 const loginLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, max: 10,
   message: { message: "Too many login attempts! Try again after 15 minutes." }
@@ -32,13 +32,13 @@ app.use("/api/members/login",    loginLimiter);
 app.use("/api/members/register", registerLimiter);
 app.use("/admin-login",          loginLimiter);
 
-// ── Static ────────────────────────────────────
+
 app.use("/photoUploads", express.static(path.join(__dirname, "photoUploads")));
 
-// ── Admin JWT Secret ──────────────────────────
+
 const ADMIN_JWT_SECRET = process.env.JWT_SECRET || "bauet_admin_jwt_2026";
 
-// ── Admin Model ───────────────────────────────
+
 const AdminSchema = new mongoose.Schema({
   adminId:  { type: String, required: true, unique: true, trim: true },
   name:     { type: String, required: true, trim: true },
@@ -46,7 +46,7 @@ const AdminSchema = new mongoose.Schema({
 });
 const Admin = mongoose.model("admins", AdminSchema);
 
-// ── Notice Model ──────────────────────────────
+
 const NoticeSchema = new mongoose.Schema({
   title:     { type: String, required: true, trim: true },
   text:      { type: String, required: true },
@@ -56,7 +56,7 @@ const NoticeSchema = new mongoose.Schema({
 });
 const Notice = mongoose.model("notices", NoticeSchema);
 
-// ── Admin JWT middleware ───────────────────────
+
 function requireAdmin(req, res, next) {
   const authHeader = req.headers["authorization"];
   const token = authHeader && authHeader.split(" ")[1];
@@ -71,11 +71,6 @@ function requireAdmin(req, res, next) {
   }
 }
 
-// =============================================
-//  ADMIN AUTH
-// =============================================
-
-// POST /admin-login
 app.post("/admin-login", async (req, res) => {
   try {
     const { adminId, password } = req.body;
@@ -90,7 +85,7 @@ app.post("/admin-login", async (req, res) => {
     if (!isMatch)
       return res.status(401).json({ success: false, message: "Password সঠিক নয়।" });
 
-    // JWT token তৈরি — 8 ঘণ্টা valid
+
     const token = jwt.sign(
       { adminId: admin.adminId, name: admin.name, id: admin._id },
       ADMIN_JWT_SECRET,
@@ -104,19 +99,17 @@ app.post("/admin-login", async (req, res) => {
   }
 });
 
-// GET /admin-check  (token header দিয়ে)
+
 app.get("/admin-check", requireAdmin, (req, res) => {
   res.json({ success: true, admin: req.admin });
 });
 
-// GET /admin-logout  (client side এ token delete হবে)
+
 app.get("/admin-logout", (req, res) => {
   res.json({ success: true });
 });
 
-// =============================================
-//  ADMIN STATS
-// =============================================
+
 app.get("/api/admin/stats", requireAdmin, async (req, res) => {
   try {
     const Member = require("./models/member");
@@ -137,10 +130,8 @@ app.get("/api/admin/stats", requireAdmin, async (req, res) => {
   }
 });
 
-// =============================================
-//  ADMIN — EVENTS
-// =============================================
 const Event = require("./models/events");
+const EventRegistration = require("./models/eventRegistration");
 
 app.get("/api/admin/events", requireAdmin, async (req, res) => {
   try { res.json(await Event.find().sort({ date: -1 })); }
@@ -183,9 +174,7 @@ app.post("/api/admin/events/:id/complete", requireAdmin, async (req, res) => {
   } catch (err) { res.status(500).json({ message: err.message }); }
 });
 
-// =============================================
-//  ADMIN — NOTICES
-// =============================================
+
 app.get("/api/notices", async (req, res) => {
   try { res.json(await Notice.find().sort({ createdAt: -1 }).limit(20)); }
   catch (err) { res.status(500).json({ message: err.message }); }
@@ -204,9 +193,7 @@ app.delete("/api/admin/notices/:id", requireAdmin, async (req, res) => {
   catch (err) { res.status(500).json({ message: err.message }); }
 });
 
-// =============================================
-//  ADMIN — STUDENTS
-// =============================================
+
 const Member = require("./models/member");
 
 app.get("/api/admin/students", requireAdmin, async (req, res) => {
@@ -221,9 +208,7 @@ app.delete("/api/admin/students/:studentID", requireAdmin, async (req, res) => {
   catch (err) { res.status(500).json({ message: err.message }); }
 });
 
-// =============================================
-//  PUBLIC ROUTES (home page)
-// =============================================
+
 app.get("/api/public/stats", async (req, res) => {
   try {
     const [totalStudents, totalEvents] = await Promise.all([
@@ -240,7 +225,7 @@ app.get("/api/public/events", async (req, res) => {
 });
 
 
-// GET all events (upcoming + completed) — for events page
+
 app.get("/api/public/events/all", async (req, res) => {
   try {
     const events = await Event.find().sort({ date: -1 });
@@ -248,7 +233,7 @@ app.get("/api/public/events/all", async (req, res) => {
   } catch (err) { res.status(500).json({ message: err.message }); }
 });
 
-// GET completed events only — for home page past events
+
 app.get("/api/public/events/past", async (req, res) => {
   try {
     const events = await Event.find({ status: "completed" }).sort({ date: -1 }).limit(4);
@@ -256,7 +241,7 @@ app.get("/api/public/events/past", async (req, res) => {
   } catch (err) { res.status(500).json({ message: err.message }); }
 });
 
-// Alias /api/announcements → /api/notices (student panel uses this)
+
 app.get("/api/announcements", async (req, res) => {
   try {
     const notices = await Notice.find().sort({ createdAt: -1 }).limit(10);
@@ -267,16 +252,12 @@ app.get("/api/announcements", async (req, res) => {
   } catch (err) { res.status(500).json({ message: err.message }); }
 });
 
-// =============================================
-//  EXISTING MEMBER ROUTES
-// =============================================
+
 app.use("/api/members",      require("./routes/memberRoutes"));
 app.use("/api/events",       require("./routes/eventRoutes"));
 app.use("/api/certificates", require("./routes/certificateRoutes"));
 
-// =============================================
-//  SEED — একবার চালান তারপর comment করুন
-// =============================================
+
 app.post("/admin-seed", async (req, res) => {
   try {
     const exists = await Admin.findOne({ adminId: "admin1" });
@@ -288,4 +269,50 @@ app.post("/admin-seed", async (req, res) => {
 });
 
 const PORT = process.env.PORT || 5000;
+
+
+
+
+app.post("/api/event-registrations", async (req, res) => {
+  try {
+    const data = req.body;
+    if (!data.name || !data.studentId || !data.eventId) {
+      return res.status(400).json({ message: "Required fields missing." });
+    }
+    const exists = await EventRegistration.findOne({ eventId: data.eventId, studentId: data.studentId });
+    if (exists) return res.status(409).json({ message: "Already registered for this event." });
+    const reg = await EventRegistration.create({
+      refId: data.refId || ("REG-" + Date.now()),
+      eventId: data.eventId, eventTitle: data.eventTitle,
+      name: data.name, studentId: data.studentId,
+      email: data.email, phone: data.phone,
+      department: data.department, batch: data.batch,
+      reason: data.reason || "",
+      payMethod: data.payMethod, txnId: data.txnId || "Cash Payment",
+      fee: data.fee || "0", status: "pending"
+    });
+    res.status(201).json({ message: "Registration submitted!", refId: reg.refId });
+  } catch (err) { res.status(500).json({ message: err.message }); }
+});
+
+
+app.get("/api/admin/event-registrations", requireAdmin, async (req, res) => {
+  try { res.json(await EventRegistration.find().sort({ submittedAt: -1 })); }
+  catch (err) { res.status(500).json({ message: err.message }); }
+});
+
+
+app.patch("/api/admin/event-registrations/:refId/status", requireAdmin, async (req, res) => {
+  try {
+    const { status } = req.body;
+    if (!["approved","rejected"].includes(status))
+      return res.status(400).json({ message: "Invalid status." });
+    const reg = await EventRegistration.findOneAndUpdate(
+      { refId: req.params.refId }, { status }, { new: true }
+    );
+    if (!reg) return res.status(404).json({ message: "Registration not found." });
+    res.json({ message: `Registration ${status}.`, reg });
+  } catch (err) { res.status(500).json({ message: err.message }); }
+});
+
 app.listen(PORT, "0.0.0.0", () => console.log(`🚀 Server running on port ${PORT}`));

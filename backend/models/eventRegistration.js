@@ -1,4 +1,3 @@
-// backend/models/eventRegistration.js
 const mongoose = require("mongoose");
 
 const EventRegistrationSchema = new mongoose.Schema({

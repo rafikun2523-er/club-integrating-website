@@ -5,7 +5,7 @@ const multer = require("multer");
 const path = require("path");
 const sendOTP = require("../utils/sendOTP");
 
-// Storage configuration
+
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "photoUploads/");
@@ -17,7 +17,6 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-// Register Member
 exports.registerMember = async (req, res) => {
   try {
     const { studentID, name, batch, department, email, phone, password } = req.body;
@@ -25,7 +24,7 @@ exports.registerMember = async (req, res) => {
     const existing = await Member.findOne({ studentID });
     if (existing) return res.status(400).json({ message: "Student already registered!" });
 
-    // ✅ Email check যোগ করো
+  
 const emailExists = await Member.findOne({ email });
 if (emailExists) return res.status(400).json({ message: "This email is already registered!" });
 
@@ -51,14 +50,14 @@ if (emailExists) return res.status(400).json({ message: "This email is already r
   }
 };
 
-// Login Member
+
 exports.loginMember = async (req, res) => {
   try {
     const { studentID, password } = req.body;
     const member = await Member.findOne({ studentID });
     if (!member) return res.status(400).json({ message: "Student not registered!" });
 
-    // ✅ Verified check
+    
     if (!member.isVerified) {
       return res.status(403).json({ 
         message: "Please verify your email first!" 
@@ -89,7 +88,7 @@ exports.loginMember = async (req, res) => {
   }
 };
 
-// Change Password
+
 exports.changePassword = async (req, res) => {
   try {
     const { oldPassword, newPassword } = req.body;
@@ -115,7 +114,7 @@ exports.changePassword = async (req, res) => {
   }
 };
 
-// Upload Profile Photo
+
 exports.uploadPhoto = async (req, res) => {
   try {
     if (!req.file) return res.status(400).json({ message: "No file uploaded!" });

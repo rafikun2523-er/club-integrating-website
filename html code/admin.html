@@ -49,6 +49,10 @@
       <a class="sidebar-link" data-tab="notices" onclick="switchTab('notices')">
         <i class="fa fa-bullhorn"></i> Notices
       </a>
+      <a class="sidebar-link" data-tab="registrations" onclick="switchTab('registrations')">
+        <i class="fa fa-ticket"></i> Registrations
+        <span class="badge-count" id="pendingRegCount" style="background:#e74c3c;color:#fff;border-radius:10px;padding:1px 7px;font-size:11px;margin-left:auto">0</span>
+      </a>
       <a class="sidebar-link" data-tab="students" onclick="switchTab('students')">
         <i class="fa fa-user-graduate"></i> Students
       </a>
@@ -174,6 +178,46 @@
       </div>
     </div>
 
+
+    <!-- ═══ Registrations Tab ═══ -->
+    <div class="tab-pane" id="tab-registrations">
+      <div class="pane-header">
+        <h2 class="pane-title"><i class="fa fa-ticket"></i> Event Registrations</h2>
+        <span style="font-size:13px;color:#888">Review and approve student registrations</span>
+      </div>
+
+      <div class="filter-row" style="display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap">
+        <select id="regStatusFilter" onchange="filterRegistrations()"
+          style="padding:8px 14px;border:1.5px solid #dde0ff;border-radius:8px;font-size:13px;background:#fff;color:#333">
+          <option value="">All Status</option>
+          <option value="pending">⏳ Pending</option>
+          <option value="approved">✅ Approved</option>
+          <option value="rejected">❌ Rejected</option>
+        </select>
+        <input type="text" id="regSearchInput" placeholder="🔍 Search by name or event..."
+          oninput="filterRegistrations()"
+          style="padding:8px 14px;border:1.5px solid #dde0ff;border-radius:8px;font-size:13px;flex:1;min-width:200px">
+      </div>
+
+      <div class="table-card">
+        <table class="data-table" id="registrationsTable">
+          <thead>
+            <tr>
+              <th>Ref ID</th>
+              <th>Student</th>
+              <th>Event</th>
+              <th>Dept / Batch</th>
+              <th>Payment</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="registrationsBody">
+            <tr><td colspan="7" style="text-align:center;color:#aaa;padding:30px">Loading...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </main>
 </div>
 

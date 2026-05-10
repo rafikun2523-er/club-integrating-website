@@ -40,7 +40,7 @@ body {
 
 /* Logo image */
 .logo img {
-  width: 50px;      /* এখান থেকে size control করো */
+  width: 50px;      
   height: auto;
   background: transparent;
   padding: 4px;
@@ -73,11 +73,11 @@ body {
 
 /* Hover effect */
 .navbar nav a:hover {
-  color: #e4e9f0;        /* Text color change */
-  transform: translateY(-3px); /* Text lifts slightly */
+  color: #e4e9f0;        
+  transform: translateY(-3px); 
 }
 
-/* Optional: simple underline animation */
+
 .navbar nav a::after {
   content: '';
   position: absolute;
@@ -502,7 +502,6 @@ body {
   transition: color 0.3s ease, transform 0.3s ease;
 }
 
-/* Hover effect like others */
 .dropbtn:hover {
   color: #e4e9f0;
   transform: translateY(-3px);
@@ -532,7 +531,7 @@ body {
 .dropdown-content a {
   display: block;
   padding: 12px 18px;
-  color: #2B2E83 !important;   /* Force text color */
+  color: #2B2E83 !important;   
   text-decoration: none;
   font-size: 16px;
   font-weight: 500;
@@ -550,7 +549,7 @@ body {
   visibility: visible;
   transform: translateY(0);
 }
-/* ===== Clean Contact Footer ===== */
+
 
 .contact-footer {
   background: #2B2E83;
@@ -627,7 +626,7 @@ body {
   line-height: 1.5;
 }
 
-/* Bottom Line */
+
 .footer-bottom {
   text-align: center;
   margin: 0;
@@ -638,7 +637,7 @@ body {
   opacity: 0.8;
 }
 
-/* Responsive */
+
 @media (max-width: 900px) {
   .footer-container {
     grid-template-columns: 1fr 1fr;
@@ -664,7 +663,7 @@ body {
   border-radius: 10px;
   box-shadow: 0 8px 20px rgba(0,0,0,0.15);
   overflow-y: auto;
-  max-height: 350px;       /* Scroll if too many items */
+  max-height: 350px;       
   padding: 10px 0;
 
   opacity: 0;
@@ -674,9 +673,9 @@ body {
   z-index: 1000;
 }
 
-/* Section inside dropdown */
+
 .dropdown-content .dropdown-section {
-  padding: 8px 20px;           /* thoda extra padding */
+  padding: 8px 20px;           
   border-bottom: 1px solid #eceef1;
 }
 
@@ -691,7 +690,7 @@ body {
   font-weight: 700;
   font-size: 16px;  }          
 
-/* Links inside section */
+
 .dropdown-content .dropdown-section a {
   display: block;
   padding: 8px 0;

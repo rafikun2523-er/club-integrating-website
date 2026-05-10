@@ -26,7 +26,7 @@ router.post(
   authenticateToken,
   changePassword
 );
-// Get all members — public
+
 router.get("/all", async (req, res) => {
   try {
     const members = await Member.find({ isVerified: true })
@@ -38,7 +38,7 @@ router.get("/all", async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 });
-// OTP Verify
+
 router.post("/verify-otp", async (req, res) => {
   try {
     const { studentID, otp } = req.body;
@@ -46,18 +46,18 @@ router.post("/verify-otp", async (req, res) => {
     const member = await Member.findOne({ studentID });
     if (!member) return res.status(404).json({ message: "Member not found!" });
 
-    // Already verified?
+    // Already verified
     if (member.isVerified) return res.status(400).json({ message: "Already verified!" });
 
-    // OTP match?
+    // OTP match
     if (member.otp !== otp) return res.status(400).json({ message: "Invalid OTP!" });
 
-    // OTP expire?
+    // OTP expire
     if (member.otpExpiry < new Date()) {
       return res.status(400).json({ message: "OTP expired! Register again." });
     }
 
-    // ✅ Verify করো
+  
     member.isVerified = true;
     member.otp = "";
     member.otpExpiry = null;
@@ -81,7 +81,7 @@ router.post("/resend-otp", async (req, res) => {
 
     if (member.isVerified) return res.status(400).json({ message: "Already verified!" });
 
-    // নতুন OTP generate করো
+
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
     const otpExpiry = new Date(Date.now() + 10 * 60 * 1000);
 

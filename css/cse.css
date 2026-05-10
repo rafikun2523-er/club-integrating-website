@@ -405,7 +405,7 @@ body {
   margin: 0;
   padding-bottom: 4px;
 }
-/* Register here */
+
 .login-body p span {
   font-family: 'Cinzel', serif ;
 }
@@ -415,7 +415,7 @@ body {
   padding-bottom: 20px;
 }
 
-/* close button white করো */
+
 .university-style .close {
   position: absolute;
   top: 12px;
@@ -584,7 +584,7 @@ body {
 
 
 
-/* Main button */
+
 .dropbtn {
   margin: 0 15px;
   color: white;
@@ -710,7 +710,7 @@ body {
   font-family: 'Crimson Text', serif;
 }
 
-/* ── Footer Responsive ── */
+
 @media (max-width: 900px) {
   .footer-container {
     grid-template-columns: 1fr 1fr;
@@ -820,7 +820,7 @@ body {
 
 
 
-/* ===== Scroll Reveal Animation for MVO ===== */
+
 .mvo-section h2,
 .mvo-section p,
 .mvo-card {
@@ -842,7 +842,7 @@ body {
 
 
 
-/* ── FAQ Section ── */
+
 .faq-section {
   text-align: center;
   padding: 60px 20px;
@@ -931,7 +931,7 @@ body {
   padding-top: 12px;
 }
 
-/*Welcome poup*/
+
 .welcome-popup {
   position: fixed;
   top: 30px;
@@ -995,11 +995,11 @@ body {
   opacity: 1;
   transform:  translateY(0) scale(1);
 }
-/* Fix underline for all navbar links */
+
 .navbar a {
   position: relative;
 }
-/* White underline animation */
+
 .navbar a::after {
   content: '';
   position: absolute;
@@ -1027,17 +1027,17 @@ body {
 
 
 
-/* Make batch dropdown same size as other inputs */
+
 #regBatch {
-  width: 100%;         /* full width like inputs */
-  padding: 12px 15px;  /* same padding as inputs */
-  font-size: 16px;     /* match input font-size */
+  width: 100%;        
+  padding: 12px 15px;  
+  font-size: 16px;     
   border: 1px solid #ccc; 
-  border-radius: 5px;  /* match input border radius */
+  border-radius: 5px;  
   box-sizing: border-box;
   background:white;
   margin: 10px 0;
-  margin-bottom: 15px; /* spacing like inputs */
+  margin-bottom: 15px; 
 }
 html {
   scroll-behavior: smooth;
@@ -1047,18 +1047,18 @@ html {
   font-weight: 600;
   color: #2B2E83;
   margin-bottom: 15px;
-  text-align: left; /* center korle: center */
+  text-align: left; 
   font-family: 'Cinzel', serif;
 }
 
 .back-btn-fixed {
   position: fixed;
-  top: 100px; /* navbar er niche */
-  left: 20px; /* right side */
+  top: 100px; 
+  left: 20px; 
   width: 35px;
   height: 35px;
-  background: #ffffff; /* white circle */
-  color: #001f4d; /* dark blue arrow */
+  background: #ffffff; 
+  color: #001f4d; 
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -1108,12 +1108,12 @@ html {
   transform: translateY(-7px) rotate(-45deg);
 }
 
-/* Mobile login — desktop এ hide */
+
 .mobile-login-btn {
   display: none !important;
 }
 
-/* ── সব mobile styles এক জায়গায় ── */
+
 @media (max-width: 768px) {
 
   .navbar {
@@ -1204,7 +1204,7 @@ html {
 
 
 
-/* ── Scroll to Top ── */
+
 .scroll-top-btn {
   position: fixed;
   bottom: 30px;
@@ -1329,7 +1329,7 @@ html {
   from { transform: translateX(60px); opacity: 0; }
   to   { transform: translateX(0); opacity: 1; }
 }
-/* ===== Dark Mode Toggle Button ===== */
+
 .dark-toggle {
   background: none;
   border: 2px solid rgba(255,255,255,0.7);
@@ -1351,7 +1351,7 @@ html {
   border-color: #fff;
 }
 
-/* ===== Dark Mode Styles ===== */
+
 body.dark-mode {
   background: #0f0f0f;
   color: #e0e0e0;

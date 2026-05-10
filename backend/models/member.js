@@ -14,7 +14,7 @@ const MemberSchema = new mongoose.Schema({
   batch: { 
     type: Number, 
     required: true, 
-    min: 1 // just a basic number check, no dynamic limit
+    min: 1 
   },
   department: { 
     type: String, 

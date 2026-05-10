@@ -10,7 +10,7 @@
 - [x] Initialize Node.js project
 - [x] Install required packages (Mongoose, Express, bcrypt,jwt)
 - [x] Connect MongoDB Atlas database
-- [ ] Create basic server using Node.js + Express (`backend/server.js`)
+- [x] Create basic server using Node.js + Express (`backend/server.js`)
 
 ---
 
@@ -29,9 +29,9 @@
 - [x] JWT auth middleware — `backend/middleware/auth.js`[Tahsina]
 - [x] Rate limiter on login + register — `backend/server.js`[Rafikun]
 - [ ] **[URGENT]** Certificate routes — `backend/routes/certificateRoutes.js`
-- [ ] **[URGENT]** Club join route (member joins a club) — `backend/routes/ (missing)`
+- [x] Club join route (member joins a club) — `backend/routes/ (missing)`[Tahsina]
 - [ ] **[URGENT]** Notice / announcement route — `backend/routes/ (missing)`
-- [ ] **[URGENT]** Admin model in MongoDB — `backend/models/Admin.js (missing)`
+- [x] Admin model in MongoDB — `backend/models/Admin.js `[Rafikun]
 
 ---
 
@@ -50,7 +50,7 @@
 - [ ] **[URGENT]** Navbar Admin link → admin-login.html — `html code/index.html (all navbars)`
 - [ ] **[WIP]** Events page — `html code/events.html` + `java script/events.js`
 - [X]  About page — `html code/about.html` + `css/about.css`[Rafikun]
-- [ ] Connect frontend with backend APIs
+- [X] Connect frontend with backend APIs
 - [ ] Improve navigation between club pages
 
 ---
@@ -112,17 +112,17 @@
 - [x] Bulk member import via CSV
 - [x] Event calendar view
 - [x] Analytics dashboard
-- [ ] **[URGENT]** Admin welcome name display — `html code/admin.html (add id=adminWelcomeName)`
-- [ ] **[URGENT]** Admin logout button — `html code/admin.html (add onclick=adminLogout())`
-- [ ] **[WIP]** Event create from admin panel — `java script/admin.js` + `/api/events/create`
-- [ ] **[WIP]** View + manage registered members — `java script/admin.js` + `/api/members/all`
-- [ ] Mark event as completed — `java script/admin.js` + `/api/events/complete/:id`
+- [x] Admin welcome name display — `html code/admin.html (add id=adminWelcomeName)`
+- [x] Admin logout button — `html code/admin.html (add onclick=adminLogout())`
+- [x] Event create from admin panel — `java script/admin.js` + `/api/events/create`
+- [x] View + manage registered members — `java script/admin.js` + `/api/members/all`
+- [x] Mark event as completed — `java script/admin.js` + `/api/events/complete/:id`
 
 ---
 
 ## 🔔 Notification System
 
-- [ ] Show latest notices on student dashboard
+- [x] Show latest notices on student dashboard[Rafikun]
 - [ ] Real-time notification updates
 - [ ] Email notifications for events
 - [ ] Push notifications for mobile
@@ -131,10 +131,10 @@
 
 ## 🗄️ Database / Models
 
-- [x] Member model — `backend/models/member.js`
+- [x] Member model — `backend/models/member.js`[Nishat]
 - [x] Event model — `backend/models/events.js`[Rafikun]
-- [x] Registration model — `backend/models/registration.js`
-- [x] Participation model — `backend/models/participation.js`
+- [x] Registration model — `backend/models/registration.js`[Tahsina]
+- [ ] Participation model — `backend/models/participation.js`
 - [x] MongoDB Atlas connected — `backend/.env (MONGO_URI)`[Tahsina]
 - [ ] **[URGENT]** Admin model (separate collection) — `backend/models/Admin.js (missing)`
 - [ ] **[URGENT]** Certificate schema — `backend/models/Certificate.js (missing)`
@@ -148,8 +148,8 @@
 
 - [x] bcrypt password hashing (admin) — `backend/server.js`[Rafikun]
 - [x] JWT for member auth — `backend/middleware/auth.js`[Tahsina]
-- [x] Session-based admin auth — `backend/server.js`
-- [x] OTP email verification — `backend/utils/sendOTP.js`
+- [x] Session-based admin auth — `backend/server.js`[Rafikun]
+- [x] OTP email verification — `backend/utils/sendOTP.js`[Tahsina]
 - [x] Rate limiting on login routes — `backend/server.js`
 - [x] Admin route protection (isAdmin middleware) — `backend/middleware/isAdmin.js`
 - [ ] **[URGENT]** SESSION_SECRET in .env — `backend/.env`
@@ -161,7 +161,7 @@
 
 ## 🧪 Testing
 
-- [ ] **[URGENT]** Test admin login end-to-end — `html code/admin-login.html → admin.html`
+- [x] Test admin login end-to-end — `html code/admin-login.html → admin.html`[Rafikun]
 - [ ] **[URGENT]** Fix pthotography.html typo — rename to `photography.html`
 - [ ] **[WIP]** Test member register + OTP flow — `html code/cse.html register modal`
 - [ ] Test event registration — `html code/bcsEventsUpcoming.html`
@@ -178,7 +178,7 @@
 - [ ] Deploy backend (Render / Railway) — `backend/server.js`
 - [ ] Use MongoDB Atlas for production database
 - [ ] Update BASE_URL for production — `backend/config.js` + all JS files
-- [ ] Add environment variables (.env)
+- [x] Add environment variables (.env)
 
 ---
 
@@ -209,6 +209,6 @@
 | Testing | 0 | 8 |
 | Deployment | 0 | 5 |
 | Future | 0 | 5 |
-| **Total** | **62** | **107** |
+| **Total** | **70** | **107** |
 
-> ✅ **Done:** 62 &nbsp;&nbsp; ❗ **Urgent:** 15 &nbsp;&nbsp; 🔄 **WIP:** 7 &nbsp;&nbsp; ⬜ **Pending:** 45
+> ✅ **Done:** 62 &nbsp;&nbsp; ❗ **Urgent:** 12 &nbsp;&nbsp; 🔄 **WIP:** 7 &nbsp;&nbsp; ⬜ **Pending:** 45
