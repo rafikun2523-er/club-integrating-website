@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const joinBtn       = document.getElementById("joinBtn");
   const loginModal    = document.getElementById("loginModal");
 
-  // ── Achievements ──
+
   if (achievements.length === 0) {
     statsBar.style.display     = "none";
     filterSection.style.display = "none";
@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // ── Hamburger ──
+
   hamburgerBtn?.addEventListener("click", () => {
     hamburgerBtn.classList.toggle("active");
     mobileNav.classList.toggle("open");
@@ -74,14 +74,14 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // ── Mobile Login ──
+
   document.getElementById("mobileLoginBtn")?.addEventListener("click", () => {
     mobileNav.classList.remove("open");
     hamburgerBtn.classList.remove("active");
     loginModal?.classList.add("active");
   });
 
-  // ── Login Modal ──
+
   joinBtn?.addEventListener("click", () => loginModal?.classList.add("active"));
 
   document.querySelector(".close")?.addEventListener("click", () => {
@@ -92,7 +92,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (e.target === loginModal) loginModal.classList.remove("active");
   });
 
-  // ── Login Submit ──
+
   document.getElementById("loginSubmit")?.addEventListener("click", async () => {
     const id       = document.getElementById("loginID").value.trim();
     const password = document.getElementById("loginPassword").value.trim();
@@ -114,7 +114,7 @@ document.addEventListener("DOMContentLoaded", () => {
     } catch { alert("Could not connect to server!"); }
   });
 
-  // ── Eye Toggle ──
+
   document.querySelectorAll(".toggle-eye").forEach(eye => {
     eye.addEventListener("click", () => {
       const input = eye.parentElement.querySelector("input");
@@ -124,7 +124,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // ── Scroll to Top ──
+
   const scrollTopBtn = document.getElementById("scrollTopBtn");
   window.addEventListener("scroll", () => {
     scrollTopBtn?.classList.toggle("show", window.scrollY > 400);

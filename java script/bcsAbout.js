@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
     setTimeout(() => { if (document.body.contains(toast)) document.body.removeChild(toast); }, 3000);
   }
 
-  // Modal
+
   const loginModal = document.getElementById("loginModal");
   const joinBtn    = document.getElementById("joinBtn");
 
@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (e.target === loginModal) loginModal.classList.remove("active");
   });
 
-  // Login
+
   document.getElementById("loginSubmit")?.addEventListener("click", async () => {
     const id       = document.getElementById("loginID").value.trim();
     const password = document.getElementById("loginPassword").value.trim();
@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
     } catch { showToast("Could not connect to server!", true); }
   });
 
-  // Eye toggle
+
   document.querySelectorAll(".toggle-eye").forEach(eye => {
     eye.addEventListener("click", () => {
       const input = eye.parentElement.querySelector("input");
@@ -69,7 +69,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Mobile Navbar
+
   const hamburgerBtn = document.getElementById("hamburgerBtn");
   const mobileNav    = document.querySelector(".navbar nav");
 

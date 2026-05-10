@@ -26,38 +26,70 @@ document.addEventListener("DOMContentLoaded", () => {
   const sideNameEl = document.getElementById("sideName");
   if (sideNameEl) sideNameEl.textContent = member.name || "Member";
 
+  function renderEventCard(container, event) {
+    const date = new Date(event.date);
+    const card = document.createElement("div");
+    card.className = "event-card";
+
+    const encTitle    = encodeURIComponent(event.title);
+    const encDate     = encodeURIComponent(event.date || "");
+    const encLocation = encodeURIComponent(event.location || "BAUET Campus");
+    const encFee      = encodeURIComponent(event.fee || 150);
+    const regUrl = `../html code/event-register.html?id=${event._id}&title=${encTitle}&date=${encDate}&location=${encLocation}&fee=${encFee}`;
+
+    card.innerHTML = `
+      <div class="event-date-box">
+        <span class="day">${isNaN(date) ? "?" : date.getDate()}</span>
+        <span class="month">${isNaN(date) ? "—" : date.toLocaleString("en", { month: "short" })}</span>
+      </div>
+      <div class="event-card-info">
+        <h3>${event.title}</h3>
+        <p>${event.description || ""}</p>
+        <div class="event-meta">
+          <span><i class="fa-solid fa-calendar"></i> ${isNaN(date) ? "TBA" : date.toLocaleDateString("en-BD", { year: "numeric", month: "long", day: "numeric" })}</span>
+          ${event.location ? `<span><i class="fa-solid fa-location-dot"></i> ${event.location}</span>` : ""}
+        </div>
+        <a href="${regUrl}" class="reg-btn">
+          <i class="fa-solid fa-ticket"></i> Register Now
+        </a>
+      </div>
+    `;
+    container.appendChild(card);
+  }
+
   async function loadUpcomingEvents() {
     const container = document.getElementById("eventsContainer");
+
+    
+    const FALLBACK = [
+      { _id:"f1", title:"BAUET Hackathon 2026",  date:"2026-06-15", location:"Main Auditorium", description:"Annual programming competition for all CSE students.", fee:200 },
+      { _id:"f2", title:"CSE Tech Fest 2026",    date:"2026-07-10", location:"Seminar Hall",    description:"Project showcase and tech exhibition.", fee:150 },
+      { _id:"f3", title:"Programming Workshop",  date:"2026-07-25", location:"Lab 301",         description:"Hands-on session on competitive programming.", fee:100 },
+    ];
+
     try {
-      const res = await fetch(`${BASE_URL}/api/events/upcoming`);
-      if (!res.ok) throw new Error("No events");
+      
+      const token = localStorage.getItem("token") || "";
+      const res = await fetch(`${BASE_URL}/api/events/upcoming`, {
+        headers: { "Authorization": `Bearer ${token}` }
+      });
+
+      if (!res.ok) throw new Error("API error: " + res.status);
+
       const events = await res.json();
+
       if (!events || events.length === 0) {
         showEmpty(container, "No upcoming events yet. Stay tuned!");
         return;
       }
-      events.forEach(event => {
-        const date = new Date(event.date);
-        const card = document.createElement("div");
-        card.className = "event-card";
-        card.innerHTML = `
-          <div class="event-date-box">
-            <span class="day">${date.getDate()}</span>
-            <span class="month">${date.toLocaleString("en", { month: "short" })}</span>
-          </div>
-          <div class="event-card-info">
-            <h3>${event.title}</h3>
-            <p>${event.description || ""}</p>
-            <div class="event-meta">
-              <span><i class="fa-solid fa-calendar"></i> ${date.toLocaleDateString("en-BD", { year: "numeric", month: "long", day: "numeric" })}</span>
-              ${event.location ? `<span><i class="fa-solid fa-location-dot"></i> ${event.location}</span>` : ""}
-            </div>
-          </div>
-        `;
-        container.appendChild(card);
-      });
-    } catch {
-      showEmpty(container, "No upcoming events yet. Stay tuned!");
+
+      container.innerHTML = "";
+      events.forEach(ev => renderEventCard(container, ev));
+
+    } catch (err) {
+      console.warn("Backend unavailable, using fallback:", err.message);
+      container.innerHTML = "";
+      FALLBACK.forEach(ev => renderEventCard(container, ev));
     }
   }
 

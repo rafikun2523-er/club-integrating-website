@@ -1,9 +1,3 @@
-// =============================================
-//  java script/admin.js
-//  admin-guard.js এর পরে load হয়
-//  adminFetch() function admin-guard.js থেকে আসে
-// =============================================
-
 const BASE_URL_ADMIN = window.location.hostname === "localhost" ||
                        window.location.hostname === "127.0.0.1"
   ? "http://localhost:5000"
@@ -12,7 +6,7 @@ const BASE_URL_ADMIN = window.location.hostname === "localhost" ||
 let allStudents = [];
 let allEvents   = [];
 
-// ── Toast ─────────────────────────────────────
+
 function showToast(msg, type = "success") {
   const t = document.getElementById("toast");
   if (!t) return;
@@ -21,7 +15,7 @@ function showToast(msg, type = "success") {
   setTimeout(() => { t.className = "toast"; }, 3000);
 }
 
-// ── Tab switching ─────────────────────────────
+
 function switchTab(name) {
   document.querySelectorAll(".tab-pane").forEach(p => p.classList.remove("active"));
   document.querySelectorAll(".sidebar-link").forEach(l => l.classList.remove("active"));
@@ -32,20 +26,20 @@ function switchTab(name) {
   if (name === "students") loadStudents();
 }
 
-// ── Modal ─────────────────────────────────────
+
 function openModal(id)  { document.getElementById(id)?.classList.add("open"); }
 function closeModal(id) { document.getElementById(id)?.classList.remove("open"); }
 
 document.addEventListener("DOMContentLoaded", () => {
 
-  // modal overlay click to close
+
   document.querySelectorAll(".modal-overlay").forEach(el => {
     el.addEventListener("click", e => {
       if (e.target === el) el.classList.remove("open");
     });
   });
 
-  // admin name (set by admin-guard.js already, but backup here)
+
   const name = localStorage.getItem("adminName") || "Admin";
   ["adminWelcomeName","welcomeNameBig"].forEach(id => {
     const el = document.getElementById(id);
@@ -57,13 +51,13 @@ document.addEventListener("DOMContentLoaded", () => {
   loadDashboard();
 });
 
-// ── authFetch wrapper (uses adminFetch from guard) ──
+
 function af(url, options = {}) {
   // adminFetch is defined in admin-guard.js
   if (typeof adminFetch === "function") {
     return adminFetch(url, options);
   }
-  // fallback
+
   const token = localStorage.getItem("adminToken");
   return fetch(url, {
     ...options,
@@ -75,9 +69,7 @@ function af(url, options = {}) {
   });
 }
 
-// =============================================
-//  DASHBOARD
-// =============================================
+
 async function loadDashboard() {
   try {
     const res  = await af(`${BASE_URL_ADMIN}/api/admin/stats`);
@@ -126,9 +118,7 @@ async function loadDashboard() {
   }
 }
 
-// =============================================
-//  EVENTS
-// =============================================
+
 async function loadEvents() {
   const tbody = document.getElementById("eventsBody");
   if (!tbody) return;
@@ -238,9 +228,6 @@ async function completeEvent(id) {
   } catch (err) { showToast("Error!", "error"); }
 }
 
-// =============================================
-//  NOTICES
-// =============================================
 async function loadNotices() {
   const grid = document.getElementById("noticesList");
   if (!grid) return;
@@ -315,9 +302,7 @@ async function deleteNotice(id) {
   } catch (err) { showToast("Error!", "error"); }
 }
 
-// =============================================
-//  STUDENTS
-// =============================================
+
 async function loadStudents() {
   const tbody = document.getElementById("studentsBody");
   if (!tbody) return;
@@ -381,3 +366,145 @@ async function deleteStudent(studentID, name) {
     loadDashboard();
   } catch (err) { showToast("Error!", "error"); }
 }
+
+
+
+
+
+let allRegistrations = [];
+
+
+async function loadRegistrations() {
+
+  try {
+    const res = await fetch(`${BASE_URL}/api/admin/event-registrations`, {
+      headers: { Authorization: 'Bearer ' + (localStorage.getItem('adminToken') || '') }
+    });
+    if (res.ok) {
+      allRegistrations = await res.json();
+      renderRegistrations(allRegistrations);
+      updateRegBadge();
+      return;
+    }
+  } catch (_) {}
+
+
+  allRegistrations = JSON.parse(localStorage.getItem('bauet_registrations') || '[]');
+  renderRegistrations(allRegistrations);
+  updateRegBadge();
+}
+
+function updateRegBadge() {
+  const pending = allRegistrations.filter(r => r.status === 'pending').length;
+  const badge = document.getElementById('pendingRegCount');
+  if (badge) {
+    badge.textContent = pending;
+    badge.style.display = pending > 0 ? 'inline' : 'none';
+  }
+}
+
+function renderRegistrations(list) {
+  const tbody = document.getElementById('registrationsBody');
+  if (!tbody) return;
+  if (!list.length) {
+    tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:#aaa;padding:30px">No registrations yet.</td></tr>';
+    return;
+  }
+  tbody.innerHTML = list.map(r => {
+    const statusStyle = {
+      pending:  'background:#fff3cd;color:#856404',
+      approved: 'background:#d1e7dd;color:#0f5132',
+      rejected: 'background:#f8d7da;color:#842029'
+    }[r.status] || '';
+    const statusLabel = { pending:'⏳ Pending', approved:'✅ Approved', rejected:'❌ Rejected' }[r.status] || r.status;
+    const payLabel = r.payMethod === 'cash'
+      ? '💵 Cash'
+      : `${r.payMethod.charAt(0).toUpperCase()+r.payMethod.slice(1)} — ${r.txnId}`;
+    const date = new Date(r.submittedAt).toLocaleDateString('en-BD',{day:'numeric',month:'short',year:'numeric'});
+
+    return `<tr>
+      <td style="font-size:11px;color:#999">${r.refId || r.id || '—'}</td>
+      <td>
+        <div style="font-weight:600;color:#1a1d6e">${r.name}</div>
+        <div style="font-size:11px;color:#888">${r.studentId} · ${r.email}</div>
+        <div style="font-size:11px;color:#888">📞 ${r.phone}</div>
+      </td>
+      <td>
+        <div style="font-weight:500">${r.eventTitle}</div>
+        <div style="font-size:11px;color:#999">${date}</div>
+      </td>
+      <td>${r.department} / ${r.batch}</td>
+      <td style="font-size:12px">${payLabel}<br><span style="color:#888;font-size:11px">Fee: ৳${r.fee}</span></td>
+      <td><span style="padding:4px 10px;border-radius:12px;font-size:12px;font-weight:600;${statusStyle}">${statusLabel}</span></td>
+      <td>
+        ${r.status === 'pending' ? `
+          <button onclick="updateRegStatus('${r.refId || r.id}','approved')"
+            style="background:#1e8449;color:#fff;border:none;border-radius:6px;padding:5px 10px;
+                   font-size:12px;cursor:pointer;margin-right:4px">✅ Approve</button>
+          <button onclick="updateRegStatus('${r.refId || r.id}','rejected')"
+            style="background:#e74c3c;color:#fff;border:none;border-radius:6px;padding:5px 10px;
+                   font-size:12px;cursor:pointer">❌ Reject</button>
+        ` : `<span style="color:#999;font-size:12px">—</span>`}
+      </td>
+    </tr>`;
+  }).join('');
+}
+
+function filterRegistrations() {
+  const status = document.getElementById('regStatusFilter')?.value || '';
+  const search = (document.getElementById('regSearchInput')?.value || '').toLowerCase();
+  const filtered = allRegistrations.filter(r => {
+    const ms = r.name.toLowerCase().includes(search) ||
+               r.eventTitle.toLowerCase().includes(search) ||
+               r.studentId.toLowerCase().includes(search);
+    const mv = !status || r.status === status;
+    return ms && mv;
+  });
+  renderRegistrations(filtered);
+}
+
+async function updateRegStatus(regId, newStatus) {
+  // Try backend
+  try {
+    const res = await fetch(`${BASE_URL}/api/admin/event-registrations/${regId}/status`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + (localStorage.getItem('adminToken') || '')
+      },
+      body: JSON.stringify({ status: newStatus })
+    });
+    if (res.ok) { loadRegistrations(); return; }
+  } catch (_) {}
+
+ 
+  const regs = JSON.parse(localStorage.getItem('bauet_registrations') || '[]');
+  const idx = regs.findIndex(r => (r.refId || r.id) === regId);
+  if (idx !== -1) {
+    regs[idx].status = newStatus;
+    localStorage.setItem('bauet_registrations', JSON.stringify(regs));
+  }
+  allRegistrations = regs;
+  renderRegistrations(allRegistrations);
+  updateRegBadge();
+  const toastMsg = newStatus === 'approved'
+    ? '✅ Registration Approved!'
+    : '❌ Registration Rejected!';
+  const toastType = newStatus === 'approved' ? 'success' : 'error';
+  showToast(toastMsg, toastType);
+}
+
+
+const _origSwitchTab = typeof switchTab === 'function' ? switchTab : null;
+if (typeof switchTab !== 'undefined') {
+  const __origSwitch = switchTab;
+  switchTab = function(tab) {
+    __origSwitch(tab);
+    if (tab === 'registrations') loadRegistrations();
+  };
+}
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  setTimeout(loadRegistrations, 800);
+});

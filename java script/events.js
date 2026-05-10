@@ -1,15 +1,10 @@
-// =============================================
-//  java script/events.js — Events Page
-//  Live: upcoming + completed events from DB
-// =============================================
-
 const BASE_URL = window.location.hostname === "localhost" ||
-                 window.location.hostname === "127.0.0.1"
+  window.location.hostname === "127.0.0.1"
   ? "http://localhost:5000"
   : `http://${window.location.hostname}:5000`;
 
 let allEventsData = [];
-const COLORS = ["#2B2E83","#1a5276","#a93226","#1e6b3c","#6c3483","#854F0B"];
+const COLORS = ["#2B2E83", "#1a5276", "#a93226", "#1e6b3c", "#6c3483", "#854F0B"];
 
 async function loadEvents() {
   const container = document.getElementById("events-container");
@@ -24,19 +19,19 @@ async function loadEvents() {
     }
 
     if (!allEventsData.length) {
-      // static fallback
+
       allEventsData = [
-        { _id:"1", title:"BAUET Hackathon 2026",             date:"2026-04-15", location:"Main Auditorium", status:"upcoming" },
-        { _id:"2", title:"Inter-College Debate Championship", date:"2026-04-22", location:"Seminar Hall",    status:"upcoming" },
-        { _id:"3", title:"Boisakhi Cultural Night",           date:"2026-04-30", location:"BAUET Ground",   status:"upcoming" },
+        { _id: "1", title: "BAUET Hackathon 2026", date: "2026-04-15", location: "Main Auditorium", status: "upcoming" },
+        { _id: "2", title: "Inter-College Debate Championship", date: "2026-04-22", location: "Seminar Hall", status: "upcoming" },
+        { _id: "3", title: "Boisakhi Cultural Night", date: "2026-04-30", location: "BAUET Ground", status: "upcoming" },
       ];
     }
 
     renderEvents(allEventsData);
   } catch {
     allEventsData = [
-      { _id:"1", title:"BAUET Hackathon 2026",             date:"2026-04-15", location:"Main Auditorium", status:"upcoming" },
-      { _id:"2", title:"Inter-College Debate Championship", date:"2026-04-22", location:"Seminar Hall",    status:"upcoming" },
+      { _id: "1", title: "BAUET Hackathon 2026", date: "2026-04-15", location: "Main Auditorium", status: "upcoming" },
+      { _id: "2", title: "Inter-College Debate Championship", date: "2026-04-22", location: "Seminar Hall", status: "upcoming" },
     ];
     renderEvents(allEventsData);
   }
@@ -50,10 +45,10 @@ function renderEvents(list) {
   }
 
   container.innerHTML = list.map((e, i) => {
-    const d      = new Date(e.date);
-    const day    = isNaN(d) ? "—" : d.getDate();
-    const month  = isNaN(d) ? "—" : d.toLocaleString("en",{month:"short"}).toUpperCase();
-    const color  = COLORS[i % COLORS.length];
+    const d = new Date(e.date);
+    const day = isNaN(d) ? "—" : d.getDate();
+    const month = isNaN(d) ? "—" : d.toLocaleString("en", { month: "short" }).toUpperCase();
+    const color = COLORS[i % COLORS.length];
     const isDone = e.status === "completed";
 
     return `
@@ -69,7 +64,7 @@ function renderEvents(list) {
           <div class="event-name">${e.title}</div>
           <div class="event-club">
             <i class="fa-solid fa-location-dot"></i> ${e.location || "BAUET Campus"}
-            ${e.description ? ` &nbsp;·&nbsp; ${e.description.slice(0,55)}${e.description.length>55?"…":""}` : ""}
+            ${e.description ? ` &nbsp;·&nbsp; ${e.description.slice(0, 55)}${e.description.length > 55 ? "…" : ""}` : ""}
           </div>
         </div>
         <span class="badge ${isDone ? "badge-completed" : "badge-open"}">
@@ -79,13 +74,12 @@ function renderEvents(list) {
   }).join("");
 }
 
-// ── Event detail popup ────────────────────────
 function showDetail(id) {
   const e = allEventsData.find(x => x._id === id);
   if (!e) return;
 
-  const d    = new Date(e.date);
-  const date = isNaN(d) ? "—" : d.toLocaleDateString("en-BD",{weekday:"long",day:"numeric",month:"long",year:"numeric"});
+  const d = new Date(e.date);
+  const date = isNaN(d) ? "—" : d.toLocaleDateString("en-BD", { weekday: "long", day: "numeric", month: "long", year: "numeric" });
   const isDone = e.status === "completed";
 
   let modal = document.getElementById("evDetailModal");
@@ -129,21 +123,20 @@ function showDetail(id) {
   modal.onclick = ev => { if (ev.target === modal) modal.remove(); };
 }
 
-// ── Filter ────────────────────────────────────
 function filterEvents() {
   const search = (document.getElementById("search-input")?.value || "").toLowerCase();
   const status = document.getElementById("status-filter")?.value || "";
   const filtered = allEventsData.filter(e => {
     const ms = e.title.toLowerCase().includes(search) ||
-               (e.location||"").toLowerCase().includes(search) ||
-               (e.description||"").toLowerCase().includes(search);
+      (e.location || "").toLowerCase().includes(search) ||
+      (e.description || "").toLowerCase().includes(search);
     const mv = !status || e.status === status;
     return ms && mv;
   });
   renderEvents(filtered);
 }
 
-// animation style
+
 const s = document.createElement("style");
 s.textContent = `
   @keyframes popIn{from{opacity:0;transform:scale(.95) translateY(16px)}to{opacity:1;transform:scale(1) translateY(0)}}

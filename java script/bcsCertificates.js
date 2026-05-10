@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-  // ── Auth Check ──
+
   const member = JSON.parse(localStorage.getItem("memberData"));
   if (!member) {
     window.location.href = "../html code/index.html";
@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const token = localStorage.getItem("token");
 
-  // ── Avatar ──
+
   const initials = member.name
     ? member.name.split(" ").map(w => w[0]).join("").toUpperCase().slice(0, 2)
     : "?";
@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const sideNameEl = document.getElementById("sideName");
   if (sideNameEl) sideNameEl.textContent = member.name || "Member";
 
-  // ── Load Certificates ──
+
   async function loadCertificates() {
     const container = document.getElementById("certificatesContainer");
 
@@ -110,7 +110,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   loadCertificates();
 
-  // ── Side Menu ──
+
   const menuIcon    = document.getElementById("menuIcon");
   const sideMenu    = document.getElementById("sideMenu");
   const sideOverlay = document.getElementById("sideOverlay");
@@ -124,7 +124,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   sideOverlay?.addEventListener("click", closeMenu);
 
-  // ── Logout ──
+
   const sideLogout  = document.getElementById("sideLogout");
   const logoutToast = document.getElementById("logoutToast");
 
