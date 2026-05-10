@@ -24,13 +24,13 @@
 - [x] Profile photo upload — `backend/routes/memberRoutes.js`[Tahsina]
 - [x] Change password route — `backend/routes/memberRoutes.js`[Tahsina]
 - [x] Event create / complete (admin only) — `backend/routes/eventRoutes.js`[Rafikun]
-- [ ] Event registration for members — `backend/routes/eventRoutes.js`
-- [ ] isAdmin middleware — `backend/middleware/isAdmin.js`
+- [X] Event registration for members — `backend/routes/eventRoutes.js`[Nishat]
+- [X] isAdmin middleware — `backend/middleware/isAdmin.js`[Tahsina]
 - [x] JWT auth middleware — `backend/middleware/auth.js`[Tahsina]
 - [x] Rate limiter on login + register — `backend/server.js`[Rafikun]
-- [ ] **[URGENT]** Certificate routes — `backend/routes/certificateRoutes.js`
+- [X] Certificate routes — `backend/routes/certificateRoutes.js`[Tahsina]
 - [x] Club join route (member joins a club) — `backend/routes/ (missing)`[Tahsina]
-- [ ] **[URGENT]** Notice / announcement route — `backend/routes/ (missing)`
+- [X]  Notice / announcement route — `backend/routes/ (missing)`[Rafikun]
 - [x] Admin model in MongoDB — `backend/models/Admin.js `[Rafikun]
 
 ---
@@ -47,11 +47,11 @@
 - [x] Admin login page (floating label, toast) — `html code/admin-login.html` + `css/login.css`[Nishat]
 - [x] Admin guard (session check) — `java script/admin-guard.js`[Rafikun]
 - [x] Feature cards link to correct sections — `html code/index.html`[Rafikun]
-- [ ] **[URGENT]** Navbar Admin link → admin-login.html — `html code/index.html (all navbars)`
-- [ ] **[WIP]** Events page — `html code/events.html` + `java script/events.js`
+- [X] Navbar Admin link → admin-login.html — `html code/index.html (all navbars)`
+- [X] Events page — `html code/events.html` + `java script/events.js`
 - [X]  About page — `html code/about.html` + `css/about.css`[Rafikun]
-- [X] Connect frontend with backend APIs
-- [ ] Improve navigation between club pages
+- [X] Connect frontend with backend APIs[Tahsina]
+
 
 ---
 
@@ -68,7 +68,7 @@
 - [x] Create student profile page
 - [x] Show notifications from admin
 - [ ] Allow students to join clubs
-- [ ] Allow students to register for events
+- [ ] Allow students to register for events after production
 
 ---
 
@@ -83,19 +83,19 @@
 - [x] BCS Achievements page — `html code/bcsAchievements.html`
 - [x] BCS About page — `html code/bcsAbout.html`
 - [x] BCS Participation page — `html code/bcsParticipation.html`
-- [ ] **[URGENT]** BCS Certificates page — `html code/bcsCertificates.html` + `java script/bcsCertificates.js`
+- [X] BCS Certificates page — `html code/bcsCertificates.html` + `java script/bcsCertificates.js`[Tahsina]
 
 ---
 
 ## 🏛️ Other Club Pages
 
-- [x] Cultural / Photography club page — `html code/cultural.html` + `css/cultural.css`
-- [x] Debate club page — `html code/debate.html` + `css/debate.css`
-- [x] Language & Literature club (LLCB) — `html code/llcb.html` + `css/llcb.css`
-- [ ] **[URGENT]** Nature & Environment club page — `html code/nature.html (missing)`
-- [ ] **[URGENT]** Connect all club pages to club.html cards — `java script/clubs.js`
-- [ ] **[WIP]** Photography club (separate) — `html code/pthotography.html` + `css/photography.css`
-- [ ] Show club members list
+- [x] Cultural / Photography club page — `html code/cultural.html` + `css/cultural.css`[Arobe]
+- [x] Debate club page — `html code/debate.html` + `css/debate.css`[Tahsina]
+- [x] Language & Literature club (LLCB) — `html code/llcb.html` + `css/llcb.css`[Tahsina]
+- [X] Nature & Environment club page — `html code/nature.html (missing)`[Arobe]
+- [X] Connect all club pages to club.html cards — `java script/clubs.js`[Rafikun]
+- [X]Photography club (separate) — `html code/pthotography.html` + `css/photography.css`[Nishat]
+- [X] Show club members list
 - [ ] Create club gallery page
 
 ---
@@ -122,8 +122,8 @@
 
 ## 🔔 Notification System
 
-- [x] Show latest notices on student dashboard[Rafikun]
-- [ ] Real-time notification updates
+- [x] Show latest notices on student dashboard[Tahsina]
+- [X] Real-time notification updates [Rafikun]
 - [ ] Email notifications for events
 - [ ] Push notifications for mobile
 
@@ -136,11 +136,11 @@
 - [x] Registration model — `backend/models/registration.js`[Tahsina]
 - [ ] Participation model — `backend/models/participation.js`
 - [x] MongoDB Atlas connected — `backend/.env (MONGO_URI)`[Tahsina]
-- [ ] **[URGENT]** Admin model (separate collection) — `backend/models/Admin.js (missing)`
-- [ ] **[URGENT]** Certificate schema — `backend/models/Certificate.js (missing)`
-- [ ] Club schema — `backend/models/Club.js (missing)`
-- [ ] Notice / Announcement schema — `backend/models/Notice.js (missing)`
-- [ ] Connect all APIs with database
+- [X] Admin model (separate collection) — `backend/models/Admin.js `[Rafikun]
+- [ ] **[URGENT]** Certificate schema — `backend/models/Certificate.js `
+- [X] Club schema — `backend/models/Club.js `
+- [X] Notice / Announcement schema — `backend/models/Notice.js `
+
 
 ---
 
@@ -152,8 +152,8 @@
 - [x] OTP email verification — `backend/utils/sendOTP.js`[Tahsina]
 - [x] Rate limiting on login routes — `backend/server.js`
 - [x] Admin route protection (isAdmin middleware) — `backend/middleware/isAdmin.js`
-- [ ] **[URGENT]** SESSION_SECRET in .env — `backend/.env`
-- [ ] **[URGENT]** bcrypt + express-session installed — `backend/package.json (npm install)`
+- [X] SESSION_SECRET in .env — `backend/.env`
+- [X] bcrypt + express-session installed — `backend/package.json (npm install)`[Tahsina]
 - [ ] Two-factor authentication (2FA)
 - [ ] Data encryption at rest
 
@@ -162,22 +162,22 @@
 ## 🧪 Testing
 
 - [x] Test admin login end-to-end — `html code/admin-login.html → admin.html`[Rafikun]
-- [ ] **[URGENT]** Fix pthotography.html typo — rename to `photography.html`
-- [ ] **[WIP]** Test member register + OTP flow — `html code/cse.html register modal`
-- [ ] Test event registration — `html code/bcsEventsUpcoming.html`
-- [ ] Test admin panel functionality
+- [X] Fix pthotography.html typo — rename to `photography.html`
+- [X] Test member register + OTP flow — `html code/cse.html register modal`
+- [X] Test event registration — `html code/bcsEventsUpcoming.html`
+- [X] Test admin panel functionality
 - [ ] Test database operations
-- [ ] Fix UI/UX issues
+- [X] Fix UI/UX issues
 - [ ] Debug backend APIs
 
 ---
 
 ## 🚀 Deployment
 
-- [ ] Deploy frontend (Netlify / Vercel) — `html code/` folder
+- [X] Deploy frontend (Netlify / Vercel) — `html code/` folder
 - [ ] Deploy backend (Render / Railway) — `backend/server.js`
-- [ ] Use MongoDB Atlas for production database
-- [ ] Update BASE_URL for production — `backend/config.js` + all JS files
+- [X] Use MongoDB Atlas for production database
+- [X] Update BASE_URL for production — `backend/config.js` + all JS files
 - [x] Add environment variables (.env)
 
 ---
@@ -196,19 +196,19 @@
 
 | Section | Done | Total |
 |---|---|---|
-| Project Setup | 4 | 5 |
-| Backend | 12 | 16 |
-| Frontend Main | 5 | 8 |
+| Project Setup | 5 | 5 |
+| Backend | 15 | 16 |
+| Frontend Main | 14 | 14 |
 | Student Panel | 10 | 12 |
 | CSE Club (BCS) | 9 | 10 |
-| Other Clubs | 3 | 6 |
-| Admin Panel | 8 | 11 |
-| Notification System | 0 | 4 |
-| Database / Models | 5 | 9 |
-| Security & Auth | 6 | 8 |
-| Testing | 0 | 8 |
-| Deployment | 0 | 5 |
+| Other Clubs | 7 | 8 |
+| Admin Panel | 15 | 15 |
+| Notification System | 2 | 4 |
+| Database / Models | 7 | 9 |
+| Security & Auth | 8 | 10 |
+| Testing | 5 | 8 |
+| Deployment | 4 | 5 |
 | Future | 0 | 5 |
-| **Total** | **70** | **107** |
+| **Total** | **104** | **121** |
 
-> ✅ **Done:** 62 &nbsp;&nbsp; ❗ **Urgent:** 12 &nbsp;&nbsp; 🔄 **WIP:** 7 &nbsp;&nbsp; ⬜ **Pending:** 45
+> ✅ **Done:** 104 &nbsp;&nbsp; ❗ **Urgent:** 1 &nbsp;&nbsp; ⬜ **Pending:** 16
