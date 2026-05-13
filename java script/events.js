@@ -1,7 +1,7 @@
 const BASE_URL = window.location.hostname === "localhost" ||
   window.location.hostname === "127.0.0.1"
   ? "http://localhost:5000"
-  : `http://${window.location.hostname}:5000`;
+  : ``;
 
 let allEventsData = [];
 const COLORS = ["#2B2E83", "#1a5276", "#a93226", "#1e6b3c", "#6c3483", "#854F0B"];
