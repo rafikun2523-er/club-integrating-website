@@ -1,0 +1,315 @@
+/* ═══════════════════════════════════════════════
+   event-register.css — Event Registration Page
+═══════════════════════════════════════════════ */
+
+/* ── Hero ── */
+.reg-hero {
+  background: linear-gradient(135deg, #1a1d6e 0%, #2B2E83 60%, #3a4fcf 100%);
+  padding: clamp(32px, 5vw, 56px) clamp(20px, 6vw, 64px) clamp(28px, 4vw, 44px);
+  color: white;
+}
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: rgba(255,255,255,0.75);
+  text-decoration: none;
+  font-size: 13px;
+  margin-bottom: 18px;
+  transition: color 0.2s;
+}
+.back-link:hover { color: white; }
+
+.reg-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.25);
+  padding: 5px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+.reg-hero h1 {
+  font-size: clamp(20px, 4vw, 30px);
+  font-weight: 700;
+  margin-bottom: 14px;
+  line-height: 1.25;
+}
+.reg-hero-meta {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  font-size: 13px;
+  color: rgba(255,255,255,0.78);
+}
+.reg-hero-meta span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* ── Body ── */
+.reg-body {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: clamp(24px, 4vw, 40px) clamp(16px, 4vw, 24px) 60px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+/* ── Card ── */
+.reg-card {
+  background: white;
+  border-radius: 16px;
+  border: 1px solid #e8ebff;
+  box-shadow: 0 4px 18px rgba(43,46,131,0.07);
+  overflow: hidden;
+}
+.reg-card-header {
+  background: linear-gradient(135deg, #f0f4ff, #e8ebff);
+  padding: 14px 22px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #2B2E83;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 1px solid #dde0ff;
+}
+.reg-card-body {
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ── Form ── */
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.form-group.full-width { grid-column: 1 / -1; }
+.form-group label {
+  font-size: 13px;
+  font-weight: 500;
+  color: #333;
+}
+.req { color: #e74c3c; margin-left: 2px; }
+.form-group input,
+.form-group select,
+.form-group textarea {
+  padding: 10px 14px;
+  border: 1.5px solid #dde0ff;
+  border-radius: 9px;
+  font-size: 14px;
+  font-family: inherit;
+  background: #fafbff;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  resize: vertical;
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #2B2E83;
+  box-shadow: 0 0 0 3px rgba(43,46,131,0.1);
+}
+.form-group input.error,
+.form-group select.error {
+  border-color: #e74c3c;
+  box-shadow: 0 0 0 3px rgba(231,76,60,0.1);
+}
+
+/* ── Fee Banner ── */
+.fee-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(135deg, #2B2E83, #3a4fcf);
+  border-radius: 12px;
+  padding: 16px 22px;
+  color: white;
+}
+.fee-label { font-size: 13px; opacity: 0.85; }
+.fee-amount { font-size: 26px; font-weight: 700; }
+
+/* ── Payment Methods ── */
+.payment-methods {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+.pay-option input { display: none; }
+.pay-card {
+  border: 2px solid #e8ebff;
+  border-radius: 12px;
+  padding: 14px 8px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  background: #fafbff;
+}
+.pay-option.selected .pay-card {
+  border-color: #2B2E83;
+  background: #eef1ff;
+  box-shadow: 0 0 0 3px rgba(43,46,131,0.1);
+}
+.pay-card:hover { border-color: #5b6ef5; }
+.pay-logo {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+  color: white;
+  margin: 0 auto 8px;
+}
+.bkash-logo  { background: #d72f7e; }
+.nagad-logo  { background: #f2521a; }
+.rocket-logo { background: #8e44ad; }
+.cash-logo   { background: #1e8449; font-size: 18px; }
+.pay-name { font-size: 12px; font-weight: 600; color: #333; }
+
+/* ── Pay Details Box ── */
+.pay-details { margin-top: 4px; }
+.pay-info-box {
+  background: #f0f4ff;
+  border: 1.5px solid #dde0ff;
+  border-radius: 10px;
+  padding: 14px 16px;
+  font-size: 13px;
+  color: #444;
+  line-height: 1.7;
+}
+.pay-info-box.cash-box {
+  background: #f0fff8;
+  border-color: #b2dfdb;
+  color: #1e6b3c;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+.pay-info-title {
+  font-weight: 600;
+  color: #2B2E83;
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+.pay-info-number { font-size: 14px; margin-bottom: 4px; }
+.pay-info-note   { font-size: 12px; color: #888; }
+
+/* ── Submit Button ── */
+.reg-submit-btn {
+  width: 100%;
+  padding: 15px;
+  background: linear-gradient(135deg, #2B2E83, #3a4fcf);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: opacity 0.2s, transform 0.2s;
+  box-shadow: 0 4px 16px rgba(43,46,131,0.3);
+}
+.reg-submit-btn:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+.reg-note {
+  text-align: center;
+  font-size: 12px;
+  color: #999;
+  margin-top: -8px;
+}
+
+/* ── Success Modal ── */
+.success-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  backdrop-filter: blur(5px);
+}
+.success-box {
+  background: white;
+  border-radius: 20px;
+  padding: 40px 32px;
+  max-width: 420px;
+  width: 100%;
+  text-align: center;
+  animation: popIn 0.3s ease;
+}
+.success-icon {
+  font-size: 52px;
+  color: #1e8449;
+  margin-bottom: 16px;
+}
+.success-box h2 {
+  font-size: 22px;
+  font-weight: 700;
+  color: #1a1d6e;
+  margin-bottom: 10px;
+}
+.success-box p {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 6px;
+  line-height: 1.6;
+}
+.success-sub { font-size: 13px; color: #888; margin-bottom: 16px !important; }
+.success-ref {
+  background: #f0f4ff;
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-size: 13px;
+  color: #2B2E83;
+  margin-bottom: 20px;
+}
+.success-box button {
+  width: 100%;
+  padding: 13px;
+  background: linear-gradient(135deg, #2B2E83, #3a4fcf);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* ── Mobile ── */
+@media (max-width: 600px) {
+  .form-row { grid-template-columns: 1fr; }
+  .payment-methods { grid-template-columns: repeat(2, 1fr); }
+  .reg-hero-meta { flex-direction: column; gap: 8px; }
+}
+@media (max-width: 380px) {
+  .payment-methods { grid-template-columns: 1fr 1fr; }
+}
+
+@keyframes popIn {
+  from { opacity: 0; transform: scale(0.92) translateY(16px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}

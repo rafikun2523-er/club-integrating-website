@@ -1,26 +1,25 @@
 document.addEventListener("DOMContentLoaded", () => {
-  
-  // Register validation
-const registerSubmit = document.getElementById("registerSubmit");
 
-if (registerSubmit) {
-  registerSubmit.addEventListener("click", () => {
-    const password = document.getElementById("regPassword").value;
-    const confirm = document.getElementById("regConfirm").value;
+  const registerSubmit = document.getElementById("registerSubmit");
 
-    if (password !== confirm) {
-      alert("Passwords do not match!");
-      return;
-    }
+  if (registerSubmit) {
+    registerSubmit.addEventListener("click", () => {
+      const password = document.getElementById("regPassword").value;
+      const confirm = document.getElementById("regConfirm").value;
 
-    if (password.length < 6) {
-      alert("Password must be at least 6 characters long!");
-      return;
-    }
+      if (password !== confirm) {
+        alert("Passwords do not match!");
+        return;
+      }
 
-    alert("Registration Successful!");
-  });
-}
+      if (password.length < 6) {
+        alert("Password must be at least 6 characters long!");
+        return;
+      }
+
+      alert("Registration Successful!");
+    });
+  }
 
   const joinBtn = document.getElementById("joinBtn");
   const loginModal = document.getElementById("loginModal");
@@ -28,14 +27,12 @@ if (registerSubmit) {
   const closeBtns = document.querySelectorAll(".close");
   const openRegister = document.getElementById("openRegister");
 
-  // Open login modal
   if (joinBtn) {
     joinBtn.addEventListener("click", () => {
       loginModal.classList.add("active");
     });
   }
 
-  // Close modals
   closeBtns.forEach(btn => {
     btn.addEventListener("click", () => {
       loginModal.classList.remove("active");
@@ -43,7 +40,6 @@ if (registerSubmit) {
     });
   });
 
-  // Open register modal
   if (openRegister) {
     openRegister.addEventListener("click", () => {
       loginModal.classList.remove("active");
@@ -52,7 +48,7 @@ if (registerSubmit) {
   }
 
 });
-// Achievements & Why Join Us scroll reveal
+
 const revealSections = document.querySelectorAll(".why-join, .achievements");
 
 function scrollReveal() {

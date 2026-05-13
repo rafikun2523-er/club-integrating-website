@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard — BAUET Club Portal</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="../css/admin.css">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <a class="nav-logo" href="index.html">
+    <div class="logo-circle"><img src="../pic/anotherlogo.png" alt="logo" style="width:28px;height:28px;border-radius:50%;object-fit:cover"></div>
+    <span class="nav-brand">Unified Club Portal</span>
+  </a>
+  <div class="nav-links">
+    <a class="nav-link" href="../html code/index.html">Home</a>
+    <a class="nav-link" href="../html code/club.html">Clubs</a>
+    <a class="nav-link" href="../html code/events.html">Events</a>
+    <a class="nav-link" href="../html code/about.html">About</a>
+    <a class="nav-link active" href="#">Admin</a>
+  </div>
+  <div class="nav-admin-info">
+    <div class="admin-avatar" id="adminAvatar">A</div>
+    <span class="admin-name-nav" id="adminWelcomeName">Admin</span>
+    <button class="btn-logout" onclick="adminLogout()"><i class="fa fa-sign-out-alt"></i> Logout</button>
+  </div>
+</nav>
+
+<!-- SIDEBAR + MAIN LAYOUT -->
+<div class="admin-layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-label">Overview</div>
+      <a class="sidebar-link active" data-tab="dashboard" onclick="switchTab('dashboard')">
+        <i class="fa fa-chart-line"></i> Dashboard
+      </a>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-label">Manage</div>
+      <a class="sidebar-link" data-tab="events" onclick="switchTab('events')">
+        <i class="fa fa-calendar-alt"></i> Events
+      </a>
+      <a class="sidebar-link" data-tab="notices" onclick="switchTab('notices')">
+        <i class="fa fa-bullhorn"></i> Notices
+      </a>
+      <a class="sidebar-link" data-tab="registrations" onclick="switchTab('registrations')">
+        <i class="fa fa-ticket"></i> Registrations
+        <span class="badge-count" id="pendingRegCount" style="background:#e74c3c;color:#fff;border-radius:10px;padding:1px 7px;font-size:11px;margin-left:auto">0</span>
+      </a>
+      <a class="sidebar-link" data-tab="students" onclick="switchTab('students')">
+        <i class="fa fa-user-graduate"></i> Students
+      </a>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-label">Clubs</div>
+      <a class="sidebar-link" href="../html code/club.html" target="_blank">
+        <i class="fa fa-external-link-alt"></i> View Clubs
+      </a>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="admin-main">
+
+    <!-- ── DASHBOARD TAB ── -->
+    <div class="tab-pane active" id="tab-dashboard">
+      <div class="page-header-inner">
+        <div>
+          <div class="page-label">Overview</div>
+          <h1 class="page-title">Dashboard</h1>
+        </div>
+        <div class="welcome-msg">Welcome, <strong id="welcomeNameBig">Admin</strong> 👋</div>
+      </div>
+
+      <!-- Stats Cards -->
+      <div class="stats-grid" id="statsGrid">
+        <div class="stat-card">
+          <div class="stat-icon" style="background:#eef0ff;color:#2B2E83"><i class="fa fa-user-graduate"></i></div>
+          <div class="stat-info">
+            <div class="stat-num" id="stat-students">—</div>
+            <div class="stat-label">Total Students</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon" style="background:#e8fdf5;color:#1e6b3c"><i class="fa fa-layer-group"></i></div>
+          <div class="stat-info">
+            <div class="stat-num" id="stat-clubs">5</div>
+            <div class="stat-label">Active Clubs</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon" style="background:#fff5e6;color:#e67e22"><i class="fa fa-calendar"></i></div>
+          <div class="stat-info">
+            <div class="stat-num" id="stat-events">—</div>
+            <div class="stat-label">Total Events</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon" style="background:#fdf2f2;color:#a93226"><i class="fa fa-bullhorn"></i></div>
+          <div class="stat-info">
+            <div class="stat-num" id="stat-notices">—</div>
+            <div class="stat-label">Notices Posted</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent rows -->
+      <div class="two-col">
+        <div class="dash-card">
+          <div class="dash-card-head">
+            <span>Recent Students</span>
+            <button class="link-btn" onclick="switchTab('students')">View all →</button>
+          </div>
+          <div id="recentStudents" class="dash-list"></div>
+        </div>
+        <div class="dash-card">
+          <div class="dash-card-head">
+            <span>Upcoming Events</span>
+            <button class="link-btn" onclick="switchTab('events')">View all →</button>
+          </div>
+          <div id="recentEvents" class="dash-list"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── EVENTS TAB ── -->
+    <div class="tab-pane" id="tab-events">
+      <div class="page-header-inner">
+        <div>
+          <div class="page-label">Manage</div>
+          <h1 class="page-title">Events</h1>
+        </div>
+        <button class="btn-primary" onclick="openEventModal()"><i class="fa fa-plus"></i> Add Event</button>
+      </div>
+      <div class="table-card">
+        <table class="data-table" id="eventsTable">
+          <thead><tr><th>Title</th><th>Date</th><th>Location</th><th>Status</th><th>Actions</th></tr></thead>
+          <tbody id="eventsBody"><tr><td colspan="5" class="loading-row">Loading...</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ── NOTICES TAB ── -->
+    <div class="tab-pane" id="tab-notices">
+      <div class="page-header-inner">
+        <div>
+          <div class="page-label">Manage</div>
+          <h1 class="page-title">Notices & Announcements</h1>
+        </div>
+        <button class="btn-primary" onclick="openNoticeModal()"><i class="fa fa-plus"></i> Post Notice</button>
+      </div>
+      <div id="noticesList" class="notices-grid"></div>
+    </div>
+
+    <!-- ── STUDENTS TAB ── -->
+    <div class="tab-pane" id="tab-students">
+      <div class="page-header-inner">
+        <div>
+          <div class="page-label">Manage</div>
+          <h1 class="page-title">Student Members</h1>
+        </div>
+        <div class="search-box">
+          <i class="fa fa-search"></i>
+          <input type="text" id="studentSearch" placeholder="Search by name or ID..." oninput="filterStudents()">
+        </div>
+      </div>
+      <div class="table-card">
+        <table class="data-table" id="studentsTable">
+          <thead><tr><th>Photo</th><th>Name</th><th>Student ID</th><th>Dept</th><th>Batch</th><th>Email</th><th>Actions</th></tr></thead>
+          <tbody id="studentsBody"><tr><td colspan="7" class="loading-row">Loading...</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+
+
+    <!-- ═══ Registrations Tab ═══ -->
+    <div class="tab-pane" id="tab-registrations">
+      <div class="pane-header">
+        <h2 class="pane-title"><i class="fa fa-ticket"></i> Event Registrations</h2>
+        <span style="font-size:13px;color:#888">Review and approve student registrations</span>
+      </div>
+
+      <div class="filter-row" style="display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap">
+        <select id="regStatusFilter" onchange="filterRegistrations()"
+          style="padding:8px 14px;border:1.5px solid #dde0ff;border-radius:8px;font-size:13px;background:#fff;color:#333">
+          <option value="">All Status</option>
+          <option value="pending">⏳ Pending</option>
+          <option value="approved">✅ Approved</option>
+          <option value="rejected">❌ Rejected</option>
+        </select>
+        <input type="text" id="regSearchInput" placeholder="🔍 Search by name or event..."
+          oninput="filterRegistrations()"
+          style="padding:8px 14px;border:1.5px solid #dde0ff;border-radius:8px;font-size:13px;flex:1;min-width:200px">
+      </div>
+
+      <div class="table-card">
+        <table class="data-table" id="registrationsTable">
+          <thead>
+            <tr>
+              <th>Ref ID</th>
+              <th>Student</th>
+              <th>Event</th>
+              <th>Dept / Batch</th>
+              <th>Payment</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="registrationsBody">
+            <tr><td colspan="7" style="text-align:center;color:#aaa;padding:30px">Loading...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- ── EVENT MODAL ── -->
+<div class="modal-overlay" id="eventModal">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h3 id="eventModalTitle">Add Event</h3>
+      <button class="modal-close" onclick="closeModal('eventModal')"><i class="fa fa-times"></i></button>
+    </div>
+    <div class="modal-body-form">
+      <input type="hidden" id="eventId">
+      <div class="form-group">
+        <label>Event Title *</label>
+        <input type="text" id="eventTitle" placeholder="e.g. BAUET Hackathon 2026">
+      </div>
+      <div class="form-group">
+        <label>Description</label>
+        <textarea id="eventDesc" rows="3" placeholder="Brief description..."></textarea>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Date *</label>
+          <input type="date" id="eventDate">
+        </div>
+        <div class="form-group">
+          <label>Location</label>
+          <input type="text" id="eventLocation" placeholder="e.g. Main Auditorium">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Status</label>
+        <select id="eventStatus">
+          <option value="upcoming">Upcoming</option>
+          <option value="completed">Completed</option>
+        </select>
+      </div>
+      <div class="modal-actions">
+        <button class="btn-secondary" onclick="closeModal('eventModal')">Cancel</button>
+        <button class="btn-primary" onclick="saveEvent()">Save Event</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── NOTICE MODAL ── -->
+<div class="modal-overlay" id="noticeModal">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h3>Post New Notice</h3>
+      <button class="modal-close" onclick="closeModal('noticeModal')"><i class="fa fa-times"></i></button>
+    </div>
+    <div class="modal-body-form">
+      <div class="form-group">
+        <label>Notice Title *</label>
+        <input type="text" id="noticeTitle" placeholder="e.g. Hackathon Registration Open">
+      </div>
+      <div class="form-group">
+        <label>Category</label>
+        <select id="noticeCategory">
+          <option value="general">General</option>
+          <option value="event">Event</option>
+          <option value="urgent">Urgent</option>
+          <option value="achievement">Achievement</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Message *</label>
+        <textarea id="noticeText" rows="4" placeholder="Write announcement..."></textarea>
+      </div>
+      <div class="modal-actions">
+        <button class="btn-secondary" onclick="closeModal('noticeModal')">Cancel</button>
+        <button class="btn-primary" onclick="saveNotice()">Publish Notice</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script src="../java script/admin-guard.js"></script>
+<script src="../java script/admin.js"></script>
+</body>
+</html>

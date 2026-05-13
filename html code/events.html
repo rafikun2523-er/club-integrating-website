@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Events — Unified Club Portal BAUET</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/events.css">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body>
+
+<nav class="navbar">
+  <a class="nav-logo" href="index.html">
+    <div class="logo-circle"><img src="../pic/anotherlogo.png" alt="logo" style="width:28px;height:28px;border-radius:50%;object-fit:cover"></div>
+    <span class="nav-brand">Unified Club Portal</span>
+  </a>
+  <div class="nav-links">
+    <a class="nav-link" href="../html code/index.html">Home</a>
+    <a class="nav-link" href="../html code/club.html">Clubs</a>
+    <a class="nav-link active" href="events.html">Events</a>
+    <a class="nav-link" href="../html code/about.html">About</a>
+    <a class="nav-link" href="../html code/admin-login.html">Admin</a>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="breadcrumb">Home / Events</div>
+  <h1>All Events</h1>
+  <p>Stay updated with everything happening at BAUET.</p>
+</div>
+
+<div class="section bg-light">
+  <div class="events-filter">
+    <input type="text" id="search-input" placeholder="🔍 Search events..." oninput="filterEvents()">
+    <select id="status-filter" onchange="filterEvents()">
+      <option value="">All Events</option>
+      <option value="upcoming">Upcoming</option>
+      <option value="completed">Completed</option>
+    </select>
+  </div>
+  <div class="events-list" id="events-container"></div>
+</div>
+<footer class="footer">
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand">🎓 Unified Club Portal</div>
+      <div class="footer-about">BAUET's central digital hub for all club activities, events, and student engagement.</div>
+    </div>
+    <div>
+      <div class="footer-col-title">Quick Links</div>
+      <div class="footer-links">
+        <a class="footer-link" href="index.html">Home</a>
+        <a class="footer-link" href="../html code/club.html">Clubs</a>
+        <a class="footer-link" href="../html code/events.html">Events</a>
+        <a class="footer-link" href="../html code/about.html">About</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Clubs</div>
+      <div class="footer-links">
+        <a class="footer-link" href="../html code/cse.html">Computer Society</a>
+        <a class="footer-link" href="../html code/debate.html">Debate Club</a>
+        <a class="footer-link" href="../html code/cultural.html">Cultural Club</a>
+        <a class="footer-link" href="../html code/llcb.html">Literature Club</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Contact</div>
+      <div class="footer-links">
+        <span class="footer-link">📍 BAUET, Natore</span>
+        <span class="footer-link">✉️ info@bauet.ac.bd</span>
+        <span class="footer-link">📞 +880 XXXX-XXXXXX</span>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2026 Unified Club Portal, BAUET · All Rights Reserved</div>
+</footer>
+<script src="../java script/events.js"></script>
+
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  hamburger.addEventListener('click', () => {
+    mobileMenu.classList.toggle('open');
+    hamburger.classList.toggle('active');
+  });
+  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    mobileMenu.classList.remove('open');
+    hamburger.classList.remove('active');
+  }));
+</script>
+</body>
+</html>

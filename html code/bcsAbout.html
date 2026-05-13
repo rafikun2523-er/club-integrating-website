@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BAUET Computer Society — About</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/bcsAbout.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="icon" href="data:,">
+</head>
+<body>
+
+<!-- Navbar -->
+<header class="navbar">
+  <div class="logo">
+    <img src="../pic/csepic.jpeg" alt="BAUET Logo">
+    <span>BAUET Computer Society</span>
+  </div>
+  <button class="hamburger" id="hamburgerBtn">
+    <span></span><span></span><span></span>
+  </button>
+  <nav>
+    <a href="../html code/cse.html">Home</a>
+    <a href="../html code/bcsMembers.html">Members</a>
+    <a href="../html code/bcsEvents.html">Events</a>
+    <a href="../html code/bcsAbout.html" class="active-link">About Club</a>
+    <div class="mobile-login-btn" id="mobileLoginBtn">Log in</div>
+  </nav>
+  <button class="btn" id="joinBtn">Log in</button>
+</header>
+
+<!-- Back Button -->
+<button class="back-btn-fixed" onclick="goBack()">
+  <i class="fa-solid fa-arrow-left"></i>
+</button>
+<script>
+function goBack() {
+  if (document.referrer) { window.history.back(); }
+  else { window.location.href = "../html code/cse.html"; }
+}
+</script>
+
+<!-- Hero -->
+<section class="about-hero">
+  <div class="about-hero-inner">
+    <div class="about-badge">SINCE 2015</div>
+    <h1>About Our Club</h1>
+    <p>BAUET Computer Society — committed to building digital Bangladesh through innovation, coding and leadership.</p>
+  </div>
+</section>
+
+<!-- Main Content -->
+<div class="about-content">
+
+  <!-- Introduction -->
+  <div class="about-card" id="intro">
+    <div class="card-header">
+      <div class="card-icon"><i class="fa-solid fa-circle-info"></i></div>
+      <h2>Introduction</h2>
+    </div>
+    <p class="intro-text">
+      The importance of various clubs besides class education is immense for the development of creative education and talent of the university as well as for the development of the nation. <strong>BAUET Computer Society</strong> was founded with a commitment to build a digital Bangladesh because the future of the country depends on the talent and values of the young society.
+    </p>
+    <p class="intro-text">
+      This club will increase the efficiency of its members, pave the way for employment and work with the great vow of building ideal people. The club consists of a total of <strong>13 sub-committees</strong> covering Software Development, Programming, Web Development, Cyber Security, Research, Hardware, AI & Robotics and more.
+    </p>
+    <div class="intro-stats">
+      <div class="intro-stat">
+        <span class="stat-num">2015</span>
+        <span class="stat-label">Year Founded</span>
+      </div>
+      <div class="intro-stat">
+        <span class="stat-num">13</span>
+        <span class="stat-label">Sub-Committees</span>
+      </div>
+      <div class="intro-stat">
+        <span class="stat-num">Free</span>
+        <span class="stat-label">Membership</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Aims & Objectives -->
+  <div class="about-card" id="aims">
+    <div class="card-header">
+      <div class="card-icon"><i class="fa-solid fa-bullseye"></i></div>
+      <h2>Aims & Objectives</h2>
+    </div>
+    <div class="rules-list">
+      <div class="rule-item">
+        <span class="rule-num">01</span>
+        <p>To develop the high values of the students and to spend all the talents, labor and education for the welfare of the people.</p>
+      </div>
+      <div class="rule-item">
+        <span class="rule-num">02</span>
+        <p>To ensure the proper development of the mind, taste and personality of the members through proper practice of creative culture.</p>
+      </div>
+      <div class="rule-item">
+        <span class="rule-num">03</span>
+        <p>To cultivate a deep sense of brotherhood among all irrespective of religion, caste, community and ethnicity.</p>
+      </div>
+      <div class="rule-item">
+        <span class="rule-num">04</span>
+        <p>To work for the overall welfare of the country and the people through various practices and volunteerism.</p>
+      </div>
+      <div class="rule-item">
+        <span class="rule-num">05</span>
+        <p>To achieve spiritual and emotional development of the students.</p>
+      </div>
+      <div class="rule-item">
+        <span class="rule-num">06</span>
+        <p>To make the students fit in the modern world by enhancing their personal and professional skills.</p>
+      </div>
+      <div class="rule-item">
+        <span class="rule-num">07</span>
+        <p>To play a special role in good leadership and nation building.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Membership Requirements -->
+  <div class="about-card" id="membership">
+    <div class="card-header">
+      <div class="card-icon"><i class="fa-solid fa-user-check"></i></div>
+      <h2>Membership Requirements</h2>
+    </div>
+    <div class="membership-pills">
+      <div class="pill"><i class="fa-solid fa-check"></i> Must be a student of BAUET</div>
+      <div class="pill"><i class="fa-solid fa-check"></i> CGPA ≥ 3.00 in any semester</div>
+      <div class="pill"><i class="fa-solid fa-check"></i> Completely free — no joining fee</div>
+      <div class="pill"><i class="fa-solid fa-check"></i> No monthly or annual subscription</div>
+      <div class="pill"><i class="fa-solid fa-check"></i> Fill the prescribed registration form</div>
+      <div class="pill"><i class="fa-solid fa-check"></i> Open to all departments of BAUET</div>
+    </div>
+    <div class="membership-note">
+      <i class="fa-solid fa-circle-exclamation"></i>
+      Students with CGPA below 3.00 in any semester are not eligible for membership.
+    </div>
+  </div>
+
+  <!-- Rules & Regulations -->
+  <div class="about-card" id="rules">
+    <div class="card-header">
+      <div class="card-icon"><i class="fa-solid fa-scale-balanced"></i></div>
+      <h2>Rules & Regulations</h2>
+    </div>
+    <div class="rules-list">
+      <div class="rule-item">
+        <span class="rule-num">01</span>
+        <p>All members are bound to abide by all rules of the club.</p>
+      </div>
+      <div class="rule-item">
+        <span class="rule-num">02</span>
+        <p>Members must maintain control of the club.</p>
+      </div>
+      <div class="rule-item">
+        <span class="rule-num">03</span>
+        <p>Every effort should be made to take part in all the events of the club.</p>
+      </div>
+      <div class="rule-item">
+        <span class="rule-num">04</span>
+        <p>Every effort should be made to engage in voluntary work as required, as advised by the event coordinator.</p>
+      </div>
+      <div class="rule-item">
+        <span class="rule-num">05</span>
+        <p>Members may not engage in any activity that would be shameful to the club.</p>
+      </div>
+      <div class="rule-item">
+        <span class="rule-num">06</span>
+        <p>If there is any concern, the head of the committee should be informed. The head will inform the executive committee and necessary action will be taken.</p>
+      </div>
+      <div class="rule-item">
+        <span class="rule-num">07</span>
+        <p>All members must attend each meeting. If a member is absent, he must show cause. If he does not attend two consecutive meetings without showing cause, the executive committee will take necessary action.</p>
+      </div>
+      <div class="rule-item">
+        <span class="rule-num">08</span>
+        <p>If any member breaks the rules of the club or tries to create chaos, he will be immediately dismissed from the club. No dismissed student will be allowed to participate in any club activities or events.</p>
+      </div>
+      <div class="rule-item">
+        <span class="rule-num">09</span>
+        <p>If any member misbehaves with any other member or executive member, he shall be dismissed from the club.</p>
+      </div>
+      <div class="rule-item">
+        <span class="rule-num">10</span>
+        <p>Strict action will be taken against anyone who tries to cause problems during various events.</p>
+      </div>
+      <div class="rule-item">
+        <span class="rule-num">11</span>
+        <p>The members have to fulfill the responsibilities assigned to them within the stipulated time. Otherwise the authorities will take necessary action.</p>
+      </div>
+      <div class="rule-item">
+        <span class="rule-num">12</span>
+        <p>At the monthly meeting, the members of the club should present the progress of the work to the members of the committee.</p>
+      </div>
+      <div class="rule-item">
+        <span class="rule-num">13</span>
+        <p>No assets of the Club may be used for personal or other purposes.</p>
+      </div>
+      <div class="rule-item">
+        <span class="rule-num">14</span>
+        <p>If the members of the club need to work in the lab, they have to maintain the register book of the lab.</p>
+      </div>
+      <div class="rule-item">
+        <span class="rule-num">15</span>
+        <p>The Executive Committee has the power to add, subtract, change or add new provisions at any time as it deems necessary.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Committee Structure -->
+  <div class="about-card" id="committee">
+    <div class="card-header">
+      <div class="card-icon"><i class="fa-solid fa-sitemap"></i></div>
+      <h2>Committee Structure</h2>
+    </div>
+
+    <h3 class="sub-heading">Executive Committee</h3>
+    <div class="committee-grid">
+      <div class="committee-role patron">
+        <i class="fa-solid fa-crown"></i>
+        <span>Chief Patron</span>
+        <small>Hon'ble Vice Chancellor</small>
+      </div>
+      <div class="committee-role">
+        <i class="fa-solid fa-user-tie"></i>
+        <span>President</span>
+        <small>1 Teacher</small>
+      </div>
+      <div class="committee-role">
+        <i class="fa-solid fa-user-tie"></i>
+        <span>Vice President</span>
+        <small>1 Teacher + 1 Student</small>
+      </div>
+      <div class="committee-role">
+        <i class="fa-solid fa-user"></i>
+        <span>General Secretary</span>
+        <small>1 Student</small>
+      </div>
+      <div class="committee-role">
+        <i class="fa-solid fa-user"></i>
+        <span>Human Resource Secretary</span>
+        <small>1 Student</small>
+      </div>
+      <div class="committee-role">
+        <i class="fa-solid fa-user"></i>
+        <span>Women Secretary</span>
+        <small>1 Student</small>
+      </div>
+      <div class="committee-role">
+        <i class="fa-solid fa-user"></i>
+        <span>Treasurer</span>
+        <small>1 Student</small>
+      </div>
+    </div>
+
+    <h3 class="sub-heading">13 Sub-Committees</h3>
+    <div class="subcommittee-grid">
+      <div class="sub-pill"><i class="fa-solid fa-code"></i> Software Development</div>
+      <div class="sub-pill"><i class="fa-solid fa-terminal"></i> Programming</div>
+      <div class="sub-pill"><i class="fa-solid fa-gamepad"></i> Game Development, AR & VR</div>
+      <div class="sub-pill"><i class="fa-solid fa-globe"></i> Web Development</div>
+      <div class="sub-pill"><i class="fa-solid fa-flask"></i> Research</div>
+      <div class="sub-pill"><i class="fa-solid fa-shield-halved"></i> Cyber Security</div>
+      <div class="sub-pill"><i class="fa-solid fa-microchip"></i> Hardware Development</div>
+      <div class="sub-pill"><i class="fa-solid fa-bullhorn"></i> Sponsor, Publication & Promotion</div>
+      <div class="sub-pill"><i class="fa-solid fa-graduation-cap"></i> Educational</div>
+      <div class="sub-pill"><i class="fa-solid fa-music"></i> Cultural & Sports</div>
+      <div class="sub-pill"><i class="fa-solid fa-handshake"></i> Patronage</div>
+      <div class="sub-pill"><i class="fa-solid fa-users"></i> Advisory</div>
+      <div class="sub-pill"><i class="fa-solid fa-gavel"></i> Executive</div>
+    </div>
+  </div>
+
+  <!-- Certificates & Training -->
+  <div class="about-card" id="certificates">
+    <div class="card-header">
+      <div class="card-icon"><i class="fa-solid fa-certificate"></i></div>
+      <h2>Certificates & Training</h2>
+    </div>
+    <div class="cert-grid">
+      <div class="cert-item">
+        <i class="fa-solid fa-award"></i>
+        <h3>Participation Certificate</h3>
+        <p>All active members receive certificates at the end of each committee term through a closing ceremony.</p>
+      </div>
+      <div class="cert-item">
+        <i class="fa-solid fa-star"></i>
+        <h3>Certificate of Excellence</h3>
+        <p>Members who perform well in various programs and events are awarded a special Certificate of Excellence.</p>
+      </div>
+      <div class="cert-item">
+        <i class="fa-solid fa-infinity"></i>
+        <h3>Lifetime Membership</h3>
+        <p>Members can earn Lifetime Membership by demonstrating outstanding qualifications and contributions.</p>
+      </div>
+      <div class="cert-item">
+        <i class="fa-solid fa-chalkboard-teacher"></i>
+        <h3>Workshops & Seminars</h3>
+        <p>Regular workshops, seminars and training sessions are arranged on Beginner, Intermediate and Advanced levels.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Footer -->
+<footer class="contact-footer">
+  <div class="footer-container">
+    <div class="footer-logo">
+      <img src="../pic/anotherlogo.png" alt="BAUET Logo">
+      <h2>BAUET Computer Society</h2>
+      <div class="social-icons">
+        <i class="fab fa-facebook-f"></i>
+        <i class="fab fa-x-twitter"></i>
+        <i class="fab fa-youtube"></i>
+        <i class="fab fa-linkedin-in"></i>
+      </div>
+    </div>
+    <div class="footer-links">
+      <h3>Quick Links</h3>
+      <a href="../html code/bcsMembers.html">Our Members</a>
+      <a href="../html code/bcsEvents.html">Our Events</a>
+      <a href="../html code/bcsAbout.html">About Club</a>
+    </div>
+    <div class="footer-address">
+      <h3>Address</h3>
+      <p>BAUET Campus</p>
+      <p>Qadirabad Cantonment, Dayarampur</p>
+      <p>Natore, Bangladesh</p>
+    </div>
+    <div class="footer-contact">
+      <h3>Contact</h3>
+      <p>Phone: +880 1XXXXXXXXX</p>
+      <p>Email: <a href="mailto:computer.society.bauet@gmail.com">computer.society.bauet@gmail.com</a></p>
+    </div>
+  </div>
+  <div class="footer-bottom">Copyright ©2026, BAUET Computer Club. All Rights Reserved.</div>
+</footer>
+
+<!-- Login Modal -->
+<div class="modal" id="loginModal">
+  <div class="modal-content university-style">
+    <div class="uni-header">
+      <img src="../pic/anotherlogo.png" alt="BAUET Logo">
+      <div class="uni-title">
+        <h2>BAUET</h2>
+        <p>Bangladesh Army University of Engineering & Technology</p>
+      </div>
+    </div>
+    <span class="close">&times;</span>
+    <div class="login-body">
+      <h3>Sign in with your student ID and password</h3>
+      <input type="text" id="loginID" placeholder="Student ID">
+      <div class="input-eye">
+        <input type="password" id="loginPassword" placeholder="Password">
+        <i class="fa-solid fa-eye toggle-eye"></i>
+      </div>
+      <button class="login-btn" id="loginSubmit">Login</button>
+      <p>Not a member? <span id="openRegister" style="color:#2f80ed;cursor:pointer;">Register here</span></p>
+    </div>
+  </div>
+</div>
+
+<script src="../java script/bcsAbout.js"></script>
+<script src="../backend/config.js"></script>
+
+
+</body>
+</html>

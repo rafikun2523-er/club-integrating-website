@@ -1,130 +1,155 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <title>University Clubs</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- CSS -->
-    <link rel="stylesheet" href="../css/style2.css">
-
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clubs — Unified Club Portal BAUET</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="../css/style2.css">
 </head>
 
 <body>
 
-<!-- ===== NAVBAR ===== -->
-<div class="navbar">
-    <div class="logo">
-        <img src="../pic/anotherlogo.png" alt="Logo">
-        <span>Unified Club Portal</span>
+  <nav class="navbar">
+    <a class="nav-logo" href="index.html">
+      <div class="logo-circle"><img src="../pic/anotherlogo.png" alt="logo" style="width:28px;height:28px;border-radius:50%;object-fit:cover"></div>
+      <span class="nav-brand">Unified Club Portal</span>
+    </a>
+    <div class="nav-links">
+      <a class="nav-link" href="../html code/index.html">Home</a>
+      <a class="nav-link active" href="club.html">Clubs</a>
+      <a class="nav-link" href="../html code/events.html">Events</a>
+      <a class="nav-link" href="../html code/about.html">About</a>
+      <a class="nav-link" href="../html code/admin-login.html">Admin</a>
     </div>
-    <nav>
-        <a href="../html code/index.html">Home</a>
-        <a href="#" class="active">Clubs</a>
-        <a href="../html code/about.html">About</a>
-    </nav>
-</div>
+  </nav>
 
-<!-- ===== CLUB SECTION WITH BACKGROUND ===== -->
-<section class="club-section">
-
-    <h1 class="club-heading">Our Clubs</h1>
-
-    <div class="club-container">
-
-        <a href="cse.html" class="club-card">
-            <i class="fas fa-laptop-code"></i>
-            <span>Computer Society</span>
-        </a>
-
-        <a href="../html code/debate.html" class="club-card">
-            <i class="fas fa-microphone"></i>
-            <span>Debating Society</span>
-        </a>
-
-        <a href="../html code/cultural.html" class="club-card">
-            <i class="fas fa-music"></i>
-            <span>Cultural Club</span>
-        </a>
-
-        <a href="../html code/pthotography.html" class="club-card">
-            <i class="fas fa-camera"></i>
-            <span>Photography & Media Club</span>
-        </a>
-
-        <a href="nature.html" class="club-card">
-            <i class="fas fa-leaf"></i>
-            <span>Nature & Environment Club</span>
-        </a>
-
-        <a href="llcb.html" class="club-card">
-            <i class="fas fa-briefcase"></i>
-            <span>Language & Literature Club</span>
-        </a>
-
+  <div class="page-header">
+    <div class="breadcrumb">Home &nbsp;/&nbsp; Clubs</div>
+    <h1>Explore All Clubs</h1>
+    <p>Discover communities, build skills, and make memories at BAUET University.</p>
+    <div class="search-wrap">
+      <i class="fa-solid fa-magnifying-glass search-icon"></i>
+      <input class="search-bar" id="searchInput" type="text" placeholder="Search clubs by name or category…">
     </div>
+  </div>
 
-</section>
-
-<!-- ===== FOOTER ===== -->
-<footer class="contact-footer">
-    <div class="footer-container">
-
-        <!-- Logo Section -->
-        <div class="footer-logo">
-            <img src="../pic/anotherlogo.png" alt="Logo">
-            <h2>Unified Club Portal</h2>
-            <div class="social-icons">
-                <i class="fab fa-facebook-f"></i>
-                <i class="fab fa-youtube"></i>
-                <i class="fab fa-linkedin-in"></i>
-                <i class="fab fa-whatsapp"></i>
-            </div>
-        </div>
-
-        <!-- Clubs -->
-        <div class="footer-box">
-            <h3>Clubs</h3>
-            <a href="computer.html">Computer</a>
-            <a href="debate.html">Debate</a>
-            <a href="cultural.html">Cultural</a>
-            <a href="photography.html">Photo</a>
-            <a href="nature.html">Nature</a>
-            <a href="career.html">Career</a>
-        </div>
-
-        <!-- Quick Links -->
-        <div class="footer-box">
-            <h3>Quick Links</h3>
-            <a href="../html code/index.html">Home</a>
-            <a href="#">Events</a>
-            <a href="#">Join Club</a>
-            <a href="../html code/about.html">About</a>
-        </div>
-
-        <!-- Contact -->
-        <div class="footer-contact">
-            <h3>Contact</h3>
-            <p>BAUET, Qadirabad, Natore</p>
-            <p>info@bauet.ac.bd</p>
-            <p>+880 XXXX-XXXXXX</p>
-        </div>
-
-        <!-- Address -->
-        <div class="footer-address">
-            <h3>University</h3>
-            <p>Bangladesh Army University of Engineering & Technology</p>
-            <p>Established for academic excellence and leadership development.</p>
-        </div>
-
+  <!-- STATS BAR — Members & Events come from backend -->
+  <div class="stats-bar">
+    <div class="stat-item">
+      <div class="stat-num">5</div>
+      <div class="stat-lbl">Active Clubs</div>
     </div>
+    <div class="stat-item">
+      <div class="stat-num" id="stat-members">—</div>
+      <div class="stat-lbl">Total Members</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num" id="stat-events">—</div>
+      <div class="stat-lbl">Events / Year</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">2015</div>
+      <div class="stat-lbl">Since</div>
+    </div>
+  </div>
 
-    <p class="footer-bottom">
-        © 2026 Unified Club Portal | All Rights Reserved
-    </p>
-</footer>
+  <div class="filter-bar" id="filterBar">
+    <button class="filter-btn active" data-filter="all">All Clubs</button>
+    <button class="filter-btn" data-filter="Technology">Technology</button>
+    <button class="filter-btn" data-filter="Culture & Arts">Culture & Arts</button>
+    <button class="filter-btn" data-filter="Debate & Speech">Debate & Speech</button>
+    <button class="filter-btn" data-filter="Language & Literature">Language & Literature</button>
+    <button class="filter-btn" data-filter="Environment">Environment</button>
+  </div>
 
+  <div class="clubs-grid" id="clubs-grid"></div>
+
+  <!-- MODAL -->
+  <div class="modal-overlay" id="club-modal">
+    <div class="club-modal-box">
+      <button class="modal-close" id="close-modal"><i class="fa-solid fa-xmark"></i></button>
+      <div class="modal-band" id="modal-banner">
+        <div class="modal-band-icon" id="modal-icon">💻</div>
+      </div>
+      <div class="modal-body">
+        <span class="modal-tag-pill" id="modal-tag"></span>
+        <h2 class="modal-title" id="modal-name"></h2>
+        <p class="modal-desc-text" id="modal-desc"></p>
+        <div class="modal-stats-row">
+          <div class="msr">
+            <div class="msr-num" id="modal-members"></div>
+            <div class="msr-lbl">Members</div>
+          </div>
+          <div class="msr">
+            <div class="msr-num" id="modal-events"></div>
+            <div class="msr-lbl">Events/yr</div>
+          </div>
+          <div class="msr">
+            <div class="msr-num" id="modal-since"></div>
+            <div class="msr-lbl">Founded</div>
+          </div>
+        </div>
+        <div class="modal-section-lbl">Leadership Team</div>
+        <div class="modal-roles" id="modal-team"></div>
+        <button class="btn-modal-join" id="modal-join-btn">Join This Club →</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">🎓 Unified Club Portal</div>
+        <div class="footer-about">BAUET's central digital hub for all club activities, events and memberships.</div>
+      </div>
+      <div>
+        <div class="footer-col-title">Quick Links</div>
+        <div class="footer-links">
+          <a class="footer-link" href="index.html">Home</a>
+          <a class="footer-link" href="club.html">Clubs</a>
+          <a class="footer-link" href="events.html">Events</a>
+          <a class="footer-link" href="about.html">About</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Contact</div>
+        <div class="footer-links">
+          <span class="footer-link">📍 BAUET, Natore</span>
+          <span class="footer-link">✉️ info@bauet.ac.bd</span>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Follow Us</div>
+        <div class="footer-links">
+          <span class="footer-link">Facebook</span>
+          <span class="footer-link">LinkedIn</span>
+          <span class="footer-link">YouTube</span>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2026 Unified Club Portal, BAUET · All Rights Reserved</div>
+  </footer>
+
+  <script src="../java script/clubs.js"></script>
+
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  hamburger.addEventListener('click', () => {
+    mobileMenu.classList.toggle('open');
+    hamburger.classList.toggle('active');
+  });
+  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    mobileMenu.classList.remove('open');
+    hamburger.classList.remove('active');
+  }));
+</script>
 </body>
+
 </html>

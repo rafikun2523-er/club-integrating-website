@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BAUET Computer Society — Upcoming Events</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/bcsEventsUpcoming.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body>
+
+<script>
+  if (!localStorage.getItem("token")) {
+    window.location.href = "../html code/cse.html";
+  }
+</script>
+
+<header class="dashboard-navbar">
+  <div class="logo">
+    <img src="../pic/csepic.jpeg" alt="BAUET Logo">
+    <span>BAUET Computer Society</span>
+  </div>
+  <nav>
+    <a href="../html code/bcsDashboard.html"><i class="fa-solid fa-gauge"></i> Dashboard</a>
+    <a href="../html code/bcsProfile.html"><i class="fa-solid fa-user"></i> Profile</a>
+    <a href="../html code/bcsEventsUpcoming.html" class="active-link"><i class="fa-solid fa-calendar"></i> Upcoming Events</a>
+  </nav>
+  <div class="menu-icon" id="menuIcon"><i class="fa-solid fa-bars"></i></div>
+</header>
+
+<div class="side-menu" id="sideMenu">
+  <div class="side-menu-header">
+    <div class="side-avatar" id="sideAvatar">?</div>
+    <p id="sideName">Member</p>
+  </div>
+  <a href="../html code/bcsDashboard.html"><i class="fa-solid fa-gauge"></i> Dashboard</a>
+  <a href="../html code/bcsProfile.html"><i class="fa-solid fa-user"></i> Profile</a>
+  <a href="../html code/bcsEventsUpcoming.html" class="active-link"><i class="fa-solid fa-calendar"></i> Upcoming Events</a>
+  <a href="../html code/bcsEventsPast.html"><i class="fa-solid fa-clock-rotate-left"></i> Past Events</a>
+  <a href="#"><i class="fa-solid fa-laptop"></i> My Participation</a>
+  <a href="#"><i class="fa-solid fa-award"></i> My Certificates</a>
+  <a href="#" id="sideLogout"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+</div>
+<div class="side-overlay" id="sideOverlay"></div>
+
+<button class="back-btn-fixed" onclick="goBack()">
+  <i class="fa-solid fa-arrow-left"></i>
+</button>
+<script>
+function goBack() {
+  if (document.referrer) { window.history.back(); }
+  else { window.location.href = "../html code/bcsDashboard.html"; }
+}
+</script>
+
+<section class="dashboard-hero">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <h1><i class="fa-solid fa-calendar-days"></i> Upcoming Events</h1>
+      <p>Stay updated with all upcoming BAUET Computer Society events.</p>
+    </div>
+  </div>
+</section>
+
+<section class="events-section">
+  <div class="events-container" id="eventsContainer">
+    <div class="events-loading">
+      <i class="fa-solid fa-spinner fa-spin"></i> Loading events...
+    </div>
+  </div>
+</section>
+
+<div class="logout-toast" id="logoutToast">
+  <i class="fa-solid fa-right-from-bracket"></i> Logged out successfully!
+</div>
+
+<script src="../backend/config.js"></script>
+<script src="../java script/bcsEventsUpcoming.js"></script>
+
+</body>
+</html>
