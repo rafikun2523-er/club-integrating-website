@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Event Registration — BAUET Club Portal</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/event-register.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+
+<nav class="navbar" id="navbar">
+  <a class="nav-logo" href="index.html">
+    <div class="logo-circle">
+      <img src="../pic/anotherlogo.png" alt="logo" style="width:28px;height:28px;border-radius:50%;object-fit:cover">
+    </div>
+    <span class="nav-brand">Unified Club Portal</span>
+  </a>
+  <div class="nav-links">
+    <a class="nav-link" href="index.html">Home</a>
+    <a class="nav-link" href="club.html">Clubs</a>
+    <a class="nav-link active" href="events.html">Events</a>
+    <a class="nav-link" href="about.html">About</a>
+    <a class="nav-link" href="admin-login.html">Admin</a>
+  </div>
+  <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">Home</a>
+  <a href="club.html">Clubs</a>
+  <a class="active" href="events.html">Events</a>
+  <a href="about.html">About</a>
+  <a href="admin-login.html">Admin</a>
+</div>
+
+<div class="reg-hero">
+  <a class="back-link" href="events.html">
+    <i class="fa fa-arrow-left"></i> Back to Events
+  </a>
+  <div class="reg-hero-badge"><i class="fa fa-ticket"></i> Event Registration</div>
+  <h1 id="regEventTitle">Loading event...</h1>
+  <div class="reg-hero-meta">
+    <span><i class="fa fa-calendar"></i> <span id="regEventDate">—</span></span>
+    <span><i class="fa fa-location-dot"></i> <span id="regEventLocation">—</span></span>
+  </div>
+</div>
+
+
+<div class="reg-body">
+  <div class="reg-card">
+    <div class="reg-card-header">
+      <i class="fa fa-user-pen"></i> Personal Information
+    </div>
+    <div class="reg-card-body">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Full Name <span class="req">*</span></label>
+          <input type="text" id="regName" placeholder="Your full name" required>
+        </div>
+        <div class="form-group">
+          <label>Student ID <span class="req">*</span></label>
+          <input type="text" id="regStudentId" placeholder="e.g. 22CSE001" required>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Email Address <span class="req">*</span></label>
+          <input type="email" id="regEmail" placeholder="your@email.com" required>
+        </div>
+        <div class="form-group">
+          <label>Phone Number <span class="req">*</span></label>
+          <input type="tel" id="regPhone" placeholder="01XXXXXXXXX" required>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Department <span class="req">*</span></label>
+          <select id="regDept" required>
+            <option value="">Select Department</option>
+            <option>CSE</option>
+            <option>EEE</option>
+            <option>Civil</option>
+            <option>Mechanical</option>
+            <option>Architecture</option>
+            <option>Textile</option>
+            <option>IPE</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Batch / Year <span class="req">*</span></label>
+          <select id="regBatch" required>
+            <option value="">Select Batch</option>
+            <option>1st Year</option>
+            <option>2nd Year</option>
+            <option>3rd Year</option>
+            <option>4th Year</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group full-width">
+        <label>Why do you want to join this event?</label>
+        <textarea id="regReason" rows="3" placeholder="Tell us your motivation (optional)..."></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- Payment Section -->
+  <div class="reg-card">
+    <div class="reg-card-header">
+      <i class="fa fa-credit-card"></i> Payment Method
+    </div>
+    <div class="reg-card-body">
+      <div class="fee-banner">
+        <div class="fee-label">Registration Fee</div>
+        <div class="fee-amount">৳ <span id="regFeeAmount">150</span></div>
+      </div>
+
+      <div class="payment-methods">
+        <label class="pay-option" onclick="selectPay(this,'bkash')">
+          <input type="radio" name="payMethod" value="bkash">
+          <div class="pay-card">
+            <div class="pay-logo bkash-logo">bKash</div>
+            <div class="pay-name">bKash</div>
+          </div>
+        </label>
+        <label class="pay-option" onclick="selectPay(this,'nagad')">
+          <input type="radio" name="payMethod" value="nagad">
+          <div class="pay-card">
+            <div class="pay-logo nagad-logo">Nagad</div>
+            <div class="pay-name">Nagad</div>
+          </div>
+        </label>
+        <label class="pay-option" onclick="selectPay(this,'rocket')">
+          <input type="radio" name="payMethod" value="rocket">
+          <div class="pay-card">
+            <div class="pay-logo rocket-logo">Rocket</div>
+            <div class="pay-name">Rocket</div>
+          </div>
+        </label>
+        <label class="pay-option" onclick="selectPay(this,'cash')">
+          <input type="radio" name="payMethod" value="cash">
+          <div class="pay-card">
+            <div class="pay-logo cash-logo"><i class="fa fa-money-bill"></i></div>
+            <div class="pay-name">Cash</div>
+          </div>
+        </label>
+      </div>
+
+      <div class="pay-details" id="mobilePayDetails" style="display:none;">
+        <div class="pay-info-box">
+          <div class="pay-info-title" id="payMethodTitle">bKash Payment</div>
+          <div class="pay-info-number">Send to: <strong id="payNumber">01XXXXXXXXX</strong></div>
+          <div class="pay-info-note">Send exact amount and enter transaction ID below.</div>
+        </div>
+        <div class="form-group" style="margin-top:12px;">
+          <label>Transaction ID <span class="req">*</span></label>
+          <input type="text" id="regTxnId" placeholder="e.g. 8A4K2X9P1Q">
+        </div>
+      </div>
+
+      <div class="pay-details" id="cashDetails" style="display:none;">
+        <div class="pay-info-box cash-box">
+          <i class="fa fa-circle-info"></i>
+          Pay cash at the Club Office (Room 301, Admin Building) and bring your receipt on event day.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button class="reg-submit-btn" onclick="submitRegistration()">
+    <i class="fa fa-paper-plane"></i> Submit Registration
+  </button>
+  <p class="reg-note">Your registration will be reviewed by admin. You'll be notified upon approval.</p>
+</div>
+
+<!-- Success Modal -->
+<div class="success-overlay" id="successOverlay" style="display:none;">
+  <div class="success-box">
+    <div class="success-icon"><i class="fa fa-circle-check"></i></div>
+    <h2>Registration Submitted!</h2>
+    <p>Your registration for <strong id="successEventName"></strong> has been submitted.</p>
+    <p class="success-sub">Admin will review and approve your registration. Check back later.</p>
+    <div class="success-ref">Reference ID: <strong id="successRef"></strong></div>
+    <button onclick="window.location.href='events.html'">Back to Events</button>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand">🎓 Unified Club Portal</div>
+      <div class="footer-about">BAUET's central digital hub for all club activities, events, and student engagement.</div>
+    </div>
+    <div>
+      <div class="footer-col-title">Quick Links</div>
+      <div class="footer-links">
+        <a class="footer-link" href="index.html">Home</a>
+        <a class="footer-link" href="club.html">Clubs</a>
+        <a class="footer-link" href="events.html">Events</a>
+        <a class="footer-link" href="about.html">About</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Contact</div>
+      <div class="footer-links">
+        <span class="footer-link">📍 BAUET, Natore</span>
+        <span class="footer-link">✉️ info@bauet.ac.bd</span>
+        <span class="footer-link">📞 +880 XXXX-XXXXXX</span>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Follow Us</div>
+      <div class="footer-links">
+        <span class="footer-link">📘 Facebook</span>
+        <span class="footer-link">💼 LinkedIn</span>
+        <span class="footer-link">🐙 GitHub</span>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2026 Unified Club Portal, BAUET · All Rights Reserved</div>
+</footer>
+
+<script src="../java script/event-register.js"></script>
+<script>
+  // Hamburger
+  var ham = document.getElementById('hamburger');
+  var mob = document.getElementById('mobileMenu');
+  if(ham && mob){
+    ham.addEventListener('click', function(){
+      mob.classList.toggle('open');
+      ham.classList.toggle('active');
+    });
+    mob.querySelectorAll('a').forEach(function(a){
+      a.addEventListener('click', function(){
+        mob.classList.remove('open');
+        ham.classList.remove('active');
+      });
+    });
+  }
+</script>
+</body>
+</html>
