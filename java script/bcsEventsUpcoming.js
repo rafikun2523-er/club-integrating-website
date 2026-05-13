@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const BASE_URL = window.location.hostname === "127.0.0.1" || window.location.hostname === "localhost"
     ? "http://localhost:5000"
-    : `http://${window.location.hostname}:5000`;
+    : ``;
 
   // Auth check
   const member = JSON.parse(localStorage.getItem("memberData"));
