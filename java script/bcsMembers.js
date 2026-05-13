@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // ── Base URL ──
   const BASE_URL = window.location.hostname === "127.0.0.1" || window.location.hostname === "localhost"
     ? "http://localhost:5000"
-    : `http://${window.location.hostname}:5000`;
+    : ``;
 
   // ── Toast ──
   function showToast(msg, isError = false) {
