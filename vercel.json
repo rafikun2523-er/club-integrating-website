@@ -2,7 +2,7 @@
   "rewrites": [
     {
       "source": "/api/(.*)",
-      "destination": "https://club-backend-4w3r.onrender.com//api/$1"
+      "destination": "https://club-backend-4w3r.onrender.com/api/$1"
     },
     {
       "source": "/admin-login",
