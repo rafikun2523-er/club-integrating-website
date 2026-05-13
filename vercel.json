@@ -1,0 +1,16 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "https://club-backend-4w3r.onrender.com//api/$1"
+    },
+    {
+      "source": "/admin-login",
+      "destination": "https://club-backend-4w3r.onrender.com/admin-login"
+    },
+    {
+      "source": "/admin-check",
+      "destination": "https://club-backend-4w3r.onrender.com/admin-check"
+    }
+  ]
+}
